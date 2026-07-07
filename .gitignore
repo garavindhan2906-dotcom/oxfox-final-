@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+dist/
+.next/
+backend/uploads/products/**
+!backend/uploads/products/.gitkeep
+npm-debug.log*
+.DS_Store
