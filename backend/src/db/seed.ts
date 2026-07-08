@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import { pool } from '../config/db';
 import { slugify } from '../utils/slugify';
 import { env } from '../config/env';
@@ -105,10 +106,12 @@ async function seed() {
   try {
     await conn.beginTransaction();
 
-    await conn.query('INSERT IGNORE INTO admin_users (phone, name) VALUES (?, ?)', [
-      env.adminPhone,
-      'Admin',
-    ]);
+    const passwordHash = await bcrypt.hash(env.adminPassword, 10);
+    await conn.query(
+      `INSERT INTO admin_users (username, password_hash, name) VALUES (?, ?, ?)
+       ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash)`,
+      [env.adminUsername, passwordHash, 'Admin']
+    );
 
     for (let i = 0; i < CATEGORIES.length; i++) {
       const cat = CATEGORIES[i];

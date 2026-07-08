@@ -3,7 +3,7 @@ import { env } from '../config/env';
 
 export interface AdminTokenPayload {
   adminId: number;
-  phone: string;
+  username: string;
 }
 
 export function signAdminToken(payload: AdminTokenPayload): string {

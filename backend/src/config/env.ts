@@ -23,8 +23,8 @@ export const env = {
   jwtSecret: required('JWT_SECRET', 'dev-only-insecure-secret'),
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? '7d',
 
-  adminPhone: required('ADMIN_PHONE', '7395906336'),
-  adminStaticOtp: required('ADMIN_STATIC_OTP', '1234'),
+  adminUsername: required('ADMIN_USERNAME', 'Oxfoxstudio.admin'),
+  adminPassword: required('ADMIN_PASSWORD', 'Oxfox@password'),
 
   frontendOrigin: process.env.FRONTEND_ORIGIN ?? 'http://localhost:3000',
 };

@@ -38,10 +38,7 @@ The frontend proxies `/api/*` and `/uploads/*` to the backend (see `next.config.
 ## Admin panel
 
 - URL: `http://localhost:3000/admin/login`
-- Phone: `7395906336`
-- OTP: `1234`
-
-**This OTP is a static, dev-only placeholder** (see `backend/src/modules/auth/auth.service.ts`) — no real SMS is sent. Replace it with a real SMS OTP provider (e.g. MSG91, Twilio Verify) before any public launch.
+- Login is username + password, set via `ADMIN_USERNAME` / `ADMIN_PASSWORD` in `backend/.env` (not committed) and applied to the `admin_users` table by `npm run seed` (see `backend/src/db/seed.ts`).
 
 ## Notes
 

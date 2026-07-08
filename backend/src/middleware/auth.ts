@@ -4,7 +4,7 @@ import { verifyAdminToken } from '../utils/jwt';
 declare global {
   namespace Express {
     interface Request {
-      admin?: { adminId: number; phone: string };
+      admin?: { adminId: number; username: string };
     }
   }
 }
