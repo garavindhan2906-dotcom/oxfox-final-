@@ -95,6 +95,16 @@ export interface CartItem {
   discountTiers?: DiscountTier[];
 }
 
+export interface Customer {
+  phone: string;
+  name: string;
+  email: string | null;
+  total_orders: number;
+  total_spent: number;
+  first_order_at: string;
+  last_order_at: string;
+}
+
 export interface OrderSummary {
   orderNumber: string;
   status: string;

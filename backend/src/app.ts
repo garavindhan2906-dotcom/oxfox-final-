@@ -18,6 +18,7 @@ import { communityRouter } from './modules/community/community.routes';
 import { faqRouter } from './modules/faq/faq.routes';
 import { analyticsRouter } from './modules/analytics/analytics.routes';
 import { ordersRouter } from './modules/orders/orders.routes';
+import { customersRouter } from './modules/customers/customers.routes';
 
 export const app = express();
 
@@ -41,5 +42,6 @@ app.use('/api/community', communityRouter);
 app.use('/api/faq', faqRouter);
 app.use('/api', analyticsRouter);
 app.use('/api/orders', ordersRouter);
+app.use('/api/customers', customersRouter);
 
 app.use(errorHandler);
