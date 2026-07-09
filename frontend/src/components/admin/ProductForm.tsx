@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiFetch, ApiRequestError } from '@/lib/api';
-import ProductImageUploader from './ProductImageUploader';
+import ProductImageUploader, { type ProductImageUploaderHandle } from './ProductImageUploader';
 import type { Category, DiscountTier, Product, ProductBadge } from '@/types';
 
 interface ProductFormState {
@@ -58,6 +58,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
   const [error, setError] = useState('');
   const router = useRouter();
+  const imageUploaderRef = useRef<ProductImageUploaderHandle>(null);
 
   useEffect(() => {
     apiFetch<{ categories: Category[] }>('/api/categories/admin/all', { withCredentials: true }).then((res) =>
@@ -142,6 +143,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
           withCredentials: true,
         });
         targetId = id;
+        await imageUploaderRef.current?.uploadPending(id);
       }
 
       await apiFetch(`/api/products/${targetId}/discount-tiers`, {
@@ -384,15 +386,9 @@ export default function ProductForm({ productId }: { productId?: number }) {
         </p>
       </div>
 
-      {productId && product ? (
-        <div className="border-t border-neutral-200 pt-6">
-          <ProductImageUploader productId={productId} initialImages={product.images ?? []} />
-        </div>
-      ) : (
-        <p className="rounded-md bg-neutral-50 p-4 text-sm text-neutral-500">
-          Save the product first, then you&apos;ll be able to add images.
-        </p>
-      )}
+      <div className="border-t border-neutral-200 pt-6">
+        <ProductImageUploader ref={imageUploaderRef} productId={productId} initialImages={product?.images ?? []} />
+      </div>
 
       <div>
         <label className={labelClass}>
