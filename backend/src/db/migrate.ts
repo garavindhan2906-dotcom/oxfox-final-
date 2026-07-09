@@ -12,6 +12,20 @@ async function migrate() {
     multipleStatements: true,
   });
 
+  await connection.query(
+    `CREATE DATABASE IF NOT EXISTS \`${env.dbName}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`
+  );
+  await connection.query(`USE \`${env.dbName}\``);
+  await connection.query(`
+    CREATE TABLE IF NOT EXISTS schema_migrations (
+      filename VARCHAR(255) PRIMARY KEY,
+      applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  const [appliedRows] = await connection.query<any[]>('SELECT filename FROM schema_migrations');
+  const applied = new Set(appliedRows.map((r) => r.filename as string));
+
   const migrationsDir = path.join(__dirname, 'migrations');
   const files = fs
     .readdirSync(migrationsDir)
@@ -19,9 +33,14 @@ async function migrate() {
     .sort();
 
   for (const file of files) {
+    if (applied.has(file)) {
+      console.log(`Already applied, skipping ${file}`);
+      continue;
+    }
     const sql = fs.readFileSync(path.join(migrationsDir, file), 'utf8');
     console.log(`Running migration ${file}...`);
     await connection.query(sql);
+    await connection.query('INSERT INTO schema_migrations (filename) VALUES (?)', [file]);
   }
 
   console.log('Migration complete.');
