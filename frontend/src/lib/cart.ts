@@ -1,5 +1,17 @@
 import { CART_STORAGE_KEY } from './constants';
-import type { CartItem } from '@/types';
+import type { CartItem, DiscountTier } from '@/types';
+
+/** Best (deepest) discount whose min_qty is met by the given quantity, or 0 if none apply. */
+export function bestDiscountPercent(tiers: DiscountTier[] | undefined, quantity: number): number {
+  if (!tiers || tiers.length === 0) return 0;
+  const applicable = tiers.filter((t) => quantity >= t.min_qty).sort((a, b) => b.min_qty - a.min_qty);
+  return applicable.length > 0 ? Number(applicable[0].discount_percent) : 0;
+}
+
+export function effectiveUnitPrice(item: Pick<CartItem, 'price' | 'quantity' | 'discountTiers'>): number {
+  const discount = bestDiscountPercent(item.discountTiers, item.quantity);
+  return item.price * (1 - discount / 100);
+}
 
 function readCart(): CartItem[] {
   if (typeof window === 'undefined') return [];
@@ -25,6 +37,7 @@ export function addToCart(item: CartItem) {
   const existing = items.find((i) => i.productId === item.productId);
   if (existing) {
     existing.quantity += item.quantity;
+    existing.discountTiers = item.discountTiers ?? existing.discountTiers;
   } else {
     items.push(item);
   }
@@ -48,7 +61,7 @@ export function clearCart() {
 }
 
 export function cartTotal(items: CartItem[]): number {
-  return items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  return items.reduce((sum, i) => sum + effectiveUnitPrice(i) * i.quantity, 0);
 }
 
 export function cartCount(items: CartItem[]): number {

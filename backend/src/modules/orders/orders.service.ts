@@ -41,7 +41,16 @@ export async function createOrder(input: CheckoutInput) {
         throw new ApiError(400, `Product ${item.productId} is no longer available.`);
       }
       const product = rows[0];
-      const unitPrice = Number(product.price ?? 0);
+      const basePrice = Number(product.price ?? 0);
+
+      const [tierRows] = await conn.query<any[]>(
+        `SELECT discount_percent FROM product_discount_tiers
+         WHERE product_id = ? AND min_qty <= ? ORDER BY min_qty DESC LIMIT 1`,
+        [item.productId, item.quantity]
+      );
+      const discountPercent = tierRows.length > 0 ? Number(tierRows[0].discount_percent) : 0;
+      const unitPrice = Math.round(basePrice * (1 - discountPercent / 100) * 100) / 100;
+
       const lineTotal = unitPrice * item.quantity;
       subtotal += lineTotal;
       lineItems.push({ productId: product.id, name: product.name, unitPrice, quantity: item.quantity, lineTotal });

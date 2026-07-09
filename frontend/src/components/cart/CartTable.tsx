@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { cartTotal, getCart, removeFromCart, updateQuantity } from '@/lib/cart';
+import { cartTotal, effectiveUnitPrice, getCart, removeFromCart, updateQuantity } from '@/lib/cart';
 import type { CartItem } from '@/types';
 
 export default function CartTable() {
@@ -48,7 +48,17 @@ export default function CartTable() {
             </div>
             <div className="flex-1">
               <p className="text-sm font-medium text-neutral-900">{item.name}</p>
-              <p className="text-sm text-neutral-600">₹{item.price} each</p>
+              {(() => {
+                const unitPrice = effectiveUnitPrice(item);
+                return unitPrice < item.price ? (
+                  <p className="text-sm text-neutral-600">
+                    <span className="font-medium text-brand">₹{unitPrice.toFixed(2)}</span>{' '}
+                    <span className="text-neutral-400 line-through">₹{item.price}</span> each
+                  </p>
+                ) : (
+                  <p className="text-sm text-neutral-600">₹{item.price} each</p>
+                );
+              })()}
             </div>
             <input
               type="number"
@@ -61,7 +71,7 @@ export default function CartTable() {
               className="w-16 rounded-md border border-neutral-300 px-2 py-1 text-sm"
             />
             <p className="w-20 text-right text-sm font-semibold text-neutral-900">
-              ₹{(item.price * item.quantity).toFixed(2)}
+              ₹{(effectiveUnitPrice(item) * item.quantity).toFixed(2)}
             </p>
             <button
               onClick={() => {

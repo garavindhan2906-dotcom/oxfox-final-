@@ -92,6 +92,7 @@ export interface CartItem {
   price: number;
   image: string | null;
   quantity: number;
+  discountTiers?: DiscountTier[];
 }
 
 export interface OrderSummary {

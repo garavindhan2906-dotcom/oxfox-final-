@@ -2,13 +2,18 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { addToCart } from '@/lib/cart';
+import { addToCart, bestDiscountPercent } from '@/lib/cart';
 import type { Product } from '@/types';
 
 export default function AddToCartPanel({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const router = useRouter();
+
+  const tiers = product.discountTiers ?? [];
+  const discountPercent = bestDiscountPercent(tiers, quantity);
+  const basePrice = product.price ?? 0;
+  const discountedPrice = basePrice * (1 - discountPercent / 100);
 
   function handleAdd() {
     addToCart({
@@ -17,6 +22,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
       price: product.price ?? 0,
       image: product.images?.[0]?.file_path ?? null,
       quantity,
+      discountTiers: tiers,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
@@ -34,6 +40,21 @@ export default function AddToCartPanel({ product }: { product: Product }) {
 
       {canOrder && (
         <>
+          {tiers.length > 0 && (
+            <div className="rounded-md bg-neutral-50 p-3 text-sm text-neutral-700">
+              <p className="font-medium text-neutral-900">Bulk discounts</p>
+              <ul className="mt-1 space-y-0.5">
+                {[...tiers]
+                  .sort((a, b) => a.min_qty - b.min_qty)
+                  .map((tier) => (
+                    <li key={tier.min_qty}>
+                      Buy {tier.min_qty}+ units → {tier.discount_percent}% off
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          )}
+
           <div className="flex items-center gap-3">
             <label htmlFor="quantity" className="text-sm font-medium text-neutral-700">
               Quantity
@@ -47,6 +68,16 @@ export default function AddToCartPanel({ product }: { product: Product }) {
               className="w-20 rounded-md border border-neutral-300 px-3 py-1.5 text-sm"
             />
           </div>
+
+          {discountPercent > 0 ? (
+            <p className="text-sm text-neutral-700">
+              <span className="font-semibold text-brand">₹{discountedPrice.toFixed(2)}</span>{' '}
+              <span className="text-neutral-400 line-through">₹{basePrice.toFixed(2)}</span> each (
+              {discountPercent}% off) — ₹{(discountedPrice * quantity).toFixed(2)} total
+            </p>
+          ) : (
+            <p className="text-sm text-neutral-700">₹{basePrice.toFixed(2)} each</p>
+          )}
 
           <div className="flex gap-3">
             <button
