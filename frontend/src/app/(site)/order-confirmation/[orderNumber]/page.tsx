@@ -3,7 +3,20 @@ import { notFound } from 'next/navigation';
 import PageHero from '@/components/motion/PageHero';
 import Reveal from '@/components/motion/Reveal';
 import { apiFetch, ApiRequestError } from '@/lib/api';
+import { WHATSAPP_NUMBER } from '@/lib/constants';
 import type { OrderSummary } from '@/types';
+
+function buildWhatsAppOrderLink(order: OrderSummary): string {
+  const lines = [
+    'Hi OXFOX! Here are my order details:',
+    '',
+    `Order: ${order.orderNumber}`,
+    ...order.items.map((item) => `- ${item.product_name} x${item.quantity} — ₹${Number(item.line_total).toFixed(2)}`),
+    '',
+    `Subtotal: ₹${Number(order.subtotal).toFixed(2)}`,
+  ];
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+}
 
 async function getOrder(orderNumber: string): Promise<OrderSummary> {
   const { order } = await apiFetch<{ order: OrderSummary }>(`/api/orders/${orderNumber}`);
@@ -53,9 +66,20 @@ export default async function OrderConfirmationPage({
             </div>
           </div>
 
-          <Link href="/" className="mt-8 inline-block text-sm font-medium text-brand hover:underline">
-            Continue shopping
-          </Link>
+          <a
+            href={buildWhatsAppOrderLink(order)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57]"
+          >
+            Send order to WhatsApp
+          </a>
+
+          <div>
+            <Link href="/" className="mt-4 inline-block text-sm font-medium text-brand hover:underline">
+              Continue shopping
+            </Link>
+          </div>
         </Reveal>
       </div>
     </div>

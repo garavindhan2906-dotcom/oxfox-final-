@@ -32,3 +32,7 @@ export const CUSTOM_ORDER_STEPS = [
 
 export const CART_STORAGE_KEY = 'oxfox_cart';
 export const ADMIN_TOKEN_COOKIE = 'oxfox_admin_token';
+
+export const WHATSAPP_NUMBER = '917395906336';
+export const WHATSAPP_CATALOG_URL = 'https://wa.me/c/917395906336';
+export const INSTAGRAM_URL = 'https://www.instagram.com/oxfoxmolds/';

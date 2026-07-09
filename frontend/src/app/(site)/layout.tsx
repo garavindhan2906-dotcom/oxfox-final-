@@ -1,5 +1,6 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import SocialFloatingButtons from '@/components/layout/SocialFloatingButtons';
 import PageTransition from '@/components/motion/PageTransition';
 import { apiFetch } from '@/lib/api';
 import type { Category } from '@/types';
@@ -23,6 +24,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         <PageTransition>{children}</PageTransition>
       </main>
       <Footer />
+      <SocialFloatingButtons />
     </>
   );
 }
