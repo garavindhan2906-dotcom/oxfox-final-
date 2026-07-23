@@ -71,20 +71,20 @@ export default function FullBleedSlide({
             align === 'center' ? 'mx-auto max-w-3xl' : align === 'right' ? 'ml-auto max-w-2xl' : 'max-w-2xl'
           }
         >
-          {eyebrow && (
-            <p
-              className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-white/80 sm:text-base"
-              style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}
-            >
-              {eyebrow}
-            </p>
-          )}
           <h1
             className="text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl"
             style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}
           >
             {heading}
           </h1>
+          {eyebrow && (
+            <p
+              className="mt-3 text-sm font-semibold uppercase tracking-[0.35em] text-white/80 sm:text-base"
+              style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}
+            >
+              {eyebrow}
+            </p>
+          )}
           {subheading && (
             <p
               className="mt-4 text-base text-white/90 sm:text-lg"
