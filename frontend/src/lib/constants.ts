@@ -10,7 +10,7 @@ export const NAV_LINKS = [
 export const SITE_NAME = 'OXFOX';
 
 export const HOMEPAGE_INTRO =
-  'From artisan chocolate bars to luxury candle vessels, we engineer premium, food-grade silicone molds for creators and brands across India—combining 3D-design precision with professional-grade, handcrafted quality.';
+  'Browse our collection of premium, food-grade silicone molds — designed in 3D, handcrafted with precision. Order online and get delivered across India.';
 
 export const CUSTOM_ORDER_STEPS = [
   {
