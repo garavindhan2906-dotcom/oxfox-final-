@@ -5,6 +5,7 @@ import Reveal from '@/components/motion/Reveal';
 import { apiFetch } from '@/lib/api';
 import type { Product } from '@/types';
 
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'New Arrivals | OXFOX' };
 
 async function getNewProducts(): Promise<Product[]> {
