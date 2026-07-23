@@ -73,7 +73,7 @@ export default function FullBleedSlide({
         >
           {eyebrow && (
             <p
-              className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-brand"
+              className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-white/80 sm:text-base"
               style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}
             >
               {eyebrow}
