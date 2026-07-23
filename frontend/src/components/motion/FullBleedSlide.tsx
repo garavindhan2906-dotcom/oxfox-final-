@@ -51,7 +51,8 @@ export default function FullBleedSlide({
           >
             <SmartImage src={imageSrc} alt={imageAlt} fill priority={priority} sizes="100vw" className="object-cover" />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10" />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent" />
         </>
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-neutral-900" />
@@ -72,10 +73,27 @@ export default function FullBleedSlide({
           }
         >
           {eyebrow && (
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-brand">{eyebrow}</p>
+            <p
+              className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-brand"
+              style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}
+            >
+              {eyebrow}
+            </p>
           )}
-          <h1 className="text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl">{heading}</h1>
-          {subheading && <p className="mt-4 text-base text-neutral-200 sm:text-lg">{subheading}</p>}
+          <h1
+            className="text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl"
+            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}
+          >
+            {heading}
+          </h1>
+          {subheading && (
+            <p
+              className="mt-4 text-base text-white/90 sm:text-lg"
+              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}
+            >
+              {subheading}
+            </p>
+          )}
           {ctaLabel && ctaHref && (
             <Link
               href={ctaHref}
