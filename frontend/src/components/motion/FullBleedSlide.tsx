@@ -39,7 +39,7 @@ export default function FullBleedSlide({
   children,
 }: FullBleedSlideProps) {
   return (
-    <section className={`relative flex ${HEIGHT_CLASS[height]} w-full items-end overflow-hidden bg-neutral-900`}>
+    <section className={`relative flex ${HEIGHT_CLASS[height]} w-full items-center overflow-hidden bg-neutral-900`}>
       {imageSrc ? (
         <>
           <motion.div
@@ -51,15 +51,14 @@ export default function FullBleedSlide({
           >
             <SmartImage src={imageSrc} alt={imageAlt} fill priority={priority} sizes="100vw" className="object-cover" />
           </motion.div>
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent" />
+          <div className="absolute inset-0 bg-black/55" />
         </>
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-neutral-900" />
       )}
 
       <div
-        className={`relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 sm:px-8 sm:pb-24 ${
+        className={`relative z-10 mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 sm:py-28 ${
           align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'
         }`}
       >
