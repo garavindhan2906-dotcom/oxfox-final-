@@ -1,21 +1,16 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import ProductGrid from '@/components/catalog/ProductGrid';
+import ProductsClientSection from '@/components/catalog/ProductsClientSection';
 import SubcategoryFilterBar from '@/components/catalog/SubcategoryFilterBar';
 import VisitBeacon from '@/components/VisitBeacon';
 import PageHero from '@/components/motion/PageHero';
 import Reveal from '@/components/motion/Reveal';
 import { apiFetch, ApiRequestError } from '@/lib/api';
-import type { Category, Product } from '@/types';
+import type { Category } from '@/types';
 
 async function getCategory(slug: string): Promise<Category> {
   const { category } = await apiFetch<{ category: Category }>(`/api/categories/${slug}`);
   return category;
-}
-
-async function getProducts(categorySlug: string): Promise<Product[]> {
-  const { products } = await apiFetch<{ products: Product[] }>(`/api/products?category=${categorySlug}`);
-  return products;
 }
 
 export async function generateMetadata({
@@ -43,8 +38,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     throw err;
   }
 
-  const products = await getProducts(categorySlug);
-
   return (
     <div>
       <VisitBeacon pageType="category" />
@@ -60,9 +53,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <SubcategoryFilterBar categorySlug={category.slug} subcategories={category.subcategories} />
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10">
-          <ProductGrid products={products} />
-        </Reveal>
+        <div className="mt-10">
+          <ProductsClientSection
+            apiPath={`/api/products?category=${categorySlug}&limit=100`}
+            skeletonCount={20}
+          />
+        </div>
       </div>
     </div>
   );
