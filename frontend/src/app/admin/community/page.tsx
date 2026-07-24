@@ -10,6 +10,7 @@ interface CommunityPostAdmin {
   image_path: string;
   caption: string | null;
   customer_name: string | null;
+  sort_order: number;
 }
 
 export default function AdminCommunityPage() {
@@ -66,6 +67,15 @@ export default function AdminCommunityPage() {
     } finally {
       setUploading(false);
     }
+  }
+
+  async function handleOrderChange(id: number, sortOrder: number) {
+    await apiFetch(`/api/community/admin/${id}/order`, {
+      method: 'PATCH',
+      body: JSON.stringify({ sortOrder }),
+      withCredentials: true,
+    });
+    load();
   }
 
   async function handleDelete(id: number) {
@@ -169,6 +179,20 @@ export default function AdminCommunityPage() {
                 {post.customer_name && (
                   <p className="mt-1 truncate text-xs text-neutral-500">{post.customer_name}</p>
                 )}
+                <div className="mt-1 flex items-center gap-1">
+                  <span className="text-xs text-neutral-400">Order</span>
+                  <input
+                    type="number"
+                    min={1}
+                    defaultValue={post.sort_order === 0 ? '' : post.sort_order}
+                    placeholder="#"
+                    className="w-12 rounded border border-neutral-300 px-1 py-0.5 text-center text-xs"
+                    onBlur={(e) => {
+                      const val = parseInt(e.target.value, 10);
+                      if (!isNaN(val)) handleOrderChange(post.id, val);
+                    }}
+                  />
+                </div>
                 <button
                   onClick={() => handleDelete(post.id)}
                   className="mt-1 w-full rounded bg-red-50 py-0.5 text-xs font-medium text-red-600 hover:bg-red-100"

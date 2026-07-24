@@ -56,6 +56,17 @@ shippingRouter.post(
   })
 );
 
+// Update sort order of a shipping image
+shippingRouter.patch(
+  '/images/:id/order',
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const { sortOrder } = z.object({ sortOrder: z.number().int() }).parse(req.body);
+    await pool.query('UPDATE shipping_images SET sort_order = ? WHERE id = ?', [sortOrder, req.params.id]);
+    res.json({ success: true });
+  })
+);
+
 // Delete a single shipping image
 shippingRouter.delete(
   '/images/:id',

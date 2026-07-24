@@ -7,6 +7,7 @@ import { apiFetch, ApiRequestError } from '@/lib/api';
 interface ShippingImage {
   id: number;
   image_url: string;
+  sort_order: number;
 }
 
 interface ShippingInfo {
@@ -74,6 +75,15 @@ export default function AdminShippingPage() {
     } finally {
       setUploading(false);
     }
+  }
+
+  async function handleOrderChange(id: number, sortOrder: number) {
+    await apiFetch(`/api/shipping/images/${id}/order`, {
+      method: 'PATCH',
+      body: JSON.stringify({ sortOrder }),
+      withCredentials: true,
+    });
+    load();
   }
 
   async function handleDelete(id: number) {
@@ -196,6 +206,20 @@ export default function AdminShippingPage() {
               <div key={img.id} className="group relative">
                 <div className="relative aspect-square overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50">
                   <Image src={img.image_url} alt="Shipping info" fill sizes="220px" className="object-contain" />
+                </div>
+                <div className="mt-1 flex items-center gap-1">
+                  <span className="text-xs text-neutral-400">Order</span>
+                  <input
+                    type="number"
+                    min={1}
+                    defaultValue={img.sort_order === 0 ? '' : img.sort_order}
+                    placeholder="#"
+                    className="w-12 rounded border border-neutral-300 px-1 py-0.5 text-center text-xs"
+                    onBlur={(e) => {
+                      const val = parseInt(e.target.value, 10);
+                      if (!isNaN(val)) handleOrderChange(img.id, val);
+                    }}
+                  />
                 </div>
                 <button
                   onClick={() => handleDelete(img.id)}

@@ -72,6 +72,16 @@ communityRouter.get(
   })
 );
 
+communityRouter.patch(
+  '/admin/:id/order',
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const { sortOrder } = z.object({ sortOrder: z.number().int() }).parse(req.body);
+    await pool.query('UPDATE community_posts SET sort_order = ? WHERE id = ?', [sortOrder, req.params.id]);
+    res.json({ success: true });
+  })
+);
+
 communityRouter.delete(
   '/admin/:id',
   requireAdmin,
