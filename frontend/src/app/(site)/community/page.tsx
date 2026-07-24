@@ -121,23 +121,45 @@ export default function CommunityPage() {
       </div>
 
       {/* CTA + inline form */}
-      <div className="bg-neutral-900 px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">
-              Start Your Custom Order
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base text-neutral-400">
-              Tell us about your mold — share your shape, size, and material below and our team will follow up with a plan and quote.
-            </p>
-          </div>
+      <div className="bg-neutral-50 px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl">
+          <div className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-neutral-200 lg:grid lg:grid-cols-2">
 
-          <div className="mt-10">
-            <h3 className="mb-1 text-lg font-bold text-white">Tell Us About Your Mold</h3>
-            <p className="mb-6 text-sm text-neutral-400">
-              Share your shape, size, and material below and our team will follow up with a plan and quote.
-            </p>
-            <CustomOrderInquiryForm />
+            {/* Left panel */}
+            <div className="flex flex-col justify-center bg-brand px-8 py-12 sm:px-12">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/70">Ready to build?</p>
+              <h2 className="mt-3 text-3xl font-bold uppercase leading-tight tracking-tight text-white sm:text-4xl">
+                Start Your<br />Custom Order
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-white/80">
+                Tell us your shape, size, and material. Our team will follow up with a design plan and quote — usually within 24 hours.
+              </p>
+
+              <div className="mt-10 space-y-4">
+                {[
+                  { icon: '✏️', text: 'Share your shape, size & material' },
+                  { icon: '📐', text: 'We 3D-model and send a digital proof' },
+                  { icon: '📦', text: 'Handcrafted & delivered across India' },
+                ].map((item) => (
+                  <div key={item.text} className="flex items-start gap-3">
+                    <span className="mt-0.5 text-lg leading-none">{item.icon}</span>
+                    <span className="text-sm text-white/80">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right panel — form */}
+            <div className="px-8 py-12 sm:px-12">
+              <h3 className="text-xl font-bold text-neutral-900">Tell Us About Your Mold</h3>
+              <p className="mt-1 text-sm text-neutral-500">
+                Fill in the details below and we will get back to you with a plan and quote.
+              </p>
+              <div className="mt-6">
+                <CustomOrderInquiryForm />
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

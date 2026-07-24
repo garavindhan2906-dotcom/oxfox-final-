@@ -37,7 +37,7 @@ export default function CustomOrderInquiryForm() {
   const isImage = file && file.type.startsWith('image/');
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-neutral-200 p-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <input
           required
