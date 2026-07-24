@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import SmartImage from '@/components/SmartImage';
 import VisitBeacon from '@/components/VisitBeacon';
 import PageHero from '@/components/motion/PageHero';
 import Reveal from '@/components/motion/Reveal';
+import ShippingImageSlider from '@/components/shipping/ShippingImageSlider';
 import { apiFetch } from '@/lib/api';
 
 export const metadata: Metadata = {
@@ -47,19 +47,8 @@ export default async function ShippingPage() {
         </Reveal>
 
         {images.length > 0 ? (
-          <Reveal delay={0.1} className="mt-12 space-y-6">
-            {images.map((img) => (
-              <div key={img.id} className="overflow-hidden rounded-2xl border border-neutral-200 shadow-sm">
-                <SmartImage
-                  src={img.image_url}
-                  alt="Shipping information"
-                  width={900}
-                  height={700}
-                  sizes="(max-width: 768px) 100vw, 900px"
-                  className="h-auto w-full object-contain"
-                />
-              </div>
-            ))}
+          <Reveal delay={0.1}>
+            <ShippingImageSlider images={images} />
           </Reveal>
         ) : (
           <Reveal delay={0.1} className="mt-12">
