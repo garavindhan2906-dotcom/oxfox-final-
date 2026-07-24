@@ -57,6 +57,11 @@ export default function ProductForm({ productId }: { productId?: number }) {
   const [tiers, setTiers] = useState<DiscountTier[]>([]);
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
   const [error, setError] = useState('');
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoUploading, setVideoUploading] = useState(false);
+  const [videoError, setVideoError] = useState('');
+  const videoRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const imageUploaderRef = useRef<ProductImageUploaderHandle>(null);
 
@@ -71,6 +76,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
     apiFetch<{ product: Product }>(`/api/products/admin/${productId}`, { withCredentials: true }).then((res) => {
       setProduct(res.product);
       setTiers(res.product.discountTiers ?? []);
+      setVideoUrl(res.product.video_url ?? null);
       setForm({
         name: res.product.name,
         categoryId: String(res.product.category_id),
@@ -161,6 +167,42 @@ export default function ProductForm({ productId }: { productId?: number }) {
     } catch (err) {
       setError(err instanceof ApiRequestError ? err.message : 'Could not save product.');
       setStatus('error');
+    }
+  }
+
+  async function handleVideoUpload() {
+    if (!videoFile || !productId) return;
+    setVideoUploading(true);
+    setVideoError('');
+    try {
+      const body = new FormData();
+      body.append('video', videoFile);
+      const res = await apiFetch<{ videoUrl: string }>(`/api/products/${productId}/video`, {
+        method: 'POST',
+        body,
+        withCredentials: true,
+      });
+      setVideoUrl(res.videoUrl);
+      setVideoFile(null);
+      if (videoRef.current) videoRef.current.value = '';
+    } catch (err) {
+      setVideoError(err instanceof ApiRequestError ? err.message : 'Upload failed.');
+    } finally {
+      setVideoUploading(false);
+    }
+  }
+
+  async function handleVideoDelete() {
+    if (!productId || !confirm('Delete this product video?')) return;
+    setVideoUploading(true);
+    setVideoError('');
+    try {
+      await apiFetch(`/api/products/${productId}/video`, { method: 'DELETE', withCredentials: true });
+      setVideoUrl(null);
+    } catch (err) {
+      setVideoError(err instanceof ApiRequestError ? err.message : 'Delete failed.');
+    } finally {
+      setVideoUploading(false);
     }
   }
 
@@ -389,6 +431,80 @@ export default function ProductForm({ productId }: { productId?: number }) {
       <div className="border-t border-neutral-200 pt-6">
         <ProductImageUploader ref={imageUploaderRef} productId={productId} initialImages={product?.images ?? []} />
       </div>
+
+      {productId && (
+        <div className="border-t border-neutral-200 pt-6">
+          <label className={labelClass}>Product Video (optional)</label>
+          <p className="mb-3 text-xs text-neutral-500">MP4, MOV, or WEBM · Max 200MB · Shows on product page</p>
+
+          {videoUrl ? (
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4">
+              <video
+                src={videoUrl}
+                controls
+                className="mb-3 max-h-48 w-full rounded-lg object-contain"
+              />
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleVideoDelete}
+                  disabled={videoUploading}
+                  className="rounded-full border border-red-300 px-4 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 disabled:opacity-50"
+                >
+                  {videoUploading ? 'Deleting...' : 'Delete Video'}
+                </button>
+                <label className="cursor-pointer text-xs text-brand underline">
+                  Replace
+                  <input
+                    ref={videoRef}
+                    type="file"
+                    accept="video/mp4,video/quicktime,video/webm"
+                    className="sr-only"
+                    onChange={(e) => setVideoFile(e.target.files?.[0] ?? null)}
+                  />
+                </label>
+              </div>
+            </div>
+          ) : (
+            <label className="block cursor-pointer">
+              <div className={`flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-6 text-center transition-colors ${videoFile ? 'border-brand bg-brand/5' : 'border-neutral-300 hover:border-brand hover:bg-neutral-50'}`}>
+                <div className="text-3xl">🎬</div>
+                {videoFile ? (
+                  <>
+                    <p className="text-sm font-semibold text-neutral-700">{videoFile.name}</p>
+                    <p className="text-xs text-neutral-400">{(videoFile.size / 1024 / 1024).toFixed(1)} MB</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm font-semibold text-neutral-700">Click to choose video</p>
+                    <p className="text-xs text-neutral-400">MP4, MOV, WEBM · Max 200MB</p>
+                  </>
+                )}
+              </div>
+              <input
+                ref={videoRef}
+                type="file"
+                accept="video/mp4,video/quicktime,video/webm"
+                className="sr-only"
+                onChange={(e) => setVideoFile(e.target.files?.[0] ?? null)}
+              />
+            </label>
+          )}
+
+          {videoFile && !videoUrl && (
+            <button
+              type="button"
+              onClick={handleVideoUpload}
+              disabled={videoUploading}
+              className="mt-3 rounded-full bg-brand px-5 py-2 text-xs font-semibold text-white hover:bg-brand-dark disabled:opacity-50"
+            >
+              {videoUploading ? 'Uploading...' : 'Upload Video'}
+            </button>
+          )}
+
+          {videoError && <p className="mt-2 text-xs text-red-600">{videoError}</p>}
+        </div>
+      )}
 
       <div>
         <label className={labelClass}>

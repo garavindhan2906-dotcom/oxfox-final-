@@ -15,6 +15,7 @@ const LINKS = [
   { href: '/admin/custom-orders', label: 'Custom Orders' },
   { href: '/admin/newsletter', label: 'Newsletter' },
   { href: '/admin/community', label: 'Community' },
+  { href: '/admin/shipping', label: 'Shipping' },
   { href: '/admin/faq', label: 'FAQ' },
 ];
 

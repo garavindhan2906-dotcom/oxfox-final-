@@ -4,6 +4,7 @@ export const NAV_LINKS = [
   { label: 'Molds', href: '/molds' },
   { label: 'Custom Order', href: '/custom-order' },
   { label: 'Community', href: '/community' },
+  { label: 'Shipping', href: '/shipping' },
   { label: 'About Us', href: '/about-us' },
 ];
 

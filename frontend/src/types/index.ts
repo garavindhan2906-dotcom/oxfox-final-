@@ -60,6 +60,7 @@ export interface Product {
   subcategory_name?: string;
   subcategory_slug?: string;
   primary_image?: string | null;
+  video_url?: string | null;
   images?: ProductImage[];
   discountTiers?: DiscountTier[];
 }

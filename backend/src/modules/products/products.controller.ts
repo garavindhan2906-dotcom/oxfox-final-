@@ -75,6 +75,22 @@ export async function deleteProductHandler(req: Request, res: Response) {
   res.json({ success: true });
 }
 
+export async function uploadVideoHandler(req: Request, res: Response) {
+  if (!req.file) throw new Error('No video file uploaded');
+  const { publicPathFor, deleteUploadedFile } = await import('../../uploads/multerConfig');
+  const videoUrl = publicPathFor(req.file.path);
+  const { oldUrl } = await productsService.uploadProductVideo(Number(req.params.id), videoUrl);
+  if (oldUrl) deleteUploadedFile(oldUrl);
+  res.json({ success: true, videoUrl });
+}
+
+export async function deleteVideoHandler(req: Request, res: Response) {
+  const { deleteUploadedFile } = await import('../../uploads/multerConfig');
+  const { oldUrl } = await productsService.deleteProductVideo(Number(req.params.id));
+  deleteUploadedFile(oldUrl);
+  res.json({ success: true });
+}
+
 const discountTiersSchema = z.object({
   tiers: z.array(z.object({ minQty: z.number().min(1), discountPercent: z.number().min(0).max(100) })),
 });

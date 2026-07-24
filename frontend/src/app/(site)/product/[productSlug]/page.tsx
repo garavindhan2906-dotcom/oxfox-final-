@@ -96,6 +96,18 @@ export default async function ProductPage({ params }: { params: Promise<{ produc
           </Reveal>
         </div>
 
+        {product.video_url && (
+          <Reveal delay={0.12} className="mt-16">
+            <h2 className="mb-4 text-xl font-bold uppercase tracking-tight text-neutral-900">Product Video</h2>
+            <video
+              src={product.video_url}
+              controls
+              playsInline
+              className="w-full max-w-2xl rounded-2xl object-cover shadow-md"
+            />
+          </Reveal>
+        )}
+
         <Reveal delay={0.15} className="mt-16 max-w-3xl">
           <h2 className="text-xl font-bold uppercase tracking-tight text-neutral-900">Reviews</h2>
           <div className="mt-4">

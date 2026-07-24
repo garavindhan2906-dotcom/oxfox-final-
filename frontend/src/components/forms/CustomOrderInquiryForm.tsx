@@ -33,6 +33,9 @@ export default function CustomOrderInquiryForm() {
     );
   }
 
+  const isVideo = file && file.type.startsWith('video/');
+  const isImage = file && file.type.startsWith('image/');
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-neutral-200 p-6">
       <div className="grid gap-4 sm:grid-cols-2">
@@ -66,17 +69,48 @@ export default function CustomOrderInquiryForm() {
         onChange={(e) => setForm({ ...form, description: e.target.value })}
         className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm"
       />
+
+      {/* File upload */}
       <div>
         <label className="block text-sm font-medium text-neutral-700">
-          Upload a sketch or reference photo (optional)
+          Upload a sketch, photo or video (optional)
         </label>
-        <input
-          type="file"
-          accept="image/png,image/jpeg,image/webp"
-          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-          className="mt-1 text-sm"
-        />
+        <p className="mt-0.5 text-xs text-neutral-400">
+          Accepted: JPG, PNG, WEBP images · MP4, MOV, WEBM videos · Max 100MB
+        </p>
+
+        <label className="mt-2 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-300 px-4 py-6 text-center transition-colors hover:border-brand hover:bg-brand/5">
+          <span className="text-2xl">{file ? (isVideo ? '🎥' : '🖼️') : '📎'}</span>
+          <span className="text-sm font-medium text-neutral-700">
+            {file ? file.name : 'Click to choose a file'}
+          </span>
+          {file && (
+            <span className="text-xs text-neutral-400">
+              {(file.size / 1024 / 1024).toFixed(1)} MB · {isVideo ? 'Video' : 'Image'}
+            </span>
+          )}
+          {!file && (
+            <span className="text-xs text-neutral-400">Photo, sketch, or reference video</span>
+          )}
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp,video/mp4,video/quicktime,video/webm,video/x-msvideo"
+            onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+            className="sr-only"
+          />
+        </label>
+
+        {file && (
+          <button
+            type="button"
+            onClick={() => setFile(null)}
+            className="mt-1 text-xs text-red-500 hover:underline"
+          >
+            Remove file
+          </button>
+        )}
       </div>
+
       {error && <p className="text-sm text-red-600">{error}</p>}
       <button
         type="submit"

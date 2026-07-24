@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { asyncHandler } from '../../utils/asyncHandler';
 import { requireAdmin } from '../../middleware/auth';
-import { productImageUpload, MAX_IMAGES_PER_PRODUCT } from '../../uploads/multerConfig';
+import { productImageUpload, productVideoUpload, MAX_IMAGES_PER_PRODUCT } from '../../uploads/multerConfig';
 import * as controller from './products.controller';
 import * as imagesController from '../productImages/productImages.controller';
 import { exportProductsCsvHandler } from './products.export';
@@ -42,3 +42,11 @@ productsRouter.put(
   asyncHandler(imagesController.setSlotHandler)
 );
 productsRouter.delete('/:id/images/slot/:slotIndex', requireAdmin, asyncHandler(imagesController.clearSlotHandler));
+
+productsRouter.post(
+  '/:id/video',
+  requireAdmin,
+  productVideoUpload.single('video'),
+  asyncHandler(controller.uploadVideoHandler)
+);
+productsRouter.delete('/:id/video', requireAdmin, asyncHandler(controller.deleteVideoHandler));

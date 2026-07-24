@@ -250,6 +250,23 @@ export async function deleteProduct(id: number): Promise<string[]> {
   return images.map((img) => img.file_path);
 }
 
+export async function uploadProductVideo(id: number, videoUrl: string) {
+  const [rows] = await pool.query<any[]>('SELECT video_url FROM products WHERE id = ?', [id]);
+  if (rows.length === 0) throw new ApiError(404, 'Product not found');
+  const oldUrl: string | null = rows[0].video_url;
+  await pool.query('UPDATE products SET video_url = ? WHERE id = ?', [videoUrl, id]);
+  return { oldUrl };
+}
+
+export async function deleteProductVideo(id: number) {
+  const [rows] = await pool.query<any[]>('SELECT video_url FROM products WHERE id = ?', [id]);
+  if (rows.length === 0) throw new ApiError(404, 'Product not found');
+  const oldUrl: string | null = rows[0].video_url;
+  if (!oldUrl) throw new ApiError(404, 'No video to delete');
+  await pool.query('UPDATE products SET video_url = NULL WHERE id = ?', [id]);
+  return { oldUrl };
+}
+
 export async function listProductsAdmin(page = 1, limit = 50) {
   const offset = (page - 1) * limit;
   const [rows] = await pool.query<any[]>(
