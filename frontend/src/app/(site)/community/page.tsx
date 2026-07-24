@@ -1,9 +1,28 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import SmartImage from '@/components/SmartImage';
 import VisitBeacon from '@/components/VisitBeacon';
 import type { CommunityPost } from '@/types';
+
+const HOW_IT_WORKS = [
+  {
+    num: '01',
+    title: 'Share Your Design',
+    desc: "Tell us your shape, size, and material. Upload a sketch, reference photo, or just describe it — we'll handle the rest.",
+  },
+  {
+    num: '02',
+    title: 'We Model & Create',
+    desc: 'Our engineers 3D-model your mold and share a digital proof for your approval. Once approved, we move to high-precision 3D printing and master preparation.',
+  },
+  {
+    num: '03',
+    title: 'Handcrafted & Delivered',
+    desc: 'Once your design is finalized, we hand-pour your custom mold using premium, food-grade silicone. After rigorous quality inspection, it\'s securely packed and dispatched.',
+  },
+];
 
 export default function CommunityPage() {
   const [posts, setPosts] = useState<CommunityPost[]>([]);
@@ -80,6 +99,44 @@ export default function CommunityPage() {
           </div>
         </div>
       )}
+
+      {/* How It Works */}
+      <div className="bg-white px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.3em] text-brand">How It Works</p>
+          <h2 className="mt-3 text-center text-3xl font-bold uppercase tracking-tight text-neutral-900 sm:text-4xl">
+            Custom Order Process
+          </h2>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+            {HOW_IT_WORKS.map((step) => (
+              <div key={step.num} className="flex flex-col gap-3">
+                <span className="text-5xl font-black text-brand/20 leading-none">{step.num}</span>
+                <h3 className="text-lg font-bold text-neutral-900">{step.title}</h3>
+                <p className="text-sm leading-relaxed text-neutral-500">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="bg-neutral-900 px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">
+            Start Your Custom Order
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base text-neutral-400">
+            Tell us about your mold — share your shape, size, and material below and our team will follow up with a plan and quote.
+          </p>
+          <Link
+            href="/custom-order"
+            className="mt-8 inline-block rounded-full bg-brand px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-colors hover:bg-brand-dark"
+          >
+            Tell Us About Your Mold →
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
