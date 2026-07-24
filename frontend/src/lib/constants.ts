@@ -2,8 +2,8 @@ export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'New', href: '/new' },
   { label: 'Molds', href: '/molds' },
-  { label: 'Custom Order', href: '/custom-order' },
-  { label: 'Community', href: '/community' },
+  { label: 'Custom Order', href: '/community' },
+  { label: 'Community', href: '/custom-order' },
   { label: 'Shipping', href: '/shipping' },
   { label: 'About Us', href: '/about-us' },
 ];
