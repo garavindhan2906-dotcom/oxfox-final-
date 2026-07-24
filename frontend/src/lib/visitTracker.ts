@@ -5,6 +5,7 @@ export type PageType =
   | 'product'
   | 'custom_order'
   | 'community'
+  | 'shipping'
   | 'faq'
   | 'bulk_orders'
   | 'other';
