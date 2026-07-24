@@ -14,7 +14,7 @@ const LINKS = [
   { href: '/admin/bulk-inquiries', label: 'Bulk Inquiries' },
   { href: '/admin/custom-orders', label: 'Custom Orders' },
   { href: '/admin/newsletter', label: 'Newsletter' },
-  { href: '/admin/community', label: 'Community' },
+  { href: '/admin/community', label: 'Custom Order Images' },
   { href: '/admin/shipping', label: 'Shipping' },
   { href: '/admin/faq', label: 'FAQ' },
 ];

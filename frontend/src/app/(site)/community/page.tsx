@@ -21,17 +21,17 @@ export default function CommunityPage() {
 
       {/* Header */}
       <div className="px-6 pt-16 pb-8 text-center sm:pt-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Made With OXFOX</p>
-        <h1 className="mt-3 text-5xl font-bold uppercase tracking-tight text-white sm:text-7xl">Community</h1>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Made By OXFOX</p>
+        <h1 className="mt-3 text-5xl font-bold uppercase tracking-tight text-white sm:text-7xl">Custom Order<br />Images</h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-white/80">
-          See what creators and brands across India are making with OXFOX silicone molds.
+          Real custom silicone molds designed and crafted by OXFOX Studio for creators and brands across India.
         </p>
       </div>
 
       {/* Masonry photo grid */}
       {posts.length === 0 ? (
         <div className="px-6 pb-20 text-center">
-          <p className="text-white/60">Community highlights are coming soon.</p>
+          <p className="text-white/60">Custom order images coming soon.</p>
         </div>
       ) : (
         <div className="px-4 pb-20 sm:px-6 lg:px-8">
@@ -51,7 +51,7 @@ export default function CommunityPage() {
                 <div className="relative w-full">
                   <SmartImage
                     src={post.image_path}
-                    alt={post.title ?? post.customer_name ?? 'Community'}
+                    alt={post.title ?? post.customer_name ?? 'Custom Order'}
                     width={400}
                     height={500}
                     sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 20vw"
@@ -73,7 +73,6 @@ export default function CommunityPage() {
             ))}
           </div>
 
-          {/* Bottom big text like the screenshot */}
           <div className="mt-12 text-center">
             <p className="text-4xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
               For Creators/<br />Brands/ Artists

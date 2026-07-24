@@ -86,8 +86,8 @@ export default function AdminCommunityPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-900">Community Photos</h1>
-      <p className="mt-1 text-sm text-neutral-500">Upload customer photos for the community showcase page.</p>
+      <h1 className="text-2xl font-bold text-neutral-900">Custom Order Images</h1>
+      <p className="mt-1 text-sm text-neutral-500">Upload custom order examples shown on the Our Work page.</p>
 
       {/* Upload area */}
       <div className="mt-6 max-w-3xl">
@@ -105,6 +105,7 @@ export default function AdminCommunityPage() {
                 <div>
                   <p className="text-sm font-semibold text-neutral-700">Click to select photos</p>
                   <p className="mt-1 text-xs text-neutral-400">JPG, PNG or WEBP · Max 10MB each · Select multiple at once</p>
+                  <p className="mt-0.5 text-xs text-neutral-400">Photos of custom orders you have completed</p>
                 </div>
                 <span className="rounded-full bg-brand px-5 py-1.5 text-xs font-semibold text-white">Choose Photos</span>
               </>
@@ -165,10 +166,10 @@ export default function AdminCommunityPage() {
       {/* Existing posts */}
       <div className="mt-10">
         <h2 className="mb-4 text-base font-semibold text-neutral-800">
-          Published Photos <span className="ml-1 text-sm font-normal text-neutral-400">({posts.length})</span>
+          Uploaded Images <span className="ml-1 text-sm font-normal text-neutral-400">({posts.length})</span>
         </h2>
         {posts.length === 0 ? (
-          <p className="text-sm text-neutral-400">No community photos yet. Upload some above.</p>
+          <p className="text-sm text-neutral-400">No custom order images yet. Upload some above.</p>
         ) : (
           <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
             {posts.map((post) => (
