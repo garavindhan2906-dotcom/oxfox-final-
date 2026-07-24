@@ -14,11 +14,11 @@ interface CommunityPostAdmin {
 
 export default function AdminCommunityPage() {
   const [posts, setPosts] = useState<CommunityPostAdmin[]>([]);
-  const [form, setForm] = useState({ title: '', caption: '', customerName: '' });
-  const [preview, setPreview] = useState<string | null>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const [submitting, setSubmitting] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function load() {
@@ -28,80 +28,75 @@ export default function AdminCommunityPage() {
     setPosts(res.posts);
   }
 
-  useEffect(() => {
-    load();
-  }, []);
+  useEffect(() => { load(); }, []);
 
-  function handleFileChange(chosen: File | null) {
-    setFile(chosen);
-    if (chosen) {
-      setPreview(URL.createObjectURL(chosen));
-    } else {
-      setPreview(null);
-    }
+  function handleFilesChange(chosen: FileList | null) {
+    if (!chosen) return;
+    const arr = Array.from(chosen);
+    setFiles(arr);
+    setPreviews(arr.map((f) => URL.createObjectURL(f)));
+    setError('');
+    setSuccess('');
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function removeFile(index: number) {
+    const newFiles = files.filter((_, i) => i !== index);
+    const newPreviews = previews.filter((_, i) => i !== index);
+    setFiles(newFiles);
+    setPreviews(newPreviews);
+    if (newFiles.length === 0 && fileRef.current) fileRef.current.value = '';
+  }
+
+  async function handleUpload() {
+    if (files.length === 0) return;
+    setUploading(true);
     setError('');
-    if (!file) { setError('Please choose an image.'); return; }
-    setSubmitting(true);
+    setSuccess('');
     try {
       const body = new FormData();
-      body.append('image', file);
-      Object.entries(form).forEach(([k, v]) => body.append(k, v));
-      await apiFetch('/api/community/admin', { method: 'POST', body, withCredentials: true });
-      setForm({ title: '', caption: '', customerName: '' });
-      setFile(null);
-      setPreview(null);
+      files.forEach((f) => body.append('images', f));
+      await apiFetch('/api/community/admin/bulk', { method: 'POST', body, withCredentials: true });
+      setFiles([]);
+      setPreviews([]);
       if (fileRef.current) fileRef.current.value = '';
+      setSuccess(`${files.length} photo${files.length > 1 ? 's' : ''} uploaded successfully.`);
       load();
     } catch (err) {
-      setError(err instanceof ApiRequestError ? err.message : 'Could not create post.');
+      setError(err instanceof ApiRequestError ? err.message : 'Upload failed.');
     } finally {
-      setSubmitting(false);
+      setUploading(false);
     }
   }
 
   async function handleDelete(id: number) {
-    if (!confirm('Delete this community post?')) return;
+    if (!confirm('Delete this community photo?')) return;
     await apiFetch(`/api/community/admin/${id}`, { method: 'DELETE', withCredentials: true });
     load();
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-900">Community Posts</h1>
-      <p className="mt-1 text-sm text-neutral-500">Upload customer photos and community showcase images.</p>
+      <h1 className="text-2xl font-bold text-neutral-900">Community Photos</h1>
+      <p className="mt-1 text-sm text-neutral-500">Upload customer photos for the community showcase page.</p>
 
-      {/* Upload form */}
-      <form onSubmit={handleSubmit} className="mt-6 max-w-lg space-y-4 rounded-xl border border-neutral-200 bg-white p-6">
-        <h2 className="text-base font-semibold text-neutral-800">Add New Photo</h2>
-
-        {/* Image upload area */}
+      {/* Upload area */}
+      <div className="mt-6 max-w-3xl">
         <label className="block cursor-pointer">
           <div
-            className={`flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
-              preview ? 'border-brand bg-brand/5' : 'border-neutral-300 hover:border-brand hover:bg-neutral-50'
+            className={`flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors ${
+              files.length > 0 ? 'border-brand bg-brand/5' : 'border-neutral-300 hover:border-brand hover:bg-neutral-50'
             }`}
           >
-            {preview ? (
-              <>
-                <div className="relative h-40 w-40 overflow-hidden rounded-lg">
-                  <Image src={preview} alt="Preview" fill className="object-cover" />
-                </div>
-                <p className="text-xs font-medium text-neutral-600">{file?.name}</p>
-                <p className="text-xs text-neutral-400">{file ? (file.size / 1024 / 1024).toFixed(2) + ' MB' : ''}</p>
-                <span className="text-xs text-brand underline">Change image</span>
-              </>
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 text-3xl">📷</div>
+            {files.length > 0 ? (
+              <p className="text-sm font-semibold text-neutral-700">{files.length} photo{files.length > 1 ? 's' : ''} selected</p>
             ) : (
               <>
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 text-3xl">📷</div>
                 <div>
-                  <p className="text-sm font-semibold text-neutral-700">Click to upload image</p>
-                  <p className="mt-1 text-xs text-neutral-400">JPG, PNG or WEBP · Max 10MB</p>
+                  <p className="text-sm font-semibold text-neutral-700">Click to select photos</p>
+                  <p className="mt-1 text-xs text-neutral-400">JPG, PNG or WEBP · Max 10MB each · Select multiple at once</p>
                 </div>
-                <span className="rounded-full bg-brand px-4 py-1.5 text-xs font-semibold text-white">Choose Photo</span>
+                <span className="rounded-full bg-brand px-5 py-1.5 text-xs font-semibold text-white">Choose Photos</span>
               </>
             )}
           </div>
@@ -109,66 +104,67 @@ export default function AdminCommunityPage() {
             ref={fileRef}
             type="file"
             accept="image/png,image/jpeg,image/webp"
+            multiple
             className="sr-only"
-            onChange={(e) => handleFileChange(e.target.files?.[0] ?? null)}
+            onChange={(e) => handleFilesChange(e.target.files)}
           />
         </label>
 
-        {preview && (
-          <button
-            type="button"
-            onClick={() => { setFile(null); setPreview(null); if (fileRef.current) fileRef.current.value = ''; }}
-            className="text-xs text-red-500 hover:underline"
-          >
-            Remove image
-          </button>
+        {/* Selected previews */}
+        {previews.length > 0 && (
+          <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-6">
+            {previews.map((src, i) => (
+              <div key={i} className="group relative">
+                <div className="relative aspect-square overflow-hidden rounded-lg border border-neutral-200">
+                  <Image src={src} alt={`Preview ${i + 1}`} fill className="object-cover" />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => removeFile(i)}
+                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white shadow"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
         )}
 
-        {/* Optional fields */}
-        <input
-          placeholder="Customer name (optional)"
-          value={form.customerName}
-          onChange={(e) => setForm({ ...form, customerName: e.target.value })}
-          className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm"
-        />
-        <input
-          placeholder="Title (optional)"
-          value={form.title}
-          onChange={(e) => setForm({ ...form, title: e.target.value })}
-          className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm"
-        />
-        <textarea
-          placeholder="Caption (optional)"
-          rows={2}
-          value={form.caption}
-          onChange={(e) => setForm({ ...form, caption: e.target.value })}
-          className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm"
-        />
+        {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+        {success && <p className="mt-3 text-sm text-green-600">{success}</p>}
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={submitting || !file}
-          className="w-full rounded-full bg-brand py-2.5 text-sm font-semibold text-white hover:bg-brand-dark disabled:opacity-50"
-        >
-          {submitting ? 'Uploading...' : 'Upload Community Photo'}
-        </button>
-      </form>
+        {files.length > 0 && (
+          <div className="mt-4 flex items-center gap-3">
+            <button
+              onClick={handleUpload}
+              disabled={uploading}
+              className="rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-dark disabled:opacity-50"
+            >
+              {uploading ? 'Uploading...' : `Upload ${files.length} Photo${files.length > 1 ? 's' : ''}`}
+            </button>
+            <button
+              onClick={() => { setFiles([]); setPreviews([]); if (fileRef.current) fileRef.current.value = ''; }}
+              className="text-xs text-neutral-500 hover:underline"
+            >
+              Clear all
+            </button>
+          </div>
+        )}
+      </div>
 
       {/* Existing posts */}
-      <div className="mt-8">
+      <div className="mt-10">
         <h2 className="mb-4 text-base font-semibold text-neutral-800">
           Published Photos <span className="ml-1 text-sm font-normal text-neutral-400">({posts.length})</span>
         </h2>
         {posts.length === 0 ? (
-          <p className="text-sm text-neutral-400">No community photos yet. Upload one above.</p>
+          <p className="text-sm text-neutral-400">No community photos yet. Upload some above.</p>
         ) : (
-          <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
             {posts.map((post) => (
               <div key={post.id} className="group relative">
-                <div className="media-3-4 overflow-hidden rounded-xl">
-                  <Image src={post.image_path} alt={post.title ?? ''} fill sizes="150px" className="object-cover" />
+                <div className="relative aspect-square overflow-hidden rounded-xl border border-neutral-200">
+                  <Image src={post.image_path} alt={post.title ?? ''} fill sizes="160px" className="object-cover" />
                 </div>
                 {post.customer_name && (
                   <p className="mt-1 truncate text-xs text-neutral-500">{post.customer_name}</p>

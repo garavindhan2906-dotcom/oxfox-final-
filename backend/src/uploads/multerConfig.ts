@@ -111,10 +111,10 @@ const contentImageStorage = multer.diskStorage({
   },
 });
 
-/** Used for category banners and community post images (single-file uploads). */
+/** Used for category banners, community posts, and shipping images. */
 export const contentImageUpload = multer({
   storage: contentImageStorage,
-  limits: { fileSize: MAX_IMAGE_SIZE_BYTES, files: 1 },
+  limits: { fileSize: MAX_IMAGE_SIZE_BYTES, files: 20 },
   fileFilter: (_req, file, cb) => {
     if (!ALLOWED_MIME_TYPES.has(file.mimetype)) {
       cb(new ApiError(400, 'Only JPG, PNG, and WEBP images are allowed. (HEIC/HEIF photos from iPhones need to be converted to JPG first.)'));

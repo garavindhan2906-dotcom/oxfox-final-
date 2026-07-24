@@ -12,22 +12,26 @@ export const metadata: Metadata = {
 
 interface ShippingInfo {
   id: number;
-  image_url: string | null;
   title: string | null;
   description: string | null;
 }
 
-async function getShippingInfo(): Promise<ShippingInfo | null> {
+interface ShippingImage {
+  id: number;
+  image_url: string;
+}
+
+async function getShippingData(): Promise<{ info: ShippingInfo | null; images: ShippingImage[] }> {
   try {
-    const { shipping } = await apiFetch<{ shipping: ShippingInfo | null }>('/api/shipping');
-    return shipping;
+    const { shipping, images } = await apiFetch<{ shipping: ShippingInfo | null; images: ShippingImage[] }>('/api/shipping');
+    return { info: shipping, images: images ?? [] };
   } catch {
-    return null;
+    return { info: null, images: [] };
   }
 }
 
 export default async function ShippingPage() {
-  const info = await getShippingInfo();
+  const { info, images } = await getShippingData();
 
   const heading = info?.title || 'Shipping & Delivery';
   const description = info?.description || 'We deliver premium silicone molds across India. Orders are carefully packed and dispatched within 2–3 business days.';
@@ -42,18 +46,20 @@ export default async function ShippingPage() {
           <p className="text-center text-base leading-relaxed text-neutral-600 sm:text-lg">{description}</p>
         </Reveal>
 
-        {info?.image_url ? (
-          <Reveal delay={0.1} className="mt-12">
-            <div className="overflow-hidden rounded-2xl border border-neutral-200 shadow-sm">
-              <SmartImage
-                src={info.image_url}
-                alt="Shipping information"
-                width={900}
-                height={700}
-                sizes="(max-width: 768px) 100vw, 900px"
-                className="h-auto w-full object-contain"
-              />
-            </div>
+        {images.length > 0 ? (
+          <Reveal delay={0.1} className="mt-12 space-y-6">
+            {images.map((img) => (
+              <div key={img.id} className="overflow-hidden rounded-2xl border border-neutral-200 shadow-sm">
+                <SmartImage
+                  src={img.image_url}
+                  alt="Shipping information"
+                  width={900}
+                  height={700}
+                  sizes="(max-width: 768px) 100vw, 900px"
+                  className="h-auto w-full object-contain"
+                />
+              </div>
+            ))}
           </Reveal>
         ) : (
           <Reveal delay={0.1} className="mt-12">

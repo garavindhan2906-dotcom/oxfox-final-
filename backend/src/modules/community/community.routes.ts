@@ -25,6 +25,7 @@ const postSchema = z.object({
   sortOrder: z.coerce.number().optional(),
 });
 
+// Single upload (kept for backwards compat)
 communityRouter.post(
   '/admin',
   requireAdmin,
@@ -33,12 +34,32 @@ communityRouter.post(
     if (!req.file) throw new ApiError(400, 'An image is required.');
     const data = postSchema.parse(req.body);
     const imagePath = publicPathFor(req.file.path);
-
     const [result] = await pool.query<any>(
       'INSERT INTO community_posts (title, image_path, caption, customer_name, sort_order) VALUES (?, ?, ?, ?, ?)',
       [data.title ?? null, imagePath, data.caption ?? null, data.customerName ?? null, data.sortOrder ?? 0]
     );
     res.status(201).json({ id: result.insertId });
+  })
+);
+
+// Bulk upload — POST /api/community/admin/bulk (multipart images[])
+communityRouter.post(
+  '/admin/bulk',
+  requireAdmin,
+  contentImageUpload.array('images', 20),
+  asyncHandler(async (req, res) => {
+    const files = req.files as Express.Multer.File[] | undefined;
+    if (!files || files.length === 0) throw new ApiError(400, 'At least one image is required.');
+    const ids: number[] = [];
+    for (const file of files) {
+      const imagePath = publicPathFor(file.path);
+      const [result] = await pool.query<any>(
+        'INSERT INTO community_posts (image_path, sort_order) VALUES (?, 0)',
+        [imagePath]
+      );
+      ids.push(result.insertId);
+    }
+    res.status(201).json({ count: ids.length, ids });
   })
 );
 

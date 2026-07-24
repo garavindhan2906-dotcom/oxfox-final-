@@ -7,11 +7,13 @@ import { contentImageUpload, publicPathFor, deleteUploadedFile } from '../../upl
 
 export const shippingRouter = Router();
 
+// Public: get text info + all images
 shippingRouter.get(
   '/',
   asyncHandler(async (_req, res) => {
-    const [rows] = await pool.query<any[]>('SELECT * FROM shipping_info WHERE id = 1');
-    res.json({ shipping: rows[0] ?? null });
+    const [info] = await pool.query<any[]>('SELECT * FROM shipping_info WHERE id = 1');
+    const [images] = await pool.query<any[]>('SELECT * FROM shipping_images ORDER BY sort_order ASC, created_at ASC');
+    res.json({ shipping: info[0] ?? null, images });
   })
 );
 
@@ -33,29 +35,35 @@ shippingRouter.put(
   })
 );
 
+// Upload multiple images
 shippingRouter.post(
-  '/image',
+  '/images',
   requireAdmin,
-  contentImageUpload.single('image'),
+  contentImageUpload.array('images', 20),
   asyncHandler(async (req, res) => {
-    if (!req.file) throw new Error('No image uploaded');
-    const [rows] = await pool.query<any[]>('SELECT image_url FROM shipping_info WHERE id = 1');
-    const oldUrl: string | null = rows[0]?.image_url ?? null;
-    const imageUrl = publicPathFor(req.file.path);
-    await pool.query('UPDATE shipping_info SET image_url = ? WHERE id = 1', [imageUrl]);
-    if (oldUrl) deleteUploadedFile(oldUrl);
-    res.json({ success: true, imageUrl });
+    const files = req.files as Express.Multer.File[] | undefined;
+    if (!files || files.length === 0) throw new Error('No images uploaded');
+    const ids: number[] = [];
+    for (const file of files) {
+      const imageUrl = publicPathFor(file.path);
+      const [result] = await pool.query<any>(
+        'INSERT INTO shipping_images (image_url) VALUES (?)',
+        [imageUrl]
+      );
+      ids.push(result.insertId);
+    }
+    res.json({ success: true, count: ids.length });
   })
 );
 
+// Delete a single shipping image
 shippingRouter.delete(
-  '/image',
+  '/images/:id',
   requireAdmin,
-  asyncHandler(async (_req, res) => {
-    const [rows] = await pool.query<any[]>('SELECT image_url FROM shipping_info WHERE id = 1');
-    const oldUrl: string | null = rows[0]?.image_url ?? null;
-    if (oldUrl) deleteUploadedFile(oldUrl);
-    await pool.query('UPDATE shipping_info SET image_url = NULL WHERE id = 1');
+  asyncHandler(async (req, res) => {
+    const [rows] = await pool.query<any[]>('SELECT image_url FROM shipping_images WHERE id = ?', [req.params.id]);
+    if (rows.length > 0) deleteUploadedFile(rows[0].image_url);
+    await pool.query('DELETE FROM shipping_images WHERE id = ?', [req.params.id]);
     res.json({ success: true });
   })
 );
