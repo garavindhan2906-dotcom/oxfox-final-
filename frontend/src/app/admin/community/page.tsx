@@ -15,52 +15,48 @@ interface CommunityPostAdmin {
 
 export default function AdminCommunityPage() {
   const [posts, setPosts] = useState<CommunityPostAdmin[]>([]);
-  const [files, setFiles] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [showForm, setShowForm] = useState(false);
+
+  // Single add form
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [customerName, setCustomerName] = useState('');
+  const [caption, setCaption] = useState('');
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function load() {
-    const res = await apiFetch<{ posts: CommunityPostAdmin[] }>('/api/community/admin/all', {
-      withCredentials: true,
-    });
+    const res = await apiFetch<{ posts: CommunityPostAdmin[] }>('/api/community/admin/all', { withCredentials: true });
     setPosts(res.posts);
   }
 
   useEffect(() => { load(); }, []);
 
-  function handleFilesChange(chosen: FileList | null) {
-    if (!chosen) return;
-    const arr = Array.from(chosen);
-    setFiles(arr);
-    setPreviews(arr.map((f) => URL.createObjectURL(f)));
-    setError('');
-    setSuccess('');
+  function handleFileChange(chosen: File | null) {
+    setFile(chosen);
+    setPreview(chosen ? URL.createObjectURL(chosen) : null);
   }
 
-  function removeFile(index: number) {
-    const newFiles = files.filter((_, i) => i !== index);
-    const newPreviews = previews.filter((_, i) => i !== index);
-    setFiles(newFiles);
-    setPreviews(newPreviews);
-    if (newFiles.length === 0 && fileRef.current) fileRef.current.value = '';
-  }
-
-  async function handleUpload() {
-    if (files.length === 0) return;
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!file) { setError('Please choose an image.'); return; }
     setUploading(true);
     setError('');
-    setSuccess('');
     try {
       const body = new FormData();
-      files.forEach((f) => body.append('images', f));
-      await apiFetch('/api/community/admin/bulk', { method: 'POST', body, withCredentials: true });
-      setFiles([]);
-      setPreviews([]);
+      body.append('image', file);
+      if (customerName) body.append('customerName', customerName);
+      if (caption) body.append('caption', caption);
+      await apiFetch('/api/community/admin', { method: 'POST', body, withCredentials: true });
+      setFile(null);
+      setPreview(null);
+      setCustomerName('');
+      setCaption('');
       if (fileRef.current) fileRef.current.value = '';
-      setSuccess(`${files.length} photo${files.length > 1 ? 's' : ''} uploaded successfully.`);
+      setSuccess('Photo added successfully.');
+      setShowForm(false);
       load();
     } catch (err) {
       setError(err instanceof ApiRequestError ? err.message : 'Upload failed.');
@@ -79,101 +75,109 @@ export default function AdminCommunityPage() {
   }
 
   async function handleDelete(id: number) {
-    if (!confirm('Delete this community photo?')) return;
+    if (!confirm('Delete this photo?')) return;
     await apiFetch(`/api/community/admin/${id}`, { method: 'DELETE', withCredentials: true });
     load();
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-900">Custom Order Images</h1>
-      <p className="mt-1 text-sm text-neutral-500">Upload custom order examples shown on the Our Work page.</p>
-
-      {/* Upload area */}
-      <div className="mt-6 max-w-3xl">
-        <label className="block cursor-pointer">
-          <div
-            className={`flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors ${
-              files.length > 0 ? 'border-brand bg-brand/5' : 'border-neutral-300 hover:border-brand hover:bg-neutral-50'
-            }`}
-          >
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 text-3xl">📷</div>
-            {files.length > 0 ? (
-              <p className="text-sm font-semibold text-neutral-700">{files.length} photo{files.length > 1 ? 's' : ''} selected</p>
-            ) : (
-              <>
-                <div>
-                  <p className="text-sm font-semibold text-neutral-700">Click to select photos</p>
-                  <p className="mt-1 text-xs text-neutral-400">JPG, PNG or WEBP · Max 10MB each · Select multiple at once</p>
-                  <p className="mt-0.5 text-xs text-neutral-400">Photos of custom orders you have completed</p>
-                </div>
-                <span className="rounded-full bg-brand px-5 py-1.5 text-xs font-semibold text-white">Choose Photos</span>
-              </>
-            )}
-          </div>
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/png,image/jpeg,image/webp"
-            multiple
-            className="sr-only"
-            onChange={(e) => handleFilesChange(e.target.files)}
-          />
-        </label>
-
-        {/* Selected previews */}
-        {previews.length > 0 && (
-          <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-6">
-            {previews.map((src, i) => (
-              <div key={i} className="group relative">
-                <div className="relative aspect-square overflow-hidden rounded-lg border border-neutral-200">
-                  <Image src={src} alt={`Preview ${i + 1}`} fill className="object-cover" />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => removeFile(i)}
-                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white shadow"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-        {success && <p className="mt-3 text-sm text-green-600">{success}</p>}
-
-        {files.length > 0 && (
-          <div className="mt-4 flex items-center gap-3">
-            <button
-              onClick={handleUpload}
-              disabled={uploading}
-              className="rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-dark disabled:opacity-50"
-            >
-              {uploading ? 'Uploading...' : `Upload ${files.length} Photo${files.length > 1 ? 's' : ''}`}
-            </button>
-            <button
-              onClick={() => { setFiles([]); setPreviews([]); if (fileRef.current) fileRef.current.value = ''; }}
-              className="text-xs text-neutral-500 hover:underline"
-            >
-              Clear all
-            </button>
-          </div>
-        )}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-neutral-900">Custom Order Images</h1>
+          <p className="mt-1 text-sm text-neutral-500">Photos shown on the Community page.</p>
+        </div>
+        <button
+          onClick={() => { setShowForm((v) => !v); setError(''); setSuccess(''); }}
+          className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-dark"
+        >
+          {showForm ? '✕ Cancel' : '+ Add Photo'}
+        </button>
       </div>
 
-      {/* Existing posts */}
-      <div className="mt-10">
+      {success && <p className="mt-3 text-sm text-green-600">{success}</p>}
+
+      {/* Add photo form */}
+      {showForm && (
+        <form onSubmit={handleSubmit} className="mt-5 max-w-lg rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-base font-semibold text-neutral-800">Add New Photo</h2>
+
+          {/* Image picker */}
+          <label className="block cursor-pointer">
+            <div className={`flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-4 py-8 text-center transition-colors ${preview ? 'border-brand bg-brand/5' : 'border-neutral-300 hover:border-brand hover:bg-neutral-50'}`}>
+              {preview ? (
+                <>
+                  <div className="relative h-36 w-36 overflow-hidden rounded-lg">
+                    <Image src={preview} alt="Preview" fill className="object-cover" />
+                  </div>
+                  <p className="text-xs font-medium text-neutral-600">{file?.name}</p>
+                  <span className="text-xs text-brand underline">Change photo</span>
+                </>
+              ) : (
+                <>
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-neutral-100 text-3xl">📷</div>
+                  <div>
+                    <p className="text-sm font-semibold text-neutral-700">Click to choose a photo</p>
+                    <p className="mt-1 text-xs text-neutral-400">JPG, PNG or WEBP · Max 10MB</p>
+                  </div>
+                  <span className="rounded-full bg-brand px-4 py-1.5 text-xs font-semibold text-white">Choose Photo</span>
+                </>
+              )}
+            </div>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+              className="sr-only"
+              onChange={(e) => handleFileChange(e.target.files?.[0] ?? null)}
+            />
+          </label>
+
+          <div className="mt-4 space-y-3">
+            <input
+              placeholder="Customer name (optional)"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm"
+            />
+            <textarea
+              placeholder="Caption (optional)"
+              rows={2}
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm"
+            />
+          </div>
+
+          {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+
+          <button
+            type="submit"
+            disabled={uploading || !file}
+            className="mt-4 w-full rounded-full bg-brand py-2.5 text-sm font-semibold text-white hover:bg-brand-dark disabled:opacity-50"
+          >
+            {uploading ? 'Uploading...' : 'Upload Photo'}
+          </button>
+        </form>
+      )}
+
+      {/* Existing photos */}
+      <div className="mt-8">
         <h2 className="mb-4 text-base font-semibold text-neutral-800">
-          Uploaded Images <span className="ml-1 text-sm font-normal text-neutral-400">({posts.length})</span>
+          All Photos <span className="ml-1 text-sm font-normal text-neutral-400">({posts.length})</span>
         </h2>
+
         {posts.length === 0 ? (
-          <p className="text-sm text-neutral-400">No custom order images yet. Upload some above.</p>
+          <div className="rounded-xl border-2 border-dashed border-neutral-200 py-12 text-center">
+            <p className="text-sm text-neutral-400">No photos yet.</p>
+            <button onClick={() => setShowForm(true)} className="mt-2 text-sm font-semibold text-brand hover:underline">
+              Add your first photo →
+            </button>
+          </div>
         ) : (
           <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
             {posts.map((post) => (
-              <div key={post.id} className="group relative">
+              <div key={post.id}>
                 <div className="relative aspect-square overflow-hidden rounded-xl border border-neutral-200">
                   <Image src={post.image_path} alt={post.title ?? ''} fill sizes="160px" className="object-cover" />
                 </div>
