@@ -31,14 +31,14 @@ export default function ProductGallery({ images, productName }: { images: Produc
             <button
               onClick={prev}
               aria-label="Previous image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md ring-1 ring-neutral-200 transition hover:bg-brand hover:text-white text-xl font-bold leading-none"
+              className="absolute left-0 top-1/2 -translate-y-1/2 flex h-12 w-10 items-center justify-center rounded-r-xl bg-black/30 backdrop-blur-sm text-white text-2xl transition hover:bg-brand"
             >
               ‹
             </button>
             <button
               onClick={next}
               aria-label="Next image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md ring-1 ring-neutral-200 transition hover:bg-brand hover:text-white text-xl font-bold leading-none"
+              className="absolute right-0 top-1/2 -translate-y-1/2 flex h-12 w-10 items-center justify-center rounded-l-xl bg-black/30 backdrop-blur-sm text-white text-2xl transition hover:bg-brand"
             >
               ›
             </button>
