@@ -185,38 +185,46 @@ export default function CategoryManager() {
               </div>
             </div>
 
-            <div className="mt-3 flex items-center gap-3">
-              {cat.banner_image && (
-                <div className="relative h-14 w-11 flex-shrink-0 overflow-hidden rounded-md border border-neutral-200">
-                  <SmartImage src={cat.banner_image} alt={cat.name} fill sizes="44px" className="object-cover" />
+            {/* Card image upload */}
+            <div className="mt-3">
+              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-neutral-500">Card Image</p>
+              <label className="block cursor-pointer">
+                <div className={`relative flex items-center gap-4 overflow-hidden rounded-xl border-2 border-dashed p-3 transition-colors ${busyBanner === cat.id ? 'opacity-60' : 'hover:border-brand hover:bg-neutral-50'} ${cat.banner_image ? 'border-brand/40 bg-brand/5' : 'border-neutral-300'}`}>
+                  {cat.banner_image ? (
+                    <>
+                      <div className="relative h-20 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-neutral-200">
+                        <SmartImage src={cat.banner_image} alt={cat.name} fill sizes="64px" className="object-cover" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-neutral-700">Card image set</p>
+                        <p className="mt-0.5 text-xs text-brand underline">Click to change image</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex h-20 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-2xl">🖼️</div>
+                      <div>
+                        <p className="text-sm font-semibold text-neutral-700">Upload card image</p>
+                        <p className="mt-0.5 text-xs text-neutral-400">JPG, PNG or WEBP · Max 10MB</p>
+                        <span className="mt-2 inline-block rounded-full bg-brand px-3 py-1 text-xs font-semibold text-white">Choose Image</span>
+                      </div>
+                    </>
+                  )}
+                  {busyBanner === cat.id && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white/70">
+                      <p className="text-xs font-semibold text-brand">Uploading…</p>
+                    </div>
+                  )}
                 </div>
-              )}
-              <input
-                type="text"
-                placeholder="Banner image — URL or pick file"
-                defaultValue={cat.banner_image ?? ''}
-                disabled={busyBanner === cat.id}
-                onChange={(e) => setBannerDrafts((prev) => ({ ...prev, [cat.id]: e.target.value }))}
-                onBlur={() => handleBannerUrlSave(cat)}
-                className="flex-1 rounded-md border border-neutral-300 px-3 py-1.5 text-sm disabled:opacity-60"
-              />
-              <button
-                type="button"
-                disabled={busyBanner === cat.id}
-                onClick={() => fileInputRefs.current[cat.id]?.click()}
-                className="text-xs font-semibold uppercase tracking-wide text-brand hover:underline disabled:opacity-60"
-              >
-                Browse
-              </button>
-              <input
-                ref={(el) => {
-                  fileInputRefs.current[cat.id] = el;
-                }}
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                className="hidden"
-                onChange={(e) => handleBannerFileSelect(cat, e.target.files?.[0])}
-              />
+                <input
+                  ref={(el) => { fileInputRefs.current[cat.id] = el; }}
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  className="sr-only"
+                  disabled={busyBanner === cat.id}
+                  onChange={(e) => handleBannerFileSelect(cat, e.target.files?.[0])}
+                />
+              </label>
             </div>
 
             <ul className="mt-3 space-y-1">

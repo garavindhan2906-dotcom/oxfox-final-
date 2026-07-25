@@ -3,8 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --oxfox-brand: #b5642c;
-  --oxfox-brand-dark: #8a4a1e;
+  --oxfox-brand: #ec4899;
+  --oxfox-brand-dark: #db2777;
 }
 
 @theme inline {
@@ -26,7 +26,7 @@ body {
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background-color: #f2ede8;
+  background-color: #fdf2f8;
 }
 
 .media-3-4 img {

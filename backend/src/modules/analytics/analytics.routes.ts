@@ -13,6 +13,7 @@ const PAGE_TYPES = [
   'product',
   'custom_order',
   'community',
+  'shipping',
   'faq',
   'bulk_orders',
   'other',
