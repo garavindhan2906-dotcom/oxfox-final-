@@ -54,7 +54,7 @@ export default function FullBleedSlide({
           <div className="absolute inset-0 bg-black/55" />
         </>
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-neutral-900" />
+        <div className="absolute inset-0 bg-brand" />
       )}
 
       <div

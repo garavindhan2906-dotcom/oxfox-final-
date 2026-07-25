@@ -32,14 +32,12 @@ async function getAllProducts(): Promise<Product[]> {
 
 export default async function HomePage() {
   const [categories, products] = await Promise.all([getCategories(), getAllProducts()]);
-  const heroImage = categories.find((c) => c.banner_image)?.banner_image ?? null;
-
   return (
     <>
       <VisitBeacon pageType="homepage" />
 
       <FullBleedSlide
-        imageSrc={heroImage}
+        imageSrc={null}
         imageAlt="OXFOX handcrafted silicone molds"
         eyebrow="3D Design + Handcrafted Silicone Molds"
         heading="OXFOX"
