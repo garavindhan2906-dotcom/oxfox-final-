@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ProductGallery from '@/components/product/ProductGallery';
 import AddToCartPanel from '@/components/product/AddToCartPanel';
+import ShareButton from '@/components/product/ShareButton';
 import CommentList from '@/components/product/CommentList';
 import CommentForm from '@/components/product/CommentForm';
 import VisitBeacon from '@/components/VisitBeacon';
@@ -93,6 +94,7 @@ export default async function ProductPage({ params }: { params: Promise<{ produc
             </dl>
 
             <AddToCartPanel product={product} />
+            <ShareButton name={product.name} />
           </Reveal>
         </div>
 
