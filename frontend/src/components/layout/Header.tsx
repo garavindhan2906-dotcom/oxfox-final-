@@ -42,7 +42,7 @@ export default function Header({ categories }: { categories: Category[] }) {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center rounded-xl bg-white/95 p-1 shadow-sm">
-          <Image src="/logo.png" alt="OXFOX Studio" width={200} height={170} className="h-12 w-auto sm:h-14" priority />
+          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-12 w-auto sm:h-14" priority />
         </Link>
 
         <NavDropdown categories={categories} light={!solid} />

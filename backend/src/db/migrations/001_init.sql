@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS otp_requests (
 CREATE TABLE IF NOT EXISTS page_visits (
   id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   visit_date    DATE NOT NULL,
-  page_type     ENUM('homepage','category','subcategory','product','custom_order','community','faq','bulk_orders','other') NOT NULL,
+  page_type     ENUM('homepage','category','subcategory','product','custom_order','community','shipping','faq','bulk_orders','other') NOT NULL,
   visit_count   INT UNSIGNED NOT NULL DEFAULT 0,
   UNIQUE KEY uq_visit_date_type (visit_date, page_type),
   INDEX idx_visits_date (visit_date)
