@@ -85,7 +85,7 @@ export default function AdminCommunityPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-neutral-900">Custom Order Images</h1>
-          <p className="mt-1 text-sm text-neutral-500">Photos shown on the Community page.</p>
+          <p className="mt-1 text-sm text-neutral-500">Photos shown on the Customer Order page.</p>
         </div>
         <button
           onClick={() => { setShowForm((v) => !v); setError(''); setSuccess(''); }}
