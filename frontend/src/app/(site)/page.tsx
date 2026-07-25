@@ -1,9 +1,9 @@
 import HeroIntro from '@/components/home/HeroIntro';
+import HeroSlider from '@/components/home/HeroSlider';
 import CategorySlider from '@/components/home/CategorySlider';
 import CustomOrderSteps from '@/components/home/CustomOrderSteps';
 import ProductGrid from '@/components/catalog/ProductGrid';
 import VisitBeacon from '@/components/VisitBeacon';
-import FullBleedSlide from '@/components/motion/FullBleedSlide';
 import CurvedDivider from '@/components/motion/CurvedDivider';
 import Reveal from '@/components/motion/Reveal';
 import PromoBanner from '@/components/layout/PromoBanner';
@@ -30,24 +30,27 @@ async function getAllProducts(): Promise<Product[]> {
   }
 }
 
+async function getHeroImages(): Promise<{ id: number; image_url: string }[]> {
+  try {
+    const { images } = await apiFetch<{ images: { id: number; image_url: string }[] }>('/api/hero-images');
+    return images;
+  } catch {
+    return [];
+  }
+}
+
 export default async function HomePage() {
-  const [categories, products] = await Promise.all([getCategories(), getAllProducts()]);
+  const [categories, products, heroImages] = await Promise.all([
+    getCategories(),
+    getAllProducts(),
+    getHeroImages(),
+  ]);
+
   return (
     <>
       <VisitBeacon pageType="homepage" />
 
-      <FullBleedSlide
-        imageSrc={null}
-        imageAlt="OXFOX handcrafted silicone molds"
-        eyebrow="3D Design + Handcrafted Silicone Molds"
-        heading="OXFOX"
-        subheading={HOMEPAGE_INTRO}
-        ctaLabel="Shop Silicone Molds"
-        ctaHref="/molds"
-        height="full"
-        align="center"
-        priority
-      />
+      <HeroSlider images={heroImages} subheading={HOMEPAGE_INTRO} />
       <CurvedDivider color="white" />
 
       <HeroIntro />

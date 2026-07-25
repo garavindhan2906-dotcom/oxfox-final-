@@ -21,6 +21,7 @@ import { ordersRouter } from './modules/orders/orders.routes';
 import { customersRouter } from './modules/customers/customers.routes';
 import { shippingRouter } from './modules/shipping/shipping.routes';
 import { communityImagesRouter } from './modules/communityImages/communityImages.routes';
+import { heroImagesRouter } from './modules/heroImages/heroImages.routes';
 
 export const app = express();
 
@@ -47,5 +48,6 @@ app.use('/api/orders', ordersRouter);
 app.use('/api/customers', customersRouter);
 app.use('/api/shipping', shippingRouter);
 app.use('/api/community-images', communityImagesRouter);
+app.use('/api/hero-images', heroImagesRouter);
 
 app.use(errorHandler);
