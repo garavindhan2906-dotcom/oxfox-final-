@@ -20,6 +20,7 @@ import { analyticsRouter } from './modules/analytics/analytics.routes';
 import { ordersRouter } from './modules/orders/orders.routes';
 import { customersRouter } from './modules/customers/customers.routes';
 import { shippingRouter } from './modules/shipping/shipping.routes';
+import { communityImagesRouter } from './modules/communityImages/communityImages.routes';
 
 export const app = express();
 
@@ -45,5 +46,6 @@ app.use('/api', analyticsRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/customers', customersRouter);
 app.use('/api/shipping', shippingRouter);
+app.use('/api/community-images', communityImagesRouter);
 
 app.use(errorHandler);
