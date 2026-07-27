@@ -100,8 +100,15 @@ export async function getProductByIdForAdmin(id: number) {
     'SELECT id, min_qty, discount_percent FROM product_discount_tiers WHERE product_id = ? ORDER BY sort_order ASC',
     [id]
   );
+  const [catRows] = await pool.query<any[]>(
+    'SELECT category_id FROM product_categories WHERE product_id = ?',
+    [id]
+  );
+  const categoryIds = catRows.length > 0
+    ? catRows.map((r: any) => r.category_id)
+    : [rows[0].category_id];
 
-  return { ...rows[0], images, discountTiers };
+  return { ...rows[0], categoryIds, images, discountTiers };
 }
 
 export interface DiscountTierInput {
@@ -133,6 +140,7 @@ export type ProductBadge = 'none' | 'new' | 'bestseller' | 'sale' | 'limited';
 
 export interface ProductInput {
   categoryId: number;
+  categoryIds?: number[];
   subcategoryId?: number | null;
   name: string;
   description?: string;
@@ -195,7 +203,15 @@ export async function createProduct(data: ProductInput) {
       data.metaDescription ?? null,
     ]
   );
-  return { id: result.insertId, slug };
+  const productId = result.insertId;
+  const idsToLink = data.categoryIds && data.categoryIds.length > 0 ? data.categoryIds : [data.categoryId];
+  for (const catId of idsToLink) {
+    await pool.query(
+      'INSERT IGNORE INTO product_categories (product_id, category_id) VALUES (?, ?)',
+      [productId, catId]
+    );
+  }
+  return { id: productId, slug };
 }
 
 export async function updateProduct(id: number, data: Partial<ProductInput>) {
@@ -234,10 +250,20 @@ export async function updateProduct(id: number, data: Partial<ProductInput>) {
     }
   }
 
-  if (fields.length === 0) return;
+  if (fields.length > 0) {
+    values.push(id);
+    await pool.query(`UPDATE products SET ${fields.join(', ')} WHERE id = ?`, values);
+  }
 
-  values.push(id);
-  await pool.query(`UPDATE products SET ${fields.join(', ')} WHERE id = ?`, values);
+  if (data.categoryIds && data.categoryIds.length > 0) {
+    await pool.query('DELETE FROM product_categories WHERE product_id = ?', [id]);
+    for (const catId of data.categoryIds) {
+      await pool.query(
+        'INSERT IGNORE INTO product_categories (product_id, category_id) VALUES (?, ?)',
+        [id, catId]
+      );
+    }
+  }
 }
 
 export async function setProductActive(id: number, isActive: boolean) {

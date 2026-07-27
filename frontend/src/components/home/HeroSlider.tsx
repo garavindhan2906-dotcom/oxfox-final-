@@ -21,7 +21,7 @@ export default function HeroSlider({ images, subheading }: { images: HeroImage[]
   }, [images.length]);
 
   return (
-    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-brand">
+    <section className="relative flex min-h-[60vh] w-full items-center overflow-hidden bg-brand sm:min-h-screen">
       {/* Sliding images */}
       {images.map((img, i) => (
         <div
@@ -35,22 +35,18 @@ export default function HeroSlider({ images, subheading }: { images: HeroImage[]
       ))}
 
       {/* Text content */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20 text-left sm:px-8 sm:py-28">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-10 text-left sm:px-8 sm:py-28">
         <div className="max-w-xl">
-          <h1 className="text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl"
+          <h1 className="text-3xl font-bold uppercase tracking-tight text-white sm:text-5xl"
             style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>
-            OXFOX
-          </h1>
-          <p className="mt-3 text-sm font-semibold uppercase tracking-[0.35em] text-white/80 sm:text-base"
-            style={{ textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}>
             3D Design + Handcrafted Silicone Molds
-          </p>
-          <p className="mt-4 text-base text-white/90 sm:text-lg"
+          </h1>
+          <p className="mt-4 hidden text-base text-white/90 sm:block sm:text-lg"
             style={{ textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}>
             {subheading}
           </p>
           <Link href="/molds"
-            className="mt-8 inline-block rounded-full bg-brand px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark">
+            className="mt-8 inline-block rounded-full border-2 border-white bg-white px-8 py-3 text-sm font-semibold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-transparent hover:text-white">
             Shop Silicone Molds
           </Link>
         </div>

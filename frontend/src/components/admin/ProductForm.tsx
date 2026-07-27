@@ -8,7 +8,7 @@ import type { Category, DiscountTier, Product, ProductBadge } from '@/types';
 
 interface ProductFormState {
   name: string;
-  categoryId: string;
+  categoryIds: string[];
   subcategoryId: string;
   description: string;
   material: string;
@@ -26,7 +26,7 @@ interface ProductFormState {
 
 const EMPTY_FORM: ProductFormState = {
   name: '',
-  categoryId: '',
+  categoryIds: [],
   subcategoryId: '',
   description: '',
   material: 'Food-grade Silicone',
@@ -79,7 +79,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
       setVideoUrl(res.product.video_url ?? null);
       setForm({
         name: res.product.name,
-        categoryId: String(res.product.category_id),
+        categoryIds: res.product.categoryIds?.map(String) ?? [String(res.product.category_id)],
         subcategoryId: res.product.subcategory_id ? String(res.product.subcategory_id) : '',
         description: res.product.description ?? '',
         material: res.product.material ?? '',
@@ -97,7 +97,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
     });
   }, [productId]);
 
-  const selectedCategory = categories.find((c) => String(c.id) === form.categoryId);
+  const selectedCategory = categories.find((c) => String(c.id) === (form.categoryIds[0] ?? ''));
 
   function addTier() {
     setTiers([...tiers, { min_qty: 2, discount_percent: 10 }]);
@@ -116,9 +116,16 @@ export default function ProductForm({ productId }: { productId?: number }) {
     setStatus('loading');
     setError('');
 
+    if (form.categoryIds.length === 0) {
+      setError('Please select at least one category.');
+      setStatus('error');
+      return;
+    }
+
     const payload = {
       name: form.name,
-      categoryId: Number(form.categoryId),
+      categoryId: Number(form.categoryIds[0]),
+      categoryIds: form.categoryIds.map(Number),
       subcategoryId: form.subcategoryId ? Number(form.subcategoryId) : null,
       description: form.description || undefined,
       material: form.material || undefined,
@@ -226,22 +233,33 @@ export default function ProductForm({ productId }: { productId?: number }) {
         </div>
         <div>
           <label className={labelClass}>
-            Category <span className="text-brand">*</span>
+            Categories <span className="text-brand">*</span>
           </label>
-          <select
-            required
-            value={form.categoryId}
-            onChange={(e) => setForm({ ...form, categoryId: e.target.value, subcategoryId: '' })}
-            className={inputClass}
-          >
-            <option value="">Select category</option>
-            {categories.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.emoji ? `${c.emoji} ` : ''}
-                {c.name}
-              </option>
-            ))}
-          </select>
+          <div className="mt-1 flex flex-wrap gap-2">
+            {categories.map((c) => {
+              const checked = form.categoryIds.includes(String(c.id));
+              return (
+                <label
+                  key={c.id}
+                  className={`flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors ${checked ? 'border-neutral-900 bg-neutral-900 text-white' : 'border-neutral-300 text-neutral-700 hover:border-neutral-500'}`}
+                >
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={checked}
+                    onChange={(e) => {
+                      const id = String(c.id);
+                      const next = e.target.checked
+                        ? [...form.categoryIds, id]
+                        : form.categoryIds.filter((x) => x !== id);
+                      setForm({ ...form, categoryIds: next, subcategoryId: '' });
+                    }}
+                  />
+                  {c.emoji ? `${c.emoji} ` : ''}{c.name}
+                </label>
+              );
+            })}
+          </div>
         </div>
       </div>
 

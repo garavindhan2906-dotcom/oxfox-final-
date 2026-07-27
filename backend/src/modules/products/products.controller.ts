@@ -32,6 +32,7 @@ export async function getProductAdminHandler(req: Request, res: Response) {
 
 const productSchema = z.object({
   categoryId: z.number(),
+  categoryIds: z.array(z.number()).optional(),
   subcategoryId: z.number().nullable().optional(),
   name: z.string().min(1),
   description: z.string().optional(),

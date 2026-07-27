@@ -40,43 +40,47 @@ export default function Header({ categories }: { categories: Category[] }) {
         solid ? 'border-b border-neutral-200 bg-white/95 backdrop-blur' : 'bg-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center rounded-xl bg-white/95 p-1 shadow-sm">
-          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-12 w-auto sm:h-14" priority />
+      <div className="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <Link href="/" className="flex flex-shrink-0 items-center rounded-lg bg-white/95 px-2 py-1">
+          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
         </Link>
 
-        <NavDropdown categories={categories} light={!solid} />
-
-        <div className="hidden md:block">
-          <SearchBar light={!solid} />
+        {/* Center nav */}
+        <div className="flex flex-1 items-center justify-center">
+          <NavDropdown categories={categories} light={!solid} />
         </div>
 
-        <div className="flex items-center gap-4">
+        {/* Right actions */}
+        <div className="flex flex-shrink-0 items-center gap-4">
+          <div className="hidden md:block">
+            <SearchBar light={!solid} />
+          </div>
           <Link
             href="/faq"
-            className={`hidden text-xs font-semibold uppercase tracking-wide transition-colors hover:text-brand lg:inline ${
-              solid ? 'text-neutral-600' : 'text-white/90'
+            className={`hidden text-xs font-semibold uppercase tracking-wide transition-colors lg:inline ${
+              solid ? 'text-neutral-600 hover:text-neutral-900' : 'text-white/90 hover:text-white'
             }`}
           >
             FAQ
           </Link>
           <Link
             href="/bulk-orders"
-            className={`hidden text-xs font-semibold uppercase tracking-wide transition-colors hover:text-brand lg:inline ${
-              solid ? 'text-neutral-600' : 'text-white/90'
+            className={`hidden text-xs font-semibold uppercase tracking-wide transition-colors lg:inline ${
+              solid ? 'text-neutral-600 hover:text-neutral-900' : 'text-white/90 hover:text-white'
             }`}
           >
             Bulk Orders
           </Link>
           <Link
             href="/cart"
-            className={`relative text-xs font-semibold uppercase tracking-wide transition-colors hover:text-brand ${
-              solid ? 'text-neutral-800' : 'text-white'
+            className={`relative text-xs font-semibold uppercase tracking-wide transition-colors ${
+              solid ? 'text-neutral-800 hover:text-neutral-900' : 'text-white hover:text-white/80'
             }`}
           >
             Cart
             {count > 0 && (
-              <span className="absolute -right-3 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-[11px] font-normal normal-case text-white">
+              <span className="absolute -right-3 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-neutral-900 text-[11px] font-normal normal-case text-white">
                 {count}
               </span>
             )}
@@ -101,7 +105,7 @@ export default function Header({ categories }: { categories: Category[] }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="py-1 text-sm font-semibold uppercase tracking-wide text-neutral-800 hover:text-brand"
+                className="py-1 text-sm font-semibold uppercase tracking-wide text-neutral-800 hover:text-neutral-900"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}

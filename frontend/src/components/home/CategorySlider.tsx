@@ -9,13 +9,13 @@ export default function CategorySlider({ categories }: { categories: Category[] 
   if (categories.length === 0) return null;
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-20 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mb-10 text-center"
+        className="mb-6 text-center sm:mb-10"
       >
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand">Collections</p>
         <h2 className="mt-2 text-3xl font-bold uppercase tracking-tight text-neutral-900">Shop by Category</h2>
@@ -49,9 +49,6 @@ export default function CategorySlider({ categories }: { categories: Category[] 
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
               <div className="relative z-10 flex w-full flex-col justify-end p-8">
-                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.25em] text-brand">
-                  {`0${i + 1}`}
-                </p>
                 <h3 className="text-2xl font-bold uppercase tracking-tight text-white">{cat.name}</h3>
                 {cat.description && (
                   <p className="mt-2 text-sm text-neutral-300 line-clamp-2">{cat.description}</p>

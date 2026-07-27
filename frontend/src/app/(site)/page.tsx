@@ -2,7 +2,7 @@ import HeroIntro from '@/components/home/HeroIntro';
 import HeroSlider from '@/components/home/HeroSlider';
 import CategorySlider from '@/components/home/CategorySlider';
 import CustomOrderSteps from '@/components/home/CustomOrderSteps';
-import ProductGrid from '@/components/catalog/ProductGrid';
+import ProductMarquee from '@/components/home/ProductMarquee';
 import VisitBeacon from '@/components/VisitBeacon';
 import CurvedDivider from '@/components/motion/CurvedDivider';
 import Reveal from '@/components/motion/Reveal';
@@ -57,18 +57,15 @@ export default async function HomePage() {
 
       <CategorySlider categories={categories} />
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <Reveal className="mb-10 flex items-end justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand">Explore Everything</p>
-            <h2 className="mt-2 text-3xl font-bold uppercase tracking-tight text-neutral-900">All Products</h2>
-          </div>
-          <Link href="/new" className="text-sm font-semibold uppercase tracking-wide text-brand hover:underline">
+      <section className="py-10 sm:py-20">
+        <Reveal className="mx-auto mb-6 flex max-w-7xl items-end justify-between px-4 sm:mb-10 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold tracking-tight text-neutral-900">Explore Everything</h2>
+          <Link href="/new" className="flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-neutral-900 hover:underline">
             View all →
           </Link>
         </Reveal>
         <Reveal delay={0.1}>
-          <ProductGrid products={products} />
+          <ProductMarquee products={products} />
         </Reveal>
       </section>
 

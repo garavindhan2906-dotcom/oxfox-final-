@@ -55,6 +55,7 @@ export interface Product {
   is_active: boolean;
   in_stock: boolean;
   stock_qty: number | null;
+  categoryIds?: number[];
   category_name?: string;
   category_slug?: string;
   subcategory_name?: string;

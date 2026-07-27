@@ -7,7 +7,9 @@ import type { Category } from '@/types';
 
 export default function NavDropdown({ categories, light = false }: { categories: Category[]; light?: boolean }) {
   const [moldsOpen, setMoldsOpen] = useState(false);
-  const linkColor = light ? 'text-white/90' : 'text-neutral-800';
+  const linkColor = light
+    ? 'text-white/90 hover:text-white'
+    : 'text-neutral-700 hover:text-neutral-900';
 
   return (
     <nav className="hidden items-center gap-7 md:flex">
@@ -21,7 +23,7 @@ export default function NavDropdown({ categories, light = false }: { categories:
           >
             <Link
               href={link.href}
-              className={`text-xs font-semibold uppercase tracking-wide transition-colors hover:text-brand ${linkColor}`}
+              className={`whitespace-nowrap text-xs font-semibold uppercase tracking-wide transition-colors ${linkColor}`}
             >
               {link.label}
             </Link>
@@ -35,7 +37,7 @@ export default function NavDropdown({ categories, light = false }: { categories:
                     <Link
                       key={cat.id}
                       href={`/molds/${cat.slug}`}
-                      className="block rounded px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 hover:text-brand"
+                      className="block rounded px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
                     >
                       {cat.emoji ? `${cat.emoji} ` : ''}
                       {cat.name}
@@ -49,7 +51,7 @@ export default function NavDropdown({ categories, light = false }: { categories:
           <Link
             key={link.href}
             href={link.href}
-            className={`text-xs font-semibold uppercase tracking-wide transition-colors hover:text-brand ${linkColor}`}
+            className={`whitespace-nowrap text-xs font-semibold uppercase tracking-wide transition-colors ${linkColor}`}
           >
             {link.label}
           </Link>

@@ -3,8 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --oxfox-brand: #ec4899;
-  --oxfox-brand-dark: #db2777;
+  --oxfox-brand: #1A1A1A;
+  --oxfox-brand-dark: #000000;
 }
 
 @theme inline {
@@ -13,12 +13,22 @@
   --color-brand: var(--oxfox-brand);
   --color-brand-dark: var(--oxfox-brand-dark);
   --font-sans: var(--font-poppins);
+  --font-display: var(--font-playfair-display);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-playfair-display), Georgia, 'Times New Roman', serif;
+}
+
+@keyframes oxfox-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Shared 3:4 portrait media box used for product/category/community imagery site-wide. */
