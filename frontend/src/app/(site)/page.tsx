@@ -81,35 +81,41 @@ export default async function HomePage() {
       </section>
 
       {communityImages.length > 0 && (
-        <section className="py-10 sm:py-20">
-          <Reveal className="mx-auto mb-6 flex max-w-7xl items-end justify-between px-4 sm:mb-10 sm:px-6 lg:px-8">
+        <section className="overflow-hidden py-10 sm:py-20">
+          <Reveal className="mx-auto mb-8 flex max-w-7xl items-end justify-between px-4 sm:mb-12 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold tracking-tight text-neutral-900">Community</h2>
             <Link href="/community" className="flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-neutral-900 hover:underline">
               View all →
             </Link>
           </Reveal>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="columns-2 gap-3 sm:columns-3 lg:columns-4">
-              {communityImages.slice(0, 8).map((img) => (
-                <div key={img.id} className="mb-3 break-inside-avoid overflow-hidden rounded-2xl">
-                  <div className="relative w-full">
-                    <SmartImage
-                      src={img.image_url}
-                      alt={img.caption ?? 'Community'}
-                      width={400}
-                      height={500}
-                      sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 20vw"
-                      className="h-auto w-full object-cover"
-                    />
-                    {img.caption && (
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-3">
-                        <p className="text-xs text-white/80 line-clamp-2">{img.caption}</p>
-                      </div>
-                    )}
-                  </div>
+          <div className="flex flex-wrap justify-center gap-6 px-4 sm:gap-10">
+            {communityImages.slice(0, 8).map((img, i) => {
+              const clipPaths = [
+                'circle(50% at 50% 50%)',
+                'polygon(50% 0%, 0% 100%, 100% 100%)',
+                'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
+                'circle(50% at 50% 50%)',
+                'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
+                'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                'circle(50% at 50% 50%)',
+              ];
+              return (
+                <div
+                  key={img.id}
+                  className="relative h-32 w-32 flex-shrink-0 sm:h-44 sm:w-44"
+                  style={{ clipPath: clipPaths[i] }}
+                >
+                  <SmartImage
+                    src={img.image_url}
+                    alt={img.caption ?? 'Community'}
+                    fill
+                    sizes="176px"
+                    className="object-cover"
+                  />
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </section>
       )}
