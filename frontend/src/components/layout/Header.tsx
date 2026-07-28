@@ -90,10 +90,12 @@ export default function Header({ categories }: { categories: Category[] }) {
           <Link href="/bulk-orders" className="text-xs font-semibold uppercase tracking-wide text-neutral-600 hover:text-neutral-900">
             Bulk Orders
           </Link>
-          <Link href="/cart" className="relative text-xs font-semibold uppercase tracking-wide text-neutral-800 hover:text-neutral-900">
-            Cart
+          <Link href="/cart" aria-label="Cart" className="relative text-neutral-800 hover:text-neutral-900">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
             {count > 0 && (
-              <span className="absolute -right-3 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-[11px] font-normal normal-case text-white">
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brand text-[10px] font-normal text-white">
                 {count}
               </span>
             )}
