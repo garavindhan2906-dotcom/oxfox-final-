@@ -15,7 +15,7 @@ export default function ProductMarquee({ products }: { products: Product[] }) {
         style={{
           width: 'max-content',
           willChange: 'transform',
-          animation: 'oxfox-marquee 6s linear infinite',
+          animation: 'oxfox-marquee 20s linear infinite',
         }}
       >
         {items.map((product, i) => (
