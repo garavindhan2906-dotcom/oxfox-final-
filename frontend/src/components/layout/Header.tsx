@@ -46,7 +46,7 @@ export default function Header({ categories }: { categories: Category[] }) {
 
         {/* Centered logo */}
         <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
+          <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
         </Link>
 
         {/* Right icons */}
@@ -78,7 +78,7 @@ export default function Header({ categories }: { categories: Category[] }) {
       <div className="hidden items-center px-6 py-2.5 md:flex lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex flex-shrink-0 items-center">
-          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
+          <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
         </Link>
 
         {/* Center nav links */}
