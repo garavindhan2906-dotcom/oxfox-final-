@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import NavDropdown from './NavDropdown';
@@ -29,12 +28,12 @@ export default function Header({ categories }: { categories: Category[] }) {
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${bgClass}`}>
       {/* Announcement bar */}
-      <div className="w-full bg-[#EDE8E2] py-1.5 text-center text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-600">
+      <div className="w-full bg-[#EDE8E2] py-1 text-center text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-500">
         Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
       </div>
 
       {/* ── Mobile nav ── */}
-      <div className="flex items-center justify-between px-4 py-3 md:hidden">
+      <div className="flex items-center justify-between px-4 py-2.5 md:hidden">
         {/* Hamburger */}
         <button
           className="text-2xl leading-none text-neutral-700"
@@ -46,14 +45,19 @@ export default function Header({ categories }: { categories: Category[] }) {
 
         {/* Centered logo */}
         <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
+          <span className="font-display text-2xl font-semibold tracking-[0.12em] text-[#2A1F14]">OXFOX</span>
         </Link>
 
         {/* Right icons */}
         <div className="flex items-center gap-4">
-          <Link href="/search" aria-label="Search" className="text-neutral-700">
+          <Link href="/search" aria-label="Search" className="text-neutral-700 hover:text-neutral-900">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
               <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+            </svg>
+          </Link>
+          <Link href="/admin/login" aria-label="Account" className="text-neutral-700 hover:text-neutral-900">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
             </svg>
           </Link>
           <Link href="/cart" aria-label="Cart" className="relative text-neutral-700">
@@ -70,10 +74,10 @@ export default function Header({ categories }: { categories: Category[] }) {
       </div>
 
       {/* ── Desktop nav ── */}
-      <div className="hidden items-center px-6 py-3 md:flex lg:px-8">
+      <div className="hidden items-center px-6 py-2.5 md:flex lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex flex-shrink-0 items-center">
-          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
+          <span className="font-display text-2xl font-semibold tracking-[0.12em] text-[#2A1F14]">OXFOX</span>
         </Link>
 
         {/* Center nav links */}
@@ -84,6 +88,16 @@ export default function Header({ categories }: { categories: Category[] }) {
         {/* Right actions */}
         <div className="flex flex-shrink-0 items-center gap-5">
           <SearchBar light={false} />
+          <Link href="/search" aria-label="Search" className="text-neutral-600 hover:text-neutral-900">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+            </svg>
+          </Link>
+          <Link href="/admin/login" aria-label="Account" className="text-neutral-600 hover:text-neutral-900">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+          </Link>
           <Link href="/faq" className="text-xs font-semibold uppercase tracking-wide text-neutral-600 hover:text-neutral-900">
             FAQ
           </Link>

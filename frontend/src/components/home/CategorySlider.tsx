@@ -46,12 +46,12 @@ export default function CategorySlider({ categories }: { categories: Category[] 
                 <div className="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-neutral-900" />
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute inset-0 bg-black/40" />
 
-              <div className="relative z-10 flex w-full flex-col justify-end p-8">
-                <h3 className="text-2xl font-bold uppercase tracking-tight text-white">{cat.name}</h3>
-                <span className="mt-4 inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur-sm transition-colors group-hover:bg-neutral-900">
-                  Shop {cat.name} →
+              <div className="relative z-10 flex w-full flex-col items-center justify-center p-8 text-center">
+                <h3 className="font-display text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">{cat.name}</h3>
+                <span className="mt-5 inline-flex items-center gap-2 border border-white px-7 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-colors group-hover:bg-white group-hover:text-neutral-900">
+                  Shop {cat.name}
                 </span>
               </div>
             </Link>

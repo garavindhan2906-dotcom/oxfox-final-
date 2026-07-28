@@ -1,6 +1,5 @@
 'use client';
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import SmartImage from '@/components/SmartImage';
 import { addToCart } from '@/lib/cart';
@@ -14,7 +13,15 @@ const BADGE_LABEL: Record<string, string> = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
+  const [currentImage, setCurrentImage] = useState(0);
   const [added, setAdded] = useState(false);
+
+const images =
+  product.images && product.images.length > 0
+    ? product.images.map((img) => img.file_path)
+    : product.primary_image
+      ? [product.primary_image]
+      : [];
 
   const discount =
     product.mrp != null && product.price != null && product.mrp > product.price
@@ -27,7 +34,15 @@ export default function ProductCard({ product }: { product: Product }) {
       : product.is_new
         ? 'New'
         : null;
+useEffect(() => {
+  if (images.length <= 1) return;
 
+  const interval = setInterval(() => {
+    setCurrentImage((prev) => (prev + 1) % images.length);
+  }, 2000);
+
+  return () => clearInterval(interval);
+ }, [images]);
   function handleAddToCart() {
     if (!product.price) return;
     addToCart({
@@ -48,7 +63,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <Link href={`/product/${product.slug}`} className="relative block aspect-square overflow-hidden bg-neutral-50">
         {product.primary_image ? (
           <SmartImage
-            src={product.primary_image}
+            src={images[currentImage]}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"

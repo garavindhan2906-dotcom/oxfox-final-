@@ -12,7 +12,7 @@ export default function ProductMarquee({ products }: { products: Product[] }) {
     <div className="overflow-hidden py-2">
       <div
         className="flex gap-4"
-        style={{ animation: 'oxfox-marquee 40s linear infinite' }}
+        style={{ animation: 'oxfox-marquee 25s linear infinite' }}
       >
         {items.map((product, i) => (
           <Link

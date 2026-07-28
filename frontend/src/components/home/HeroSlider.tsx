@@ -9,7 +9,7 @@ interface HeroImage {
   image_url: string;
 }
 
-export default function HeroSlider({ images, subheading }: { images: HeroImage[]; subheading: string }) {
+export default function HeroSlider({ images }: { images: HeroImage[] }) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -20,25 +20,20 @@ export default function HeroSlider({ images, subheading }: { images: HeroImage[]
     return () => clearInterval(timer);
   }, [images.length]);
 
-  /* ── No images: warm cream hero (matches reference design) ── */
+  /* ── No images: warm cream hero ── */
   if (images.length === 0) {
     return (
-      <section className="flex min-h-[60vh] w-full items-center bg-[#FAF8F5] pt-24 sm:min-h-screen sm:pt-32">
-        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
-          <div className="max-w-2xl text-center sm:text-left">
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#2A1F14] sm:text-6xl lg:text-7xl">
-              Molds That Bring Ideas to Life
-            </h1>
-            <p className="mt-5 text-base leading-relaxed text-neutral-600 sm:text-lg">
-              Premium food grade silicone molds for candles, chocolates, jars, décor and more.
-            </p>
-            <Link
-              href="/molds"
-              className="mt-8 inline-block bg-[#3B2A1C] px-10 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#2A1F14]"
-            >
-              Shop Collection
-            </Link>
-          </div>
+      <section className="flex min-h-screen w-full items-center justify-center bg-[#FAF8F5] pt-20">
+        <div className="mx-auto w-full max-w-3xl px-6 text-center sm:px-8">
+          <h1 className="font-display text-5xl font-bold uppercase leading-tight tracking-tight text-[#2A1F14] sm:text-7xl lg:text-8xl">
+            Molds That Bring Ideas to Life
+          </h1>
+          <Link
+            href="/molds"
+            className="mt-10 inline-block border border-[#3B2A1C] px-10 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-[#3B2A1C] transition-colors hover:bg-[#3B2A1C] hover:text-white"
+          >
+            Shop Collection
+          </Link>
         </div>
       </section>
     );
@@ -58,27 +53,19 @@ export default function HeroSlider({ images, subheading }: { images: HeroImage[]
         </div>
       ))}
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-10 sm:px-8 sm:py-28">
-        <div className="max-w-xl">
-          <h1
-            className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl"
-            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}
-          >
-            3D Design + Handcrafted Silicone Molds
-          </h1>
-          <p
-            className="mt-4 hidden text-base text-white/90 sm:block sm:text-lg"
-            style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}
-          >
-            {subheading}
-          </p>
-          <Link
-            href="/molds"
-            className="mt-8 inline-block border-2 border-white bg-white px-8 py-3 text-sm font-semibold uppercase tracking-wide text-[#2A1F14] transition-colors hover:bg-transparent hover:text-white"
-          >
-            Shop Collection
-          </Link>
-        </div>
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-6 py-10 text-center sm:px-8 sm:py-28">
+        <h1
+          className="font-display text-5xl font-bold uppercase leading-tight tracking-tight text-white sm:text-7xl"
+          style={{ textShadow: '0 2px 16px rgba(0,0,0,0.55)' }}
+        >
+          Molds That Bring Ideas to Life
+        </h1>
+        <Link
+          href="/molds"
+          className="mt-10 inline-block border-2 border-white px-10 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white hover:text-[#2A1F14]"
+        >
+          Shop Collection
+        </Link>
       </div>
 
       {images.length > 1 && (

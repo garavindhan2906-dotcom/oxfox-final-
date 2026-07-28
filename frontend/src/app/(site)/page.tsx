@@ -10,7 +10,7 @@ import PromoBanner from '@/components/layout/PromoBanner';
 import SmartImage from '@/components/SmartImage';
 import { apiFetch } from '@/lib/api';
 import type { Category, Product } from '@/types';
-import { HOMEPAGE_INTRO } from '@/lib/constants';
+
 import Link from 'next/link';
 
 async function getCategories(): Promise<Category[]> {
@@ -61,7 +61,7 @@ export default async function HomePage() {
     <>
       <VisitBeacon pageType="homepage" />
 
-      <HeroSlider images={heroImages} subheading={HOMEPAGE_INTRO} />
+      <HeroSlider images={heroImages} />
       <CurvedDivider color="white" />
 
       <HeroIntro />
