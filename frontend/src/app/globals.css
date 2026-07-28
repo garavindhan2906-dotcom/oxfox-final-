@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --oxfox-brand: #1A1A1A;
-  --oxfox-brand-dark: #000000;
+  --background: #FAF8F5;
+  --foreground: #2A1F14;
+  --oxfox-brand: #3B2A1C;
+  --oxfox-brand-dark: #2A1F14;
 }
 
 @theme inline {

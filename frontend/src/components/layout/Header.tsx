@@ -12,7 +12,6 @@ import type { Category } from '@/types';
 export default function Header({ categories }: { categories: Category[] }) {
   const [count, setCount] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const sync = () => setCount(cartCount(getCart()));
@@ -25,98 +24,102 @@ export default function Header({ categories }: { categories: Category[] }) {
     };
   }, []);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 64);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const solid = scrolled || mobileOpen;
+  const bgClass = 'bg-[#FAF8F5]/95 backdrop-blur border-b border-[#E8E2DA]';
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        solid ? 'border-b border-neutral-200 bg-white/95 backdrop-blur' : 'bg-transparent'
-      }`}
-    >
-      <div className="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <Link href="/" className="flex flex-shrink-0 items-center rounded-lg bg-white/95 px-2 py-1">
+    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${bgClass}`}>
+      {/* Announcement bar */}
+      <div className="w-full bg-[#EDE8E2] py-1.5 text-center text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-600">
+        Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
+      </div>
+
+      {/* ── Mobile nav ── */}
+      <div className="flex items-center justify-between px-4 py-3 md:hidden">
+        {/* Hamburger */}
+        <button
+          className="text-2xl leading-none text-neutral-700"
+          aria-label="Toggle menu"
+          onClick={() => setMobileOpen((o) => !o)}
+        >
+          {mobileOpen ? '✕' : '☰'}
+        </button>
+
+        {/* Centered logo */}
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
         </Link>
 
-        {/* Center nav */}
-        <div className="flex flex-1 items-center justify-center">
-          <NavDropdown categories={categories} light={!solid} />
-        </div>
-
-        {/* Right actions */}
-        <div className="flex flex-shrink-0 items-center gap-4">
-          <div className="hidden md:block">
-            <SearchBar light={!solid} />
-          </div>
-          <Link
-            href="/faq"
-            className={`hidden text-xs font-semibold uppercase tracking-wide transition-colors lg:inline ${
-              solid ? 'text-neutral-600 hover:text-neutral-900' : 'text-white/90 hover:text-white'
-            }`}
-          >
-            FAQ
+        {/* Right icons */}
+        <div className="flex items-center gap-4">
+          <Link href="/search" aria-label="Search" className="text-neutral-700">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+            </svg>
           </Link>
-          <Link
-            href="/bulk-orders"
-            className={`hidden text-xs font-semibold uppercase tracking-wide transition-colors lg:inline ${
-              solid ? 'text-neutral-600 hover:text-neutral-900' : 'text-white/90 hover:text-white'
-            }`}
-          >
-            Bulk Orders
-          </Link>
-          <Link
-            href="/cart"
-            className={`relative text-xs font-semibold uppercase tracking-wide transition-colors ${
-              solid ? 'text-neutral-800 hover:text-neutral-900' : 'text-white hover:text-white/80'
-            }`}
-          >
-            Cart
+          <Link href="/cart" aria-label="Cart" className="relative text-neutral-700">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
             {count > 0 && (
-              <span className="absolute -right-3 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-neutral-900 text-[11px] font-normal normal-case text-white">
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brand text-[10px] text-white">
                 {count}
               </span>
             )}
           </Link>
-          <button
-            className={`md:hidden ${solid ? 'text-neutral-800' : 'text-white'}`}
-            aria-label="Toggle menu"
-            onClick={() => setMobileOpen((o) => !o)}
-          >
-            {mobileOpen ? '✕' : '☰'}
-          </button>
         </div>
       </div>
 
+      {/* ── Desktop nav ── */}
+      <div className="hidden items-center px-6 py-3 md:flex lg:px-8">
+        {/* Logo */}
+        <Link href="/" className="flex flex-shrink-0 items-center">
+          <Image src="/logo.jpeg" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />
+        </Link>
+
+        {/* Center nav links */}
+        <div className="flex flex-1 items-center justify-center">
+          <NavDropdown categories={categories} light={false} />
+        </div>
+
+        {/* Right actions */}
+        <div className="flex flex-shrink-0 items-center gap-5">
+          <SearchBar light={false} />
+          <Link href="/faq" className="text-xs font-semibold uppercase tracking-wide text-neutral-600 hover:text-neutral-900">
+            FAQ
+          </Link>
+          <Link href="/bulk-orders" className="text-xs font-semibold uppercase tracking-wide text-neutral-600 hover:text-neutral-900">
+            Bulk Orders
+          </Link>
+          <Link href="/cart" className="relative text-xs font-semibold uppercase tracking-wide text-neutral-800 hover:text-neutral-900">
+            Cart
+            {count > 0 && (
+              <span className="absolute -right-3 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-[11px] font-normal normal-case text-white">
+                {count}
+              </span>
+            )}
+          </Link>
+        </div>
+      </div>
+
+      {/* Mobile menu drawer */}
       {mobileOpen && (
-        <div className="border-t border-neutral-200 bg-white px-4 py-3 md:hidden">
-          <div className="mb-3">
+        <div className="border-t border-neutral-200 bg-[#FAF8F5] px-4 py-4 md:hidden">
+          <div className="mb-4">
             <SearchBar />
           </div>
-          <nav className="flex flex-col gap-2">
+          <nav className="flex flex-col gap-3">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="py-1 text-sm font-semibold uppercase tracking-wide text-neutral-800 hover:text-neutral-900"
+                className="border-b border-neutral-100 py-2 text-sm font-semibold uppercase tracking-wide text-neutral-800"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/faq" className="py-1 text-sm text-neutral-600" onClick={() => setMobileOpen(false)}>
-              FAQ
-            </Link>
-            <Link href="/bulk-orders" className="py-1 text-sm text-neutral-600" onClick={() => setMobileOpen(false)}>
-              Bulk Orders
-            </Link>
+            <Link href="/faq" className="py-2 text-sm text-neutral-600" onClick={() => setMobileOpen(false)}>FAQ</Link>
+            <Link href="/bulk-orders" className="py-2 text-sm text-neutral-600" onClick={() => setMobileOpen(false)}>Bulk Orders</Link>
           </nav>
         </div>
       )}
