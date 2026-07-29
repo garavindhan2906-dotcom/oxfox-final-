@@ -2,15 +2,13 @@ import HeroIntro from '@/components/home/HeroIntro';
 import HeroSlider from '@/components/home/HeroSlider';
 import CategorySlider from '@/components/home/CategorySlider';
 import CustomOrderSteps from '@/components/home/CustomOrderSteps';
-import ProductMarquee from '@/components/home/ProductMarquee';
+import HomeProductGrid from '@/components/home/HomeProductGrid';
 import VisitBeacon from '@/components/VisitBeacon';
 import CurvedDivider from '@/components/motion/CurvedDivider';
-import Reveal from '@/components/motion/Reveal';
 import PromoBanner from '@/components/layout/PromoBanner';
 import SmartImage from '@/components/SmartImage';
 import { apiFetch } from '@/lib/api';
 import type { Category, Product } from '@/types';
-
 import Link from 'next/link';
 
 async function getCategories(): Promise<Category[]> {
@@ -24,7 +22,7 @@ async function getCategories(): Promise<Category[]> {
 
 async function getAllProducts(): Promise<Product[]> {
   try {
-    const { products } = await apiFetch<{ products: Product[] }>('/api/products?sort=new&limit=20');
+    const { products } = await apiFetch<{ products: Product[] }>('/api/products?sort=new&limit=6');
     return products;
   } catch {
     return [];
@@ -118,54 +116,60 @@ export default async function HomePage() {
 
       <CategorySlider categories={categories} />
 
-      <section className="py-10 sm:py-20">
-        <Reveal className="mx-auto mb-6 flex max-w-7xl items-end justify-between px-4 sm:mb-10 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-neutral-900">Explore Everything</h2>
-          <Link href="/new" className="flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-neutral-900 hover:underline">
-            View all →
+      {/* Explore Everything */}
+      <section className="bg-[#FAF8F5] px-4 py-10 sm:px-6 sm:py-16">
+        <div className="mb-5 flex items-start justify-between">
+          <div>
+            <h2 className="font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Explore Everything</h2>
+            <p className="mt-1 text-sm text-neutral-500">Handpicked favorites, just for you.</p>
+          </div>
+          <Link
+            href="/new"
+            className="flex-shrink-0 rounded-full border border-neutral-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-700 hover:bg-neutral-50"
+          >
+            View All →
           </Link>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <ProductMarquee products={products} />
-        </Reveal>
+        </div>
+        <HomeProductGrid products={products} />
       </section>
 
+      {/* Community */}
       {communityImages.length > 0 && (
-        <section className="overflow-hidden py-10 sm:py-20">
-          <Reveal className="mx-auto mb-8 flex max-w-7xl items-end justify-between px-4 sm:mb-12 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold tracking-tight text-neutral-900">Community</h2>
-            <Link href="/community" className="flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-neutral-900 hover:underline">
-              View all →
+        <section className="bg-[#FAF8F5] px-4 pb-10 sm:px-6 sm:pb-16">
+          <div className="mb-5 flex items-start justify-between">
+            <div>
+              <h2 className="font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Community</h2>
+              <p className="mt-1 text-sm text-neutral-500">Real creations from our amazing makers.</p>
+            </div>
+            <Link
+              href="/community"
+              className="flex-shrink-0 rounded-full border border-neutral-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-700 hover:bg-neutral-50"
+            >
+              View All →
             </Link>
-          </Reveal>
-          <div className="flex flex-wrap justify-center gap-6 px-4 sm:gap-10">
-            {communityImages.slice(0, 8).map((img, i) => {
-              const clipPaths = [
-                'circle(50% at 50% 50%)',
-                'polygon(50% 0%, 0% 100%, 100% 100%)',
-                'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-                'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
-                'circle(50% at 50% 50%)',
-                'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
-                'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-                'circle(50% at 50% 50%)',
-              ];
-              return (
-                <div
-                  key={img.id}
-                  className="relative h-32 w-32 flex-shrink-0 sm:h-44 sm:w-44"
-                  style={{ clipPath: clipPaths[i] }}
-                >
-                  <SmartImage
-                    src={img.image_url}
-                    alt={img.caption ?? 'Community'}
-                    fill
-                    sizes="176px"
-                    className="object-cover"
-                  />
-                </div>
-              );
-            })}
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {communityImages.slice(0, 4).map((img) => (
+              <Link key={img.id} href="/community" className="group relative aspect-square overflow-hidden rounded-2xl bg-neutral-200">
+                <SmartImage
+                  src={img.image_url}
+                  alt={img.caption ?? 'Community'}
+                  fill
+                  sizes="(max-width: 640px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {img.caption && (
+                  <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/80 text-[8px] font-bold text-neutral-700">
+                      {img.caption.replace('@', '').charAt(0).toUpperCase()}
+                    </div>
+                    <span className="rounded-full bg-black/40 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">
+                      {img.caption.startsWith('@') ? img.caption : `@${img.caption}`}
+                    </span>
+                  </div>
+                )}
+              </Link>
+            ))}
           </div>
         </section>
       )}
