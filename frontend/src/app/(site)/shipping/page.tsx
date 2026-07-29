@@ -1,111 +1,172 @@
 import type { Metadata } from 'next';
 import VisitBeacon from '@/components/VisitBeacon';
-import PageHero from '@/components/motion/PageHero';
-import Reveal from '@/components/motion/Reveal';
-import ShippingImageSlider from '@/components/shipping/ShippingImageSlider';
-import { apiFetch } from '@/lib/api';
 
 export const metadata: Metadata = {
   title: 'Shipping & Delivery | OXFOX Studio',
-  description: 'Shipping zones, delivery timelines, and rates for OXFOX silicone molds across India.',
+  description: 'Shipping zones, delivery timelines, and packaging details for OXFOX silicone molds across India.',
 };
 
-interface ShippingInfo {
-  id: number;
-  title: string | null;
-  description: string | null;
-}
+const faqs = [
+  { q: 'Do you ship across India?', a: 'Yes! We ship to all states and cities across India through trusted courier partners.' },
+  { q: 'When will my order ship?', a: 'Orders are dispatched within 2–3 business days of confirmation.' },
+  { q: 'How are molds packed?', a: 'Every mold is bubble-wrapped and placed in a sturdy carton box with a thank-you sticker.' },
+  { q: 'Can I track my order?', a: 'Yes, you will receive a tracking link via WhatsApp/email once your order is shipped.' },
+];
 
-interface ShippingImage {
-  id: number;
-  image_url: string;
-}
+const deliveryZones = [
+  { zone: 'Tamil Nadu', days: '2 – 4 business days' },
+  { zone: 'South India', days: '3 – 5 business days' },
+  { zone: 'North & West India', days: '4 – 7 business days' },
+  { zone: 'Remote Areas', days: '5 – 9 business days' },
+];
 
-async function getShippingData(): Promise<{ info: ShippingInfo | null; images: ShippingImage[] }> {
-  try {
-    const { shipping, images } = await apiFetch<{ shipping: ShippingInfo | null; images: ShippingImage[] }>('/api/shipping');
-    return { info: shipping, images: images ?? [] };
-  } catch {
-    return { info: null, images: [] };
-  }
-}
+const packingSteps = [
+  { step: '1', label: 'You Order' },
+  { step: '2', label: 'Quality Check' },
+  { step: '3', label: 'Bubble Wrapped' },
+  { step: '4', label: 'Thank You Sticker' },
+  { step: '5', label: 'Secure Carton Box' },
+  { step: '6', label: 'Shipped With Care' },
+];
 
-export default async function ShippingPage() {
-  const { info, images } = await getShippingData();
-
-  const heading = info?.title || 'Shipping & Delivery';
-  const description = info?.description || 'We deliver premium silicone molds across India. Orders are carefully packed and dispatched within 2–3 business days.';
-
+export default function ShippingPage() {
   return (
-    <div>
+    <div className="min-h-screen bg-[#FAF8F5]">
       <VisitBeacon pageType="shipping" />
-      <PageHero eyebrow="Delivery Info" heading={heading} />
 
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-        <Reveal>
-          <p className="text-center text-base leading-relaxed text-neutral-600 sm:text-lg">{description}</p>
-        </Reveal>
+      {/* Hero */}
+      <div className="flex items-center justify-between px-5 pb-6 pt-24 sm:px-8 sm:pt-28">
+        <div className="max-w-xs">
+          <h1 className="font-display text-4xl font-bold leading-tight text-[#2A1F14] sm:text-5xl">
+            Shipping &amp;<br />Delivery
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-neutral-500">
+            Carefully packed in the Nilgiris and delivered across India.
+          </p>
+        </div>
+        {/* Image placeholder — replace src when image is ready */}
+        <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-2xl bg-neutral-200 sm:h-40 sm:w-40">
+          <div className="flex h-full w-full items-center justify-center text-xs text-neutral-400">📦 Image</div>
+        </div>
+      </div>
 
-        {images.length > 0 ? (
-          <Reveal delay={0.1}>
-            <ShippingImageSlider images={images} />
-          </Reveal>
-        ) : (
-          <Reveal delay={0.1} className="mt-12">
-            <div className="rounded-2xl bg-neutral-50 px-8 py-12 text-center">
-              <div className="mb-4 flex justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-[#3B2A1C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M1 3h13v13H1z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 8h4l3 3v5h-7V8z" />
-                  <circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" />
-                </svg>
+      {/* 4-feature strip */}
+      <div className="mx-4 grid grid-cols-4 divide-x divide-neutral-200 rounded-2xl border border-neutral-200 bg-white sm:mx-6">
+        {[
+          {
+            icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M1 3h13v13H1zM14 8h4l3 3v5h-7V8z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></>,
+            title: 'Ships in\n2–3 Days',
+            desc: 'Orders dispatched within 2–3 business days',
+          },
+          {
+            icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M3 12h18M12 3C8 7 6 10 6 12s2 5 6 9c4-4 6-7 6-9s-2-5-6-9Z" /></>,
+            title: 'Pan India\nDelivery',
+            desc: 'Delivered to all major cities and states',
+          },
+          {
+            icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path strokeLinecap="round" strokeLinejoin="round" d="m9 12 2 2 4-4" /></>,
+            title: 'Safe & Secure\nPackaging',
+            desc: 'Every mold packed with extra care',
+          },
+          {
+            icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" /></>,
+            title: 'Premium\nQuality',
+            desc: 'High quality molds, made to last',
+          },
+        ].map(({ icon, title, desc }) => (
+          <div key={title} className="flex flex-col items-center px-2 py-5 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-[#3B2A1C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
+              {icon}
+            </svg>
+            <p className="mt-2 whitespace-pre-line text-[10px] font-bold leading-tight text-neutral-800 sm:text-xs">{title}</p>
+            <p className="mt-1 hidden text-[9px] leading-tight text-neutral-400 sm:block">{desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Packed With Care */}
+      <div className="mx-4 mt-4 flex items-center gap-4 rounded-2xl bg-white p-4 sm:mx-6 sm:p-6">
+        {/* Image placeholder */}
+        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-neutral-100 sm:h-32 sm:w-32">
+          <div className="flex h-full w-full items-center justify-center text-xs text-neutral-300">📦</div>
+        </div>
+        <div>
+          <h2 className="font-display text-lg font-bold text-[#2A1F14]">Packed With Care 🧡</h2>
+          <p className="mt-1.5 text-xs leading-relaxed text-neutral-500 sm:text-sm">
+            Each mold is protected with bubble packaging and shipped in a sturdy carton box to ensure it reaches you in perfect condition.
+          </p>
+        </div>
+      </div>
+
+      {/* Our Packing Process */}
+      <div className="mx-4 mt-4 rounded-2xl bg-white p-5 sm:mx-6">
+        <h2 className="mb-4 text-center text-sm font-bold uppercase tracking-[0.15em] text-[#2A1F14]">Our Packing Process</h2>
+        <div className="flex items-start justify-between gap-1 overflow-x-auto">
+          {packingSteps.map((s, i) => (
+            <div key={s.step} className="flex min-w-0 flex-1 flex-col items-center gap-1">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#3B2A1C] text-xs font-bold text-[#3B2A1C]">
+                {s.step}
               </div>
-              <h2 className="text-lg font-bold text-neutral-800">Pan-India Delivery</h2>
-              <p className="mt-2 text-sm text-neutral-500">
-                We ship to all major cities and states via trusted courier partners. Detailed shipping zones and rates coming soon.
-              </p>
+              {i < packingSteps.length - 1 && (
+                <div className="absolute mt-5 h-0.5 w-full -translate-y-1/2 bg-neutral-200" />
+              )}
+              <p className="text-center text-[9px] leading-tight text-neutral-600 sm:text-[10px]">{s.label}</p>
             </div>
-          </Reveal>
-        )}
+          ))}
+        </div>
+        {/* Arrow connector line */}
+        <div className="relative mt-0">
+          <div className="absolute top-[-54px] left-5 right-5 h-px bg-neutral-200" style={{ display: 'none' }} />
+        </div>
+      </div>
 
-        <Reveal delay={0.15} className="mt-12 grid gap-6 sm:grid-cols-3">
-          <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center">
-            <div className="mb-4 flex justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-[#3B2A1C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M20 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                <line x1="12" y1="12" x2="12" y2="12.01" strokeWidth={2.5} />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 13h4l2 2h6l2-2h4" />
-              </svg>
+      {/* Estimated Delivery Time */}
+      <div className="mx-4 mt-4 rounded-2xl bg-white p-5 sm:mx-6">
+        <h2 className="mb-4 text-center text-sm font-bold uppercase tracking-[0.15em] text-[#2A1F14]">Estimated Delivery Time</h2>
+        <div className="space-y-3">
+          {deliveryZones.map(({ zone, days }) => (
+            <div key={zone} className="flex items-center justify-between border-b border-neutral-100 pb-3 last:border-0 last:pb-0">
+              <div className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 21C12 21 5 14.5 5 9a7 7 0 0 1 14 0c0 5.5-7 12-7 12Z" /><circle cx="12" cy="9" r="2.5" />
+                </svg>
+                <span className="text-sm text-neutral-700">{zone}</span>
+              </div>
+              <span className="text-sm font-semibold text-[#2A1F14]">{days}</span>
             </div>
-            <h3 className="font-display text-lg font-semibold text-neutral-900">Processing Time</h3>
-            <p className="mt-2 text-sm text-neutral-500">Orders dispatched within 2–3 business days</p>
-          </div>
+          ))}
+        </div>
+      </div>
 
-          <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center">
-            <div className="mb-4 flex justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-[#3B2A1C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M1 3h13v13H1z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M14 8h4l3 3v5h-7V8z" />
-                <circle cx="5.5" cy="18.5" r="2.5" />
-                <circle cx="18.5" cy="18.5" r="2.5" />
-              </svg>
-            </div>
-            <h3 className="font-display text-lg font-semibold text-neutral-900">Pan-India Shipping</h3>
-            <p className="mt-2 text-sm text-neutral-500">Delivered to all major cities and states</p>
-          </div>
+      {/* FAQ */}
+      <div className="mx-4 mt-4 rounded-2xl bg-white p-5 sm:mx-6">
+        <h2 className="mb-4 text-center text-sm font-bold uppercase tracking-[0.15em] text-[#2A1F14]">Frequently Asked Questions</h2>
+        <div className="space-y-0 divide-y divide-neutral-100">
+          {faqs.map(({ q, a }) => (
+            <details key={q} className="group py-3">
+              <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-medium text-neutral-800">
+                {q}
+                <span className="ml-2 flex-shrink-0 text-neutral-400 transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p className="mt-2 text-sm leading-relaxed text-neutral-500">{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
 
-          <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center">
-            <div className="mb-4 flex justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-[#3B2A1C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="m9 12 2 2 4-4" />
-              </svg>
-            </div>
-            <h3 className="font-display text-lg font-semibold text-neutral-900">Safe Packaging</h3>
-            <p className="mt-2 text-sm text-neutral-500">Every mold packed securely to prevent damage</p>
-          </div>
-        </Reveal>
+      {/* Bottom banner */}
+      <div className="mx-4 mb-10 mt-4 flex items-center gap-4 rounded-2xl bg-[#2A1F14] p-5 sm:mx-6">
+        <div className="flex-1">
+          <h3 className="font-display text-lg font-bold text-white">Packed With Care,<br />Delivered With Love 🧡</h3>
+          <p className="mt-2 text-xs leading-relaxed text-white/60">
+            Every OXFOX mold is individually inspected, safely packed in protective bubble packaging and shipped in a sturdy carton to ensure it reaches you in perfect condition.
+          </p>
+          <p className="mt-3 text-xs italic text-white/40">Thank you for supporting handmade 🧡</p>
+        </div>
+        {/* Image placeholder */}
+        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-white/10">
+          <div className="flex h-full w-full items-center justify-center text-xs text-white/30">📦</div>
+        </div>
       </div>
     </div>
   );
