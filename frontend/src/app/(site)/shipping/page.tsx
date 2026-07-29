@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import VisitBeacon from '@/components/VisitBeacon';
 
 export const metadata: Metadata = {
@@ -44,9 +45,8 @@ export default function ShippingPage() {
             Carefully packed in the Nilgiris and delivered across India.
           </p>
         </div>
-        {/* Image placeholder — replace src when image is ready */}
-        <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-2xl bg-neutral-200 sm:h-40 sm:w-40">
-          <div className="flex h-full w-full items-center justify-center text-xs text-neutral-400">📦 Image</div>
+        <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-2xl sm:h-40 sm:w-40">
+          <Image src="/shipping.jpeg" alt="Shipping" width={160} height={160} className="h-full w-full object-cover" />
         </div>
       </div>
 
@@ -86,9 +86,8 @@ export default function ShippingPage() {
 
       {/* Packed With Care */}
       <div className="mx-4 mt-4 flex items-center gap-4 rounded-2xl bg-white p-4 sm:mx-6 sm:p-6">
-        {/* Image placeholder */}
-        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-neutral-100 sm:h-32 sm:w-32">
-          <div className="flex h-full w-full items-center justify-center text-xs text-neutral-300">📦</div>
+        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl sm:h-32 sm:w-32">
+          <Image src="/shipping.jpeg" alt="Packed with care" width={128} height={128} className="h-full w-full object-cover" />
         </div>
         <div>
           <h2 className="font-display text-lg font-bold text-[#2A1F14]">Packed With Care 🧡</h2>
@@ -163,9 +162,8 @@ export default function ShippingPage() {
           </p>
           <p className="mt-3 text-xs italic text-white/40">Thank you for supporting handmade 🧡</p>
         </div>
-        {/* Image placeholder */}
-        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-white/10">
-          <div className="flex h-full w-full items-center justify-center text-xs text-white/30">📦</div>
+        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
+          <Image src="/shipping.jpeg" alt="Shipping" width={96} height={96} className="h-full w-full object-cover opacity-80" />
         </div>
       </div>
     </div>
