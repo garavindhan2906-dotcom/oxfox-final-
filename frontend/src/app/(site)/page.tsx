@@ -64,6 +64,56 @@ export default async function HomePage() {
       <HeroSlider images={heroImages} />
       <CurvedDivider color="white" />
 
+      {/* 4-tile feature grid */}
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-2xl grid-cols-2 divide-x divide-y divide-neutral-200">
+          {[
+            {
+              icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C8 6 5 9 5 13a7 7 0 0 0 14 0c0-4-3-7-7-11Z" />
+                </svg>
+              ),
+              title: 'Food Grade',
+              desc: 'Made with 100% food grade silicone',
+            },
+            {
+              icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+              ),
+              title: 'Premium Quality',
+              desc: 'Durable, detailed & made to last',
+            },
+            {
+              icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z" />
+                </svg>
+              ),
+              title: 'Custom Molds',
+              desc: 'Bring your ideas to life with our custom service',
+            },
+            {
+              icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" />
+                </svg>
+              ),
+              title: 'Made With Care',
+              desc: 'Thoughtfully handcrafted for creators like you',
+            },
+          ].map(({ icon, title, desc }) => (
+            <div key={title} className="flex flex-col items-center px-6 py-10 text-center sm:py-14">
+              <span className="text-[#3B2A1C]">{icon}</span>
+              <h3 className="mt-4 text-xs font-bold uppercase tracking-[0.15em] text-[#2A1F14]">{title}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-neutral-500 sm:text-sm">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <HeroIntro />
 
       <CategorySlider categories={categories} />
