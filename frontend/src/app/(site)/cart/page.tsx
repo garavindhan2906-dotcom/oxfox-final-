@@ -4,7 +4,7 @@ import VisitBeacon from '@/components/VisitBeacon';
 export default function CartPage() {
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
-      <VisitBeacon pageType="cart" />
+      <VisitBeacon pageType="other" />
 
       {/* Dark brown header */}
       <div className="bg-[#2A1F14] px-4 pb-6 pt-24">
