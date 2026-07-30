@@ -64,7 +64,7 @@ export default async function HomePage() {
 
       {/* 4-tile feature grid */}
       <section className="bg-white">
-        <div className="mx-auto grid max-w-2xl grid-cols-2 divide-x divide-y divide-neutral-200">
+        <div className="mx-auto grid max-w-4xl grid-cols-4 divide-x divide-neutral-200">
           {[
             {
               icon: (
@@ -107,10 +107,10 @@ export default async function HomePage() {
               desc: 'Thoughtfully handcrafted for creators like you',
             },
           ].map(({ icon, title, desc }) => (
-            <div key={title} className="flex flex-col items-center px-6 py-10 text-center sm:py-14">
-              <span className="text-[#3B2A1C]">{icon}</span>
-              <h3 className="mt-4 text-xs font-bold uppercase tracking-[0.15em] text-[#2A1F14]">{title}</h3>
-              <p className="mt-2 text-xs leading-relaxed text-neutral-500 sm:text-sm">{desc}</p>
+            <div key={title} className="flex flex-col items-center px-2 py-6 text-center sm:px-6 sm:py-10">
+              <span className="text-[#3B2A1C] [&>svg]:h-6 [&>svg]:w-6 sm:[&>svg]:h-8 sm:[&>svg]:w-8">{icon}</span>
+              <h3 className="mt-2 text-[9px] font-bold uppercase tracking-[0.1em] text-[#2A1F14] sm:mt-4 sm:text-xs sm:tracking-[0.15em]">{title}</h3>
+              <p className="mt-1 hidden text-xs leading-relaxed text-neutral-500 sm:block sm:text-sm">{desc}</p>
             </div>
           ))}
         </div>
