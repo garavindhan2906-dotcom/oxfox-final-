@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Poppins, Playfair_Display } from 'next/font/google';
+import { Poppins, Playfair_Display, Great_Vibes } from 'next/font/google';
 import './globals.css';
 
 const poppins = Poppins({
@@ -14,6 +14,12 @@ const playfair = Playfair_Display({
   weight: ['400', '500', '600', '700', '800', '900'],
 });
 
+const greatVibes = Great_Vibes({
+  variable: '--font-great-vibes',
+  subsets: ['latin'],
+  weight: ['400'],
+});
+
 export const metadata: Metadata = {
   title: 'OXFOX | 3D Design + Handcrafted Silicone Molds',
   description:
@@ -22,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${playfair.variable} h-full antialiased`}>
+    <html lang="en" className={`${poppins.variable} ${playfair.variable} ${greatVibes.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );

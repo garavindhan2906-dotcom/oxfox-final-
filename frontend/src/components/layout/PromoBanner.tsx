@@ -68,7 +68,7 @@ export default function PromoBanner() {
             <h2 className="font-display text-4xl font-bold leading-tight text-[#2A1F14] sm:text-5xl">
               Unlock 10% OFF
             </h2>
-            <p className="font-display mt-1 text-2xl font-medium italic text-[#2A1F14]/65 sm:text-3xl">
+            <p className="font-script mt-1 text-3xl text-[#2A1F14]/70 sm:text-4xl">
               your first order
             </p>
 
