@@ -5,22 +5,22 @@ export const metadata: Metadata = { title: 'About Us | OXFOX' };
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-white">
 
       {/* Hero */}
-      <div className="flex items-center justify-between bg-[#2A1F14] px-5 pb-8 pt-24 sm:px-8 sm:pt-28">
+      <div className="flex items-center justify-between bg-white px-5 pb-8 pt-24 sm:px-8 sm:pt-28">
         <div className="max-w-xs">
-          <h1 className="font-display text-4xl font-bold uppercase leading-tight text-white sm:text-5xl">
+          <h1 className="font-display text-4xl font-bold uppercase leading-tight text-[#2A1F14] sm:text-5xl">
             About OXFOX
           </h1>
-          <p className="mt-2 text-sm font-medium text-white/70">Designed for Makers. Crafted with Precision.</p>
-          <p className="mt-3 text-xs leading-relaxed text-white/50">
+          <p className="mt-2 text-sm font-medium text-neutral-500">Designed for Makers. Crafted with Precision.</p>
+          <p className="mt-3 text-xs leading-relaxed text-neutral-400">
             Premium food-grade silicone molds designed and made in the Nilgiris for chocolates, candles, resins, jars and décor.
           </p>
         </div>
         {/* Image placeholder */}
-        <div className="h-36 w-36 flex-shrink-0 overflow-hidden rounded-2xl bg-white/10 sm:h-44 sm:w-44">
-          <div className="flex h-full w-full items-center justify-center text-xs text-white/20">Product Image</div>
+        <div className="h-36 w-36 flex-shrink-0 overflow-hidden rounded-2xl bg-neutral-100 sm:h-44 sm:w-44">
+          <div className="flex h-full w-full items-center justify-center text-xs text-neutral-300">Product Image</div>
         </div>
       </div>
 
@@ -71,7 +71,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* PREMIUM MATERIALS */}
-      <section className="bg-[#FAF8F5] px-5 py-8 sm:px-8">
+      <section className="bg-white px-5 py-8 sm:px-8">
         <h2 className="mb-6 text-center text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Premium Materials</h2>
         <div className="grid grid-cols-4 gap-3 text-center">
           {[
@@ -110,7 +110,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* OUR PROCESS */}
-      <section className="bg-[#FAF8F5] px-5 py-8 sm:px-8">
+      <section className="bg-white px-5 py-8 sm:px-8">
         <h2 className="mb-6 text-center text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Our Process</h2>
         <div className="relative flex items-start justify-between gap-1 overflow-x-auto">
           {['Idea', '3D Design', 'High Precision Printing', 'Silicone Casting', 'Quality Inspection', 'Packed With Care', 'Delivered'].map((step, i, arr) => (
@@ -140,10 +140,9 @@ export default function AboutUsPage() {
       </section>
 
       {/* STATS BAR */}
-      <section className="grid grid-cols-4 bg-[#2A1F14] divide-x divide-white/10">
+      <section className="grid grid-cols-3 bg-[#2A1F14] divide-x divide-white/10">
         {[
           { value: '1000+', label: 'Happy Customers' },
-          { value: '500+', label: 'Original Designs' },
           { value: 'Food Grade', label: 'Silicone' },
           { value: 'Made in', label: 'India 🇮🇳' },
         ].map(({ value, label }) => (
@@ -155,7 +154,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* BOTTOM CTA */}
-      <section className="bg-[#FAF8F5] px-5 py-10 sm:px-8">
+      <section className="bg-white px-5 py-10 sm:px-8">
         <div className="flex flex-col items-center gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-sm">
             <p className="text-sm leading-relaxed text-neutral-500">
