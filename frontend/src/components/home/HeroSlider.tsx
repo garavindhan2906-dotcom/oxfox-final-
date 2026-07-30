@@ -54,7 +54,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
           style={{ opacity: i === current ? 1 : 0 }}
         >
           <SmartImage src={img.image_url} alt="" fill fetchPriority={i === 0 ? 'high' : 'auto'} sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5]/85 via-[#FAF8F5]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5]/80 via-[#FAF8F5]/10 to-transparent" />
         </div>
       ))}
 
