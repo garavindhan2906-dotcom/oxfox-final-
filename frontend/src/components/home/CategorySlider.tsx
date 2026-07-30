@@ -72,7 +72,7 @@ export default function CategorySlider({ categories }: { categories: Category[] 
         className="mb-6 text-center sm:mb-10"
       >
         <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-neutral-500">Shop By</p>
-        <h2 className="mt-1 text-4xl font-light italic tracking-wide text-[#2A1F14] sm:text-5xl">
+        <h2 className="font-display mt-1 text-5xl font-bold uppercase tracking-tight text-[#2A1F14] sm:text-6xl">
           Category
         </h2>
         <div className="mt-3 flex items-center justify-center gap-3">
@@ -111,32 +111,29 @@ export default function CategorySlider({ categories }: { categories: Category[] 
                 <div className="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-neutral-900" />
               )}
 
-              {/* Dark overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+              {/* Gradient — dark at bottom, transparent at top */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
 
-              {/* Bottom content */}
-              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-4 pt-2 text-center">
-                {/* Icon circle */}
-                <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+              {/* Icon — mid-card */}
+              <div className="absolute inset-x-0 flex justify-center" style={{ bottom: '42%' }}>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/40 bg-white/15 backdrop-blur-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     {categoryIcon(cat.name)}
                   </svg>
                 </div>
+              </div>
 
-                {/* Name */}
-                <h3 className="line-clamp-2 px-3 text-xs font-bold uppercase tracking-[0.1em] text-white sm:text-sm">
+              {/* Bottom text + button */}
+              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-4 text-center">
+                <h3 className="line-clamp-1 px-3 text-xs font-bold uppercase tracking-[0.12em] text-white sm:text-sm">
                   {cat.name}
                 </h3>
-
-                {/* Description */}
                 {cat.description && (
-                  <p className="mt-0.5 line-clamp-2 px-3 text-[9px] text-white/75 sm:text-[10px]">
+                  <p className="mt-0.5 line-clamp-1 px-3 text-[9px] text-white/70 sm:text-[10px]">
                     {cat.description}
                   </p>
                 )}
-
-                {/* Explore button */}
-                <div className="mt-3 border border-[#E8E2DA] bg-[#FAF8F5]/90 px-5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#2A1F14] transition-colors group-hover:bg-white sm:px-6 sm:text-xs">
+                <div className="mt-3 border border-[#E8E2DA]/70 bg-[#FAF8F5]/90 px-5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#2A1F14] transition-colors group-hover:bg-white sm:px-6 sm:text-[10px]">
                   Explore &rarr;
                 </div>
               </div>
