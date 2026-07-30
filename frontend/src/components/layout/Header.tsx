@@ -141,9 +141,11 @@ export default function Header({ categories }: { categories: Category[] }) {
           </div>
         </div>
 
-        {/* ── Mobile drawer ── */}
-        {mobileOpen && (
-          <div className="fixed inset-0 top-[calc(var(--header-h,72px))] z-40 flex flex-col bg-[#F5EDE4] md:hidden overflow-y-auto pb-32">
+      </header>
+
+      {/* ── Mobile drawer (outside header to avoid backdrop-blur containing block) ── */}
+      {mobileOpen && (
+        <div className="fixed inset-x-0 top-[76px] bottom-0 z-[49] flex flex-col bg-[#F5EDE4] md:hidden overflow-y-auto pb-32">
 
             {/* Search */}
             <div className="px-4 pt-4 pb-3">
@@ -347,7 +349,6 @@ export default function Header({ categories }: { categories: Category[] }) {
             </div>
           </div>
         )}
-      </header>
 
       {/* Floating social buttons */}
       <div className="fixed bottom-5 right-4 z-50 flex flex-col gap-3 md:bottom-8 md:right-6">
