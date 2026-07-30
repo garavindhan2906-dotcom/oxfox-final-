@@ -60,7 +60,7 @@ export default function Header({ categories }: { categories: Category[] }) {
     <>
       <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${bgClass}`}>
         {/* Announcement bar */}
-        <div className="w-full overflow-hidden bg-[#EDE8E2] py-0.5 text-center text-[9px] font-medium uppercase tracking-[0.2em] text-neutral-500 whitespace-nowrap">
+        <div className="w-full overflow-hidden bg-[#EDE8E2] py-1.5 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-600 whitespace-nowrap">
           Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
         </div>
 
