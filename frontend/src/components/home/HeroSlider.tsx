@@ -54,19 +54,18 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
           style={{ opacity: i === current ? 1 : 0 }}
         >
           <SmartImage src={img.image_url} alt="" fill fetchPriority={i === 0 ? 'high' : 'auto'} sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#2A1F14]/75 via-[#2A1F14]/35 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5]/85 via-[#FAF8F5]/40 to-transparent" />
         </div>
       ))}
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-10 sm:px-8 sm:py-28">
         <div className="max-w-sm sm:max-w-md">
           <h1
-            className="font-display text-4xl font-bold uppercase leading-tight tracking-tight text-white sm:text-6xl"
-            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}
+            className="font-display text-4xl font-bold uppercase leading-tight tracking-tight text-[#2A1F14] sm:text-6xl"
           >
             Molds That Bring Ideas to Life
           </h1>
-          <p className="mt-4 text-sm leading-relaxed text-white/90 sm:text-base" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}>
+          <p className="mt-4 text-sm leading-relaxed text-[#2A1F14]/70 sm:text-base">
             Premium food grade silicone molds for candles, chocolates, jars, décor and more.
           </p>
           <Link
@@ -84,7 +83,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`h-2 rounded-full transition-all ${i === current ? 'w-6 bg-white' : 'w-2 bg-white/50'}`}
+              className={`h-2 rounded-full transition-all ${i === current ? 'w-6 bg-[#2A1F14]' : 'w-2 bg-[#2A1F14]/30'}`}
             />
           ))}
         </div>
