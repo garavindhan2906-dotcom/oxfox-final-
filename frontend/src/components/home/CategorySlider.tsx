@@ -7,16 +7,55 @@ import type { Category } from '@/types';
 
 const categoryIcon = (name: string) => {
   const n = name.toLowerCase();
+
+  // Chocolate bar — grid rectangle
   if (n.includes('chocolate') || n.includes('sweet') || n.includes('candy'))
-    return <path strokeLinecap="round" strokeLinejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2zM8 10h.01M12 10h.01M16 10h.01" />;
+    return (
+      <>
+        <rect x="3" y="4" width="18" height="16" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M3 16h18M9 4v6M15 4v6" />
+      </>
+    );
+
+  // Candle with flame
   if (n.includes('candle') || n.includes('soap') || n.includes('wax'))
-    return <><path strokeLinecap="round" strokeLinejoin="round" d="M12 2v4M12 6a6 6 0 0 1 6 6v8H6v-8a6 6 0 0 1 6-6Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M9 20h6" /></>;
+    return (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2c-1 1.5-2 3.2-2 4.5 0 1.1.9 2 2 2s2-.9 2-2C14 5.2 13 3.5 12 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.5V10" />
+        <rect x="7" y="10" width="10" height="12" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    );
+
+  // Gift box with bow
   if (n.includes('festive') || n.includes('gift') || n.includes('rakhi') || n.includes('diwali'))
-    return <><rect x="3" y="8" width="18" height="4" rx="1" strokeLinecap="round" strokeLinejoin="round" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 8V21M3 12h18M9 8a3 3 0 0 1 3-3 3 3 0 0 1 3 3" /></>;
-  if (n.includes('jar') || n.includes('resin') || n.includes('jesmonite') || n.includes('eco'))
-    return <path strokeLinecap="round" strokeLinejoin="round" d="M9 3h6l1 5H8L9 3ZM8 8v11a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V8" />;
-  // default: diamond/gem
-  return <path strokeLinecap="round" strokeLinejoin="round" d="M2 9l4-6h12l4 6-10 12L2 9ZM2 9h20M8 3 6 9l6 12M16 3l2 6-6 12" />;
+    return (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M20 12v10H4V12" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M22 7H2v5h20V7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 22V7" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+      </>
+    );
+
+  // Pottery vase
+  if (n.includes('jar') || n.includes('resin') || n.includes('jesmonite') || n.includes('eco') || n.includes('décor') || n.includes('decor'))
+    return (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10 3h4" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10 3C9 7 6 10 6 14a6 6 0 0 0 12 0c0-4-3-7-4-11H10z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 21h8" />
+      </>
+    );
+
+  // Default: gem/diamond
+  return (
+    <>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 3h12l4 6-10 12L2 9z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2 9h20" />
+    </>
+  );
 };
 
 export default function CategorySlider({ categories }: { categories: Category[] }) {
