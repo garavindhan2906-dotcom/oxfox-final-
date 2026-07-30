@@ -154,20 +154,22 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {communityImages.slice(0, 4).map((img) => (
-              <Link key={img.id} href="/community" className="group relative aspect-square overflow-hidden rounded-2xl bg-neutral-200">
-                <SmartImage
-                  src={img.image_url}
-                  alt={img.caption ?? 'Community'}
-                  fill
-                  sizes="(max-width: 640px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+              <Link key={img.id} href="/community" className="group flex flex-col">
+                <div className="relative aspect-square overflow-hidden rounded-2xl bg-neutral-200">
+                  <SmartImage
+                    src={img.image_url}
+                    alt={img.caption ?? 'Community'}
+                    fill
+                    sizes="(max-width: 640px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
                 {img.caption && (
-                  <div className="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-full bg-white/90 px-1 py-1 pr-3 shadow-sm backdrop-blur-sm">
-                    <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-[8px] font-bold text-neutral-600">
+                  <div className="mt-1.5 flex items-center gap-1.5 px-0.5">
+                    <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-neutral-300 text-[7px] font-bold text-neutral-600">
                       {img.caption.replace('@', '').charAt(0).toUpperCase()}
                     </div>
-                    <span className="text-[10px] font-medium text-neutral-800">
+                    <span className="truncate text-[10px] font-medium text-neutral-600">
                       {img.caption.startsWith('@') ? img.caption : `@${img.caption}`}
                     </span>
                   </div>
