@@ -49,20 +49,20 @@ export default function UserProfileDropdown() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Account"
-        className="flex items-center gap-1.5 text-neutral-600 hover:text-neutral-900"
+        className="flex items-center gap-1.5 text-neutral-700 hover:text-neutral-900"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
           <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
         </svg>
         {profile && (
-          <span className="max-w-[80px] truncate text-xs font-medium text-[#2A1F14]">
+          <span className="hidden max-w-[80px] truncate text-xs font-medium text-[#2A1F14] md:inline">
             {profile.name.split(' ')[0]}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-[60] mt-3 w-72 rounded-2xl border border-neutral-100 bg-white shadow-xl">
+        <div className="absolute right-0 top-full z-[60] mt-3 w-64 rounded-2xl border border-neutral-100 bg-white shadow-xl sm:w-72">
           <div className="border-b border-neutral-100 px-5 py-4">
             <p className="text-sm font-semibold text-[#2A1F14]">
               {profile ? 'Your Profile' : 'Save Your Details'}

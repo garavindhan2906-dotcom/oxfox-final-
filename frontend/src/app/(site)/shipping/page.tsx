@@ -85,16 +85,11 @@ export default function ShippingPage() {
       </div>
 
       {/* Packed With Care */}
-      <div className="mx-4 mt-4 flex items-center gap-4 rounded-2xl bg-white p-4 sm:mx-6 sm:p-6">
-        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl sm:h-32 sm:w-32">
-          <Image src="/shipping.jpeg" alt="Packed with care" width={128} height={128} className="h-full w-full object-cover" />
-        </div>
-        <div>
-          <h2 className="font-display text-lg font-bold text-[#2A1F14]">Packed With Care 🧡</h2>
-          <p className="mt-1.5 text-xs leading-relaxed text-neutral-500 sm:text-sm">
-            Each mold is protected with bubble packaging and shipped in a sturdy carton box to ensure it reaches you in perfect condition.
-          </p>
-        </div>
+      <div className="mx-4 mt-4 rounded-2xl bg-white p-4 sm:mx-6 sm:p-6">
+        <h2 className="font-display text-lg font-bold text-[#2A1F14]">Packed With Care 🧡</h2>
+        <p className="mt-1.5 text-xs leading-relaxed text-neutral-500 sm:text-sm">
+          Each mold is protected with bubble packaging and shipped in a sturdy carton box to ensure it reaches you in perfect condition.
+        </p>
       </div>
 
       {/* Our Packing Process */}
