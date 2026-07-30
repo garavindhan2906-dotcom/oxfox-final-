@@ -35,14 +35,14 @@ export default function CommunityPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-brand">
+    <div className="min-h-screen bg-white">
       <VisitBeacon pageType="community" />
 
       {/* Header */}
-      <div className="px-6 pt-16 pb-8 text-center sm:pt-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Made By OXFOX</p>
-        <h1 className="mt-3 text-5xl font-bold uppercase tracking-tight text-white sm:text-7xl">Custom Order<br />Images</h1>
-        <p className="mx-auto mt-4 max-w-xl text-base text-white/80">
+      <div className="px-6 pt-24 pb-8 text-center sm:pt-28">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-400">Made By OXFOX</p>
+        <h1 className="mt-3 text-5xl font-bold uppercase tracking-tight text-[#2A1F14] sm:text-7xl">Custom Order<br />Images</h1>
+        <p className="mx-auto mt-4 max-w-xl text-base text-neutral-500">
           Real custom silicone molds designed and crafted by OXFOX Studio for creators and brands across India.
         </p>
       </div>
@@ -50,7 +50,7 @@ export default function CommunityPage() {
       {/* Masonry photo grid */}
       {posts.length === 0 ? (
         <div className="px-6 pb-20 text-center">
-          <p className="text-white/60">Custom order images coming soon.</p>
+          <p className="text-neutral-400">Custom order images coming soon.</p>
         </div>
       ) : (
         <div className="px-4 pb-20 sm:px-6 lg:px-8">
@@ -93,7 +93,7 @@ export default function CommunityPage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-4xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
+            <p className="text-4xl font-bold leading-tight text-[#2A1F14] sm:text-6xl lg:text-7xl">
               For Creators/<br />Brands/ Artists
             </p>
           </div>
