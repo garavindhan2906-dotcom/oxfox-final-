@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { cartTotal, effectiveUnitPrice, getCart, removeFromCart, updateQuantity } from '@/lib/cart';
 import { getWishlist, toggleWishlist } from '@/lib/wishlist';
-import type { CartItem } from '@/types';
+import SmartImage from '@/components/SmartImage';
+import type { CartItem, Product } from '@/types';
 
 
 function Stars() {
@@ -28,15 +29,26 @@ export default function CartTable() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [wishlist, setWishlist] = useState<Set<number>>(new Set());
+  const [suggested, setSuggested] = useState<Product[]>([]);
 
   useEffect(() => {
-    setItems(getCart());
+    const cart = getCart();
+    setItems(cart);
     setLoaded(true);
     setWishlist(getWishlist());
     const syncCart = () => setItems(getCart());
     const syncWish = () => setWishlist(getWishlist());
     window.addEventListener('oxfox-cart-updated', syncCart);
     window.addEventListener('oxfox-wishlist-updated', syncWish);
+
+    fetch('/api/products?limit=12')
+      .then((r) => r.json())
+      .then((d) => {
+        const cartIds = new Set(cart.map((i) => i.productId));
+        setSuggested((d.products ?? []).filter((p: Product) => !cartIds.has(p.id)).slice(0, 8));
+      })
+      .catch(() => {});
+
     return () => {
       window.removeEventListener('oxfox-cart-updated', syncCart);
       window.removeEventListener('oxfox-wishlist-updated', syncWish);
@@ -180,6 +192,50 @@ export default function CartTable() {
           </span>
         ))}
       </div>
+
+      {/* You may also like */}
+      {suggested.length > 0 && (
+        <div className="pt-2">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="text-xs font-bold uppercase tracking-widest text-neutral-800">You May Also Like</p>
+            <Link href="/molds" className="text-xs font-medium text-neutral-400 hover:text-neutral-700">View all →</Link>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
+            {suggested.map((product) => (
+              <div key={product.id} className="relative w-36 flex-shrink-0">
+                <Link href={`/product/${product.slug}`}>
+                  <div className="relative aspect-square overflow-hidden rounded-2xl bg-neutral-100">
+                    {product.primary_image ? (
+                      <SmartImage
+                        src={product.primary_image}
+                        alt={product.name}
+                        fill
+                        sizes="144px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-neutral-200" />
+                    )}
+                    <button
+                      aria-label="Wishlist"
+                      onClick={(e) => { e.preventDefault(); toggleWishlist(product.id); }}
+                      className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-md transition-transform active:scale-90"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill={wishlist.has(product.id) ? '#ef4444' : 'none'} viewBox="0 0 24 24" stroke={wishlist.has(product.id) ? '#ef4444' : 'currentColor'} strokeWidth={1.8}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <p className="mt-1.5 line-clamp-2 text-[11px] font-medium leading-snug text-neutral-800">{product.name}</p>
+                  {product.price != null && (
+                    <p className="mt-0.5 text-[11px] text-neutral-500">₹{product.price.toLocaleString('en-IN')}</p>
+                  )}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
