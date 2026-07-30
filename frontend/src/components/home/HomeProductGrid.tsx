@@ -1,11 +1,22 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import SmartImage from '@/components/SmartImage';
+import { getWishlist, toggleWishlist } from '@/lib/wishlist';
 import type { Product } from '@/types';
 
 export default function HomeProductGrid({ products }: { products: Product[] }) {
   const display = products.slice(0, 6);
+  const [wishlist, setWishlist] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    setWishlist(getWishlist());
+    const sync = () => setWishlist(getWishlist());
+    window.addEventListener('oxfox-wishlist-updated', sync);
+    return () => window.removeEventListener('oxfox-wishlist-updated', sync);
+  }, []);
+
   if (display.length === 0) return null;
 
   return (
@@ -25,13 +36,23 @@ export default function HomeProductGrid({ products }: { products: Product[] }) {
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 to-neutral-300" />
             )}
-            {/* Heart icon */}
+            {/* Heart / wishlist */}
             <button
-              aria-label="Wishlist"
-              onClick={(e) => e.preventDefault()}
-              className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-md"
+              aria-label={wishlist.has(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+              onClick={(e) => {
+                e.preventDefault();
+                toggleWishlist(product.id);
+              }}
+              className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-md transition-transform active:scale-90"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-3.5 w-3.5 transition-colors"
+                fill={wishlist.has(product.id) ? '#ef4444' : 'none'}
+                viewBox="0 0 24 24"
+                stroke={wishlist.has(product.id) ? '#ef4444' : 'currentColor'}
+                strokeWidth={1.8}
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" />
               </svg>
             </button>

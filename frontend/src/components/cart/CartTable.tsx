@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { cartTotal, effectiveUnitPrice, getCart, removeFromCart, updateQuantity } from '@/lib/cart';
+import { getWishlist, toggleWishlist } from '@/lib/wishlist';
 import type { CartItem } from '@/types';
 
 const FREE_SHIPPING_THRESHOLD = 1000;
@@ -27,13 +28,20 @@ function Stars() {
 export default function CartTable() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [wishlist, setWishlist] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     setItems(getCart());
     setLoaded(true);
-    const sync = () => setItems(getCart());
-    window.addEventListener('oxfox-cart-updated', sync);
-    return () => window.removeEventListener('oxfox-cart-updated', sync);
+    setWishlist(getWishlist());
+    const syncCart = () => setItems(getCart());
+    const syncWish = () => setWishlist(getWishlist());
+    window.addEventListener('oxfox-cart-updated', syncCart);
+    window.addEventListener('oxfox-wishlist-updated', syncWish);
+    return () => {
+      window.removeEventListener('oxfox-cart-updated', syncCart);
+      window.removeEventListener('oxfox-wishlist-updated', syncWish);
+    };
   }, []);
 
   if (!loaded) return null;
@@ -79,8 +87,12 @@ export default function CartTable() {
                     <p className="text-xs text-neutral-400">Premium Silicone Mold</p>
                     <Stars />
                   </div>
-                  <button aria-label="Wishlist" className="flex-shrink-0 text-neutral-300 hover:text-red-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <button
+                    aria-label={wishlist.has(item.productId) ? 'Remove from wishlist' : 'Add to wishlist'}
+                    onClick={() => toggleWishlist(item.productId)}
+                    className="flex-shrink-0 transition-transform active:scale-90"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-colors" fill={wishlist.has(item.productId) ? '#ef4444' : 'none'} viewBox="0 0 24 24" stroke={wishlist.has(item.productId) ? '#ef4444' : '#d1d5db'} strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" />
                     </svg>
                   </button>
