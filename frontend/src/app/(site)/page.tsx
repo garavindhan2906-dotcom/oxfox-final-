@@ -22,7 +22,7 @@ async function getCategories(): Promise<Category[]> {
 
 async function getAllProducts(): Promise<Product[]> {
   try {
-    const { products } = await apiFetch<{ products: Product[] }>('/api/products?sort=new&limit=6');
+    const { products } = await apiFetch<{ products: Product[] }>('/api/products?limit=6');
     return products;
   } catch {
     return [];
