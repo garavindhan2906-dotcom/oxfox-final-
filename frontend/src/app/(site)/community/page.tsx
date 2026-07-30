@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import SmartImage from '@/components/SmartImage';
 import VisitBeacon from '@/components/VisitBeacon';
 
@@ -12,7 +13,6 @@ interface CommunityImage {
 
 export default function CommunityPage() {
   const [images, setImages] = useState<CommunityImage[]>([]);
-  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     fetch('/api/community-images')
@@ -21,82 +21,57 @@ export default function CommunityPage() {
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const timer = setInterval(() => {
-      setCurrent((i) => (i + 1) % images.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [images.length]);
-
   return (
-    <div className="min-h-screen bg-[#3B2A1C]">
+    <div className="min-h-screen bg-white">
       <VisitBeacon pageType="community" />
 
       {/* Header */}
-      <div className="px-6 pb-10 pt-24 text-center sm:pt-28">
-        <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">
-          Made with Oxfox <span className="text-pink-400">♥</span>
-        </h1>
-        <p className="mx-auto mt-3 max-w-xs text-sm font-light tracking-wide text-white/60 sm:text-base">
-          Real creations by our amazing customers.
-        </p>
+      <div className="px-4 pb-4 pt-24 sm:px-6 sm:pt-28">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-[#2A1F14] sm:text-3xl">
+              Made with Oxfox <span className="text-pink-500">♥</span>
+            </h1>
+            <p className="mt-1 text-sm text-neutral-500">
+              Real creations by our amazing customers.
+            </p>
+          </div>
+          <Link
+            href="https://www.instagram.com/oxfoxmolds/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-shrink-0 rounded-full border border-neutral-300 px-4 py-2 text-[11px] font-semibold uppercase tracking-wide text-neutral-700 hover:bg-neutral-50"
+          >
+            View Gallery →
+          </Link>
+        </div>
       </div>
 
-      {/* Slideshow */}
+      {/* Grid */}
       {images.length === 0 ? (
-        <div className="pb-20 text-center">
-          <p className="text-white/40">Community images coming soon.</p>
+        <div className="py-20 text-center">
+          <p className="text-neutral-400">Community images coming soon.</p>
         </div>
       ) : (
-        <div className="pb-20">
-          {/* Carousel track */}
-          <div className="relative mx-auto max-w-sm overflow-hidden sm:max-w-md">
-            <div
-              className="flex transition-transform duration-700 ease-in-out"
-              style={{ transform: `translateX(-${current * 100}%)` }}
-            >
-              {images.map((img) => (
-                <div key={img.id} className="w-full flex-shrink-0 px-4">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-                    <SmartImage
-                      src={img.image_url}
-                      alt={img.caption ?? 'Community'}
-                      fill
-                      sizes="(max-width: 640px) 90vw, 448px"
-                      className="object-cover"
-                    />
-                  </div>
-                  {img.caption && (
-                    <div className="mt-3 flex items-center justify-center gap-2">
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white/20 text-[10px] font-bold text-white">
-                        {img.caption.replace('@', '').charAt(0).toUpperCase()}
-                      </div>
-                      <span className="text-sm font-medium text-white/90">
-                        {img.caption.startsWith('@') ? img.caption : `@${img.caption}`}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Dot indicators */}
-          {images.length > 1 && (
-            <div className="mt-8 flex justify-center gap-2">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === current ? 'w-6 bg-white' : 'w-1.5 bg-white/25 hover:bg-white/50'
-                  }`}
-                  aria-label={`Go to image ${i + 1}`}
+        <div className="grid grid-cols-3 gap-0.5 px-4 pb-12 sm:px-6">
+          {images.map((img) => (
+            <div key={img.id} className="flex flex-col">
+              <div className="relative aspect-square overflow-hidden bg-neutral-100">
+                <SmartImage
+                  src={img.image_url}
+                  alt={img.caption ?? 'Community'}
+                  fill
+                  sizes="(max-width: 640px) 33vw, 25vw"
+                  className="object-cover"
                 />
-              ))}
+              </div>
+              {img.caption && (
+                <p className="truncate px-0.5 pt-1 text-[10px] text-neutral-500">
+                  {img.caption.startsWith('@') ? img.caption : `@${img.caption}`}
+                </p>
+              )}
             </div>
-          )}
+          ))}
         </div>
       )}
     </div>
