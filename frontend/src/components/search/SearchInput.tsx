@@ -29,7 +29,7 @@ export default function SearchInput({ defaultValue = '' }: { defaultValue?: stri
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Search molds…"
+        placeholder="Search for molds, decor &amp; more..."
         className="flex-1 bg-transparent text-sm text-neutral-800 placeholder-neutral-400 outline-none"
         autoFocus
       />

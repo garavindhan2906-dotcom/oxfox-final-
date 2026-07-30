@@ -35,11 +35,11 @@ export default function CommunityPage() {
 
       {/* Header */}
       <div className="px-6 pb-10 pt-24 text-center sm:pt-28">
-        <h1 className="font-display text-6xl font-bold uppercase tracking-tight text-white sm:text-8xl lg:text-9xl">
-          Community
+        <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">
+          Made with Oxfox <span className="text-pink-400">♥</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-xs text-sm font-light tracking-wide text-white/60 sm:text-base">
-          Made by our loyal customers
+        <p className="mx-auto mt-3 max-w-xs text-sm font-light tracking-wide text-white/60 sm:text-base">
+          Real creations by our amazing customers.
         </p>
       </div>
 
