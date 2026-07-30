@@ -16,8 +16,10 @@ export default function SubcategoryFilterBar({
     <div className="flex flex-wrap gap-2">
       <Link
         href={`/molds/${categorySlug}`}
-        className={`rounded-full border px-4 py-1.5 text-sm ${
-          !activeSlug ? 'border-brand bg-brand text-white' : 'border-neutral-300 text-neutral-700 hover:border-brand'
+        className={`rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
+          !activeSlug
+            ? 'bg-[#2A1F14] text-white'
+            : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
         }`}
       >
         All
@@ -26,10 +28,10 @@ export default function SubcategoryFilterBar({
         <Link
           key={sub.id}
           href={`/molds/${categorySlug}/${sub.slug}`}
-          className={`rounded-full border px-4 py-1.5 text-sm ${
+          className={`rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
             activeSlug === sub.slug
-              ? 'border-brand bg-brand text-white'
-              : 'border-neutral-300 text-neutral-700 hover:border-brand'
+              ? 'bg-[#2A1F14] text-white'
+              : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
           }`}
         >
           {sub.name}
