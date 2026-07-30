@@ -7,7 +7,6 @@ import { cartTotal, effectiveUnitPrice, getCart, removeFromCart, updateQuantity 
 import { getWishlist, toggleWishlist } from '@/lib/wishlist';
 import type { CartItem } from '@/types';
 
-const FREE_SHIPPING_THRESHOLD = 1000;
 
 function Stars() {
   return (
@@ -61,8 +60,6 @@ export default function CartTable() {
   }
 
   const total = cartTotal(items);
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - total);
-  const progress = Math.min(100, (total / FREE_SHIPPING_THRESHOLD) * 100);
 
   return (
     <div className="space-y-3">
@@ -119,29 +116,6 @@ export default function CartTable() {
           </div>
         );
       })}
-
-      {/* Free shipping banner */}
-      <div className="rounded-2xl border border-dashed border-neutral-300 bg-white p-4">
-        <div className="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M1 3h13v13H1zM14 8h4l3 3v5h-7V8z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" />
-          </svg>
-          {remaining > 0 ? (
-            <p className="text-sm text-neutral-700">
-              You&apos;re <span className="font-bold text-[#3B2A1C]">₹{remaining.toFixed(0)}</span> away from <span className="font-bold">FREE SHIPPING!</span>
-            </p>
-          ) : (
-            <p className="text-sm font-bold text-green-600">🎉 You&apos;ve unlocked FREE SHIPPING!</p>
-          )}
-        </div>
-        <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-neutral-100">
-          <div className="h-full rounded-full bg-[#3B2A1C] transition-all duration-500" style={{ width: `${progress}%` }} />
-        </div>
-        <div className="mt-1 flex justify-between text-[10px] text-neutral-400">
-          <span>₹{total.toFixed(0)}</span>
-          <span>₹{FREE_SHIPPING_THRESHOLD.toLocaleString('en-IN')}</span>
-        </div>
-      </div>
 
       {/* 4 trust icons */}
       <div className="grid grid-cols-4 gap-1 rounded-2xl border border-neutral-100 bg-white px-2 py-4">
