@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import NavDropdown from './NavDropdown';
 import SearchBar from './SearchBar';
 import SmartImage from '@/components/SmartImage';
+import UserProfileDropdown from './UserProfileDropdown';
 import { getCart, cartCount } from '@/lib/cart';
 import type { Category } from '@/types';
 
@@ -91,11 +92,7 @@ export default function Header({ categories }: { categories: Category[] }) {
                 <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
               </svg>
             </Link>
-            <Link href="/admin/login" aria-label="Account" className="text-neutral-700" onClick={close}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-              </svg>
-            </Link>
+            <UserProfileDropdown />
             <Link href="/cart" aria-label="Cart" className="relative text-neutral-700" onClick={close}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" />
@@ -122,11 +119,7 @@ export default function Header({ categories }: { categories: Category[] }) {
                 <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
               </svg>
             </Link>
-            <Link href="/admin/login" aria-label="Account" className="text-neutral-600 hover:text-neutral-900">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-              </svg>
-            </Link>
+            <UserProfileDropdown />
             <Link href="/faq" className="text-xs font-semibold uppercase tracking-wide text-neutral-600 hover:text-neutral-900">FAQ</Link>
             <Link href="/bulk-orders" className="text-xs font-semibold uppercase tracking-wide text-neutral-600 hover:text-neutral-900">Bulk Orders</Link>
             <Link href="/cart" aria-label="Cart" className="relative text-neutral-800 hover:text-neutral-900">
