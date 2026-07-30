@@ -163,43 +163,30 @@ export default function Header({ categories }: { categories: Category[] }) {
             <nav className="flex flex-col px-4">
 
               {/* HOME */}
-              {navItems.map((item) => (
-                item.label === 'Community' || item.label === 'Shipping' || item.label === 'About Us' ? (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={close}
-                    className="flex items-center justify-between border-b border-[#E5D9CC] py-4"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>{item.icon}</svg>
-                      </div>
-                      <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">{item.label}</span>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" />
+              <Link href="/" onClick={close} className="flex items-center justify-between border-b border-[#E5D9CC] py-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 0 0 1 1h3m10-11 2 2m-2-2v10a1 1 0 0 1-1 1h-3m-6 0a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1m-6 0h6" />
                     </svg>
-                  </Link>
-                ) : item.label === 'Home' || item.label === 'New Arrivals' || item.label === 'Custom Order' ? (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={close}
-                    className="flex items-center justify-between border-b border-[#E5D9CC] py-4"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>{item.icon}</svg>
-                      </div>
-                      <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">{item.label}</span>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" />
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">Home</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" /></svg>
+              </Link>
+
+              {/* NEW ARRIVALS */}
+              <Link href="/new" onClick={close} className="flex items-center justify-between border-b border-[#E5D9CC] py-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 0 0 .95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 0 0-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 0 0-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 0 0-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 0 0 .951-.69l1.519-4.674z" />
                     </svg>
-                  </Link>
-                ) : null
-              ))}
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">New Arrivals</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" /></svg>
+              </Link>
 
               {/* MOLDS — expandable */}
               <div className="border-b border-[#E5D9CC]">
@@ -268,25 +255,60 @@ export default function Header({ categories }: { categories: Category[] }) {
                 )}
               </div>
 
-              {/* COMMUNITY / SHIPPING / ABOUT US */}
-              {navItems.filter(i => ['Community', 'Shipping', 'About Us'].includes(i.label)).map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={close}
-                  className="flex items-center justify-between border-b border-[#E5D9CC] py-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>{item.icon}</svg>
-                    </div>
-                    <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">{item.label}</span>
+              {/* CUSTOM ORDER */}
+              <Link href="/custom-order" onClick={close} className="flex items-center justify-between border-b border-[#E5D9CC] py-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 1 1 3.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" />
-                  </svg>
-                </Link>
-              ))}
+                  <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">Custom Order</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" /></svg>
+              </Link>
+
+              {/* COMMUNITY */}
+              <Link href="/community" onClick={close} className="flex items-center justify-between border-b border-[#E5D9CC] py-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">Community</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" /></svg>
+              </Link>
+
+              {/* SHIPPING */}
+              <Link href="/shipping" onClick={close} className="flex items-center justify-between border-b border-[#E5D9CC] py-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+                      <rect x="1" y="3" width="15" height="13" strokeLinecap="round" strokeLinejoin="round" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16 8h4l3 3v5h-7V8z" />
+                      <circle cx="5.5" cy="18.5" r="2.5" />
+                      <circle cx="18.5" cy="18.5" r="2.5" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">Shipping</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" /></svg>
+              </Link>
+
+              {/* ABOUT US */}
+              <Link href="/about-us" onClick={close} className="flex items-center justify-between border-b border-[#E5D9CC] py-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9CDBF] bg-white/70">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#2A1F14]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0z" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wide text-[#2A1F14]">About Us</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" /></svg>
+              </Link>
 
               {/* FAQ & Bulk Orders */}
               <Link href="/faq" onClick={close} className="flex items-center gap-3 border-b border-[#E5D9CC] py-4">
