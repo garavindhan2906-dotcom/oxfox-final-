@@ -66,10 +66,17 @@ export default function CommunityPage() {
                       sizes="(max-width: 640px) 90vw, 448px"
                       className="object-cover"
                     />
+                    {img.caption && (
+                      <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/90 px-1 py-1 pr-3 shadow-sm backdrop-blur-sm">
+                        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-[9px] font-bold text-neutral-600">
+                          {img.caption.replace('@', '').charAt(0).toUpperCase()}
+                        </div>
+                        <span className="text-[11px] font-medium text-neutral-800">
+                          {img.caption.startsWith('@') ? img.caption : `@${img.caption}`}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  {img.caption && (
-                    <p className="mt-3 text-center text-xs text-white/50">{img.caption}</p>
-                  )}
                 </div>
               ))}
             </div>

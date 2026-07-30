@@ -163,11 +163,11 @@ export default async function HomePage() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {img.caption && (
-                  <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/80 text-[8px] font-bold text-neutral-700">
+                  <div className="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-full bg-white/90 px-1 py-1 pr-3 shadow-sm backdrop-blur-sm">
+                    <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-[8px] font-bold text-neutral-600">
                       {img.caption.replace('@', '').charAt(0).toUpperCase()}
                     </div>
-                    <span className="rounded-full bg-black/40 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">
+                    <span className="text-[10px] font-medium text-neutral-800">
                       {img.caption.startsWith('@') ? img.caption : `@${img.caption}`}
                     </span>
                   </div>
