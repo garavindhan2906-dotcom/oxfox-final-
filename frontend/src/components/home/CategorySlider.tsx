@@ -72,13 +72,15 @@ export default function CategorySlider({ categories }: { categories: Category[] 
         className="mb-6 text-center sm:mb-10"
       >
         <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-neutral-500">Shop By</p>
-        <h2 className="font-display mt-1 text-4xl font-bold uppercase tracking-tight text-[#2A1F14] sm:text-5xl">
+        <h2 className="mt-1 text-4xl font-light italic tracking-wide text-[#2A1F14] sm:text-5xl">
           Category
         </h2>
-        <div className="mt-2 flex justify-center text-[#3B2A1C] opacity-60">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-            <path d="M7 0 L14 7 L7 14 L0 7 Z" />
+        <div className="mt-3 flex items-center justify-center gap-3">
+          <div className="h-px w-10 bg-[#3B2A1C]/40" />
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-[#3B2A1C]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
+          <div className="h-px w-10 bg-[#3B2A1C]/40" />
         </div>
       </motion.div>
 
@@ -94,7 +96,7 @@ export default function CategorySlider({ categories }: { categories: Category[] 
           >
             <Link
               href={`/molds/${cat.slug}`}
-              className="group relative flex aspect-square flex-col overflow-hidden rounded-2xl bg-neutral-900"
+              className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-2xl bg-neutral-900"
             >
               {/* Image */}
               {cat.banner_image ? (
@@ -122,13 +124,13 @@ export default function CategorySlider({ categories }: { categories: Category[] 
                 </div>
 
                 {/* Name */}
-                <h3 className="px-2 text-xs font-bold uppercase tracking-[0.1em] text-white sm:text-sm">
+                <h3 className="line-clamp-2 px-3 text-xs font-bold uppercase tracking-[0.1em] text-white sm:text-sm">
                   {cat.name}
                 </h3>
 
                 {/* Description */}
                 {cat.description && (
-                  <p className="mt-0.5 px-3 text-[10px] text-white/75 sm:text-xs line-clamp-1">
+                  <p className="mt-0.5 line-clamp-2 px-3 text-[9px] text-white/75 sm:text-[10px]">
                     {cat.description}
                   </p>
                 )}
