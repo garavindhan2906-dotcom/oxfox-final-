@@ -71,7 +71,7 @@ export default function CategorySlider({ categories }: { categories: Category[] 
         transition={{ duration: 0.5 }}
         className="mb-6 text-center sm:mb-10"
       >
-        <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-neutral-500">Shop By</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.35em] text-neutral-500">Shop By</p>
         <h2 className="font-display mt-1 text-5xl font-bold uppercase tracking-tight text-[#2A1F14] sm:text-6xl">
           Category
         </h2>
@@ -133,7 +133,7 @@ export default function CategorySlider({ categories }: { categories: Category[] 
                     {cat.description}
                   </p>
                 )}
-                <div className="mt-3 border border-[#E8E2DA]/70 bg-[#FAF8F5]/90 px-5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#2A1F14] transition-colors group-hover:bg-white sm:px-6 sm:text-[10px]">
+                <div className="mt-3 rounded-full border border-[#E8E2DA]/70 bg-[#FAF8F5]/90 px-5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#2A1F14] transition-colors group-hover:bg-white sm:px-6 sm:text-[10px]">
                   Explore &rarr;
                 </div>
               </div>
