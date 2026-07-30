@@ -29,12 +29,12 @@ export default function Header({ categories }: { categories: Category[] }) {
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${bgClass}`}>
       {/* Announcement bar */}
-      <div className="w-full bg-[#EDE8E2] py-1 text-center text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-500">
-        Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
+      <div className="w-full overflow-hidden bg-[#EDE8E2] py-0.5 text-center text-[9px] font-medium uppercase tracking-[0.2em] text-neutral-500 whitespace-nowrap">
+        Premium Silicone Molds · Candles · Chocolates · Jars · Décor
       </div>
 
       {/* ── Mobile nav ── */}
-      <div className="flex items-center justify-between px-4 py-2.5 md:hidden">
+      <div className="flex items-center justify-between px-4 py-3.5 md:hidden">
         {/* Hamburger */}
         <button
           className="text-2xl leading-none text-neutral-700"
@@ -75,7 +75,7 @@ export default function Header({ categories }: { categories: Category[] }) {
       </div>
 
       {/* ── Desktop nav ── */}
-      <div className="hidden items-center px-6 py-2.5 md:flex lg:px-8">
+      <div className="hidden items-center px-6 py-3.5 md:flex lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex flex-shrink-0 items-center">
           <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-9 w-auto" priority />

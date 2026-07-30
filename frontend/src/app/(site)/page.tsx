@@ -69,7 +69,9 @@ export default async function HomePage() {
             {
               icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C8 6 5 9 5 13a7 7 0 0 0 14 0c0-4-3-7-7-11Z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 22V12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 12C9 9 6 5 7 2c3 1 6 4 5 10z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 12c3-3 6-7 5-10-3 1-6 4-5 10z" />
                 </svg>
               ),
               title: 'Food Grade',
@@ -78,7 +80,9 @@ export default async function HomePage() {
             {
               icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.4}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 3h12l4 6-10 12L2 9z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2 9h20" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 3 6 9l6 12M15 3l3 6-6 12" />
                 </svg>
               ),
               title: 'Premium Quality',
