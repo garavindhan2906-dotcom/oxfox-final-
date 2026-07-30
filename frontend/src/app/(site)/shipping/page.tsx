@@ -21,14 +21,6 @@ const deliveryZones = [
   { zone: 'Remote Areas', days: '5 – 9 business days' },
 ];
 
-const packingSteps = [
-  { step: '1', label: 'You Order' },
-  { step: '2', label: 'Quality Check' },
-  { step: '3', label: 'Bubble Wrapped' },
-  { step: '4', label: 'Thank You Sticker' },
-  { step: '5', label: 'Secure Carton Box' },
-  { step: '6', label: 'Shipped With Care' },
-];
 
 export default function ShippingPage() {
   return (
@@ -82,36 +74,6 @@ export default function ShippingPage() {
             <p className="mt-1 hidden text-[9px] leading-tight text-neutral-400 sm:block">{desc}</p>
           </div>
         ))}
-      </div>
-
-      {/* Packed With Care */}
-      <div className="mx-4 mt-4 rounded-2xl bg-white p-4 sm:mx-6 sm:p-6">
-        <h2 className="font-display text-lg font-bold text-[#2A1F14]">Packed With Care 🧡</h2>
-        <p className="mt-1.5 text-xs leading-relaxed text-neutral-500 sm:text-sm">
-          Each mold is protected with bubble packaging and shipped in a sturdy carton box to ensure it reaches you in perfect condition.
-        </p>
-      </div>
-
-      {/* Our Packing Process */}
-      <div className="mx-4 mt-4 rounded-2xl bg-white p-5 sm:mx-6">
-        <h2 className="mb-4 text-center text-sm font-bold uppercase tracking-[0.15em] text-[#2A1F14]">Our Packing Process</h2>
-        <div className="flex items-start justify-between gap-1 overflow-x-auto">
-          {packingSteps.map((s, i) => (
-            <div key={s.step} className="flex min-w-0 flex-1 flex-col items-center gap-1">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#3B2A1C] text-xs font-bold text-[#3B2A1C]">
-                {s.step}
-              </div>
-              {i < packingSteps.length - 1 && (
-                <div className="absolute mt-5 h-0.5 w-full -translate-y-1/2 bg-neutral-200" />
-              )}
-              <p className="text-center text-[9px] leading-tight text-neutral-600 sm:text-[10px]">{s.label}</p>
-            </div>
-          ))}
-        </div>
-        {/* Arrow connector line */}
-        <div className="relative mt-0">
-          <div className="absolute top-[-54px] left-5 right-5 h-px bg-neutral-200" style={{ display: 'none' }} />
-        </div>
       </div>
 
       {/* Estimated Delivery Time */}
