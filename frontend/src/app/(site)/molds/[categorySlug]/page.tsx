@@ -3,8 +3,6 @@ import { notFound } from 'next/navigation';
 import ProductsClientSection from '@/components/catalog/ProductsClientSection';
 import SubcategoryFilterBar from '@/components/catalog/SubcategoryFilterBar';
 import VisitBeacon from '@/components/VisitBeacon';
-import PageHero from '@/components/motion/PageHero';
-import Reveal from '@/components/motion/Reveal';
 import { apiFetch, ApiRequestError } from '@/lib/api';
 import type { Category } from '@/types';
 
@@ -39,20 +37,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-white">
       <VisitBeacon pageType="category" />
-      <PageHero
-        eyebrow="Category"
-        heading={category.name}
-        subheading={category.description ?? undefined}
-        imageSrc={category.banner_image}
-      />
+      <div className="px-5 pb-6 pt-24 sm:px-8 sm:pt-28">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-400">Category</p>
+        <h1 className="mt-2 font-display text-4xl font-bold uppercase leading-tight text-[#2A1F14] sm:text-5xl">
+          {category.name}
+        </h1>
+        {category.description && (
+          <p className="mt-2 text-sm text-neutral-500">{category.description}</p>
+        )}
+      </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <Reveal>
-          <SubcategoryFilterBar categorySlug={category.slug} subcategories={category.subcategories} />
-        </Reveal>
-
+      <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <SubcategoryFilterBar categorySlug={category.slug} subcategories={category.subcategories} />
         <div className="mt-10">
           <ProductsClientSection
             apiPath={`/api/products?category=${categorySlug}&limit=100`}

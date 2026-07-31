@@ -82,7 +82,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
           <div className="flex gap-3">
             <button
               onClick={handleAdd}
-              className="rounded-full border border-brand px-6 py-3 text-sm font-semibold text-brand hover:bg-brand hover:text-white"
+              className="rounded-full bg-[#2A1F14] px-6 py-3 text-sm font-semibold text-white hover:bg-[#3B2A1C]"
             >
               {added ? 'Added!' : 'Add to Cart'}
             </button>

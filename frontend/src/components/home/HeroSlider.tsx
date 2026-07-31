@@ -46,7 +46,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
 
   /* ── With images: sliding hero ── */
   return (
-    <section className="relative flex min-h-[60vh] w-full items-center overflow-hidden bg-[#FAF8F5] sm:min-h-screen">
+    <section className="relative flex min-h-[75vh] w-full items-center overflow-hidden bg-[#FAF8F5] sm:min-h-screen">
       {images.map((img, i) => (
         <div
           key={img.id}

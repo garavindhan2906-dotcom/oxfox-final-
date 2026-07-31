@@ -152,8 +152,8 @@ export default async function HomePage() {
               View All →
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {communityImages.slice(0, 4).map((img) => (
+          <div className="grid grid-cols-3 gap-2">
+            {communityImages.slice(0, 6).map((img) => (
               <Link key={img.id} href="/community" className="group flex flex-col">
                 <div className="relative aspect-square overflow-hidden rounded-2xl bg-neutral-200">
                   <SmartImage

@@ -55,7 +55,7 @@ export default function PromoBanner() {
         <div className="relative grid gap-8 sm:grid-cols-2 sm:gap-10">
 
           {/* ── Left side ── */}
-          <div>
+          <div className="flex flex-col items-center text-center">
             {/* Badge */}
             <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-[#8B6340]/30 bg-white/70 px-3 py-1">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-[#3B2A1C]" viewBox="0 0 24 24" fill="currentColor">

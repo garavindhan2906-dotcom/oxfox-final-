@@ -60,12 +60,22 @@ export default function Header({ categories }: { categories: Category[] }) {
     <>
       <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${bgClass}`}>
         {/* Announcement bar */}
-        <div className="w-full overflow-hidden bg-[#EDE8E2] py-1.5 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-600 whitespace-nowrap">
-          Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
+        <div className="w-full overflow-hidden bg-[#EDE8E2] py-1.5">
+          <div className="hidden text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-600 sm:block">
+            Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
+          </div>
+          <div className="flex sm:hidden" style={{ overflow: 'hidden' }}>
+            <span
+              className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-600"
+              style={{ animation: 'oxfox-marquee 14s linear infinite', display: 'inline-block', paddingLeft: '100%' }}
+            >
+              Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
+            </span>
+          </div>
         </div>
 
         {/* ── Mobile top bar ── */}
-        <div className="flex items-center justify-between px-4 py-3.5 md:hidden">
+        <div className="flex items-center justify-between px-4 py-2 md:hidden">
           <button
             className="flex h-8 w-8 items-center justify-center text-neutral-700"
             aria-label="Toggle menu"
