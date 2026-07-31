@@ -32,6 +32,11 @@ h1, h2, h3, h4 {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes oxfox-ticker {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
 /* Shared 3:4 portrait media box used for product/category/community imagery site-wide. */
 .media-3-4 {
   position: relative;

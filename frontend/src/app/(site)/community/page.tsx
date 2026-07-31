@@ -15,7 +15,7 @@ export default function CommunityPage() {
   const [images, setImages] = useState<CommunityImage[]>([]);
 
   useEffect(() => {
-    fetch('/api/community-images')
+    fetch('/api/community-images?limit=200')
       .then((r) => r.json())
       .then((d) => setImages(d.images ?? []))
       .catch(() => {});

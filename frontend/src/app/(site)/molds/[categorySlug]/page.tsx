@@ -41,7 +41,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       <VisitBeacon pageType="category" />
       <div className="px-5 pb-6 pt-24 sm:px-8 sm:pt-28">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-400">Category</p>
-        <h1 className="mt-2 font-display text-4xl font-bold uppercase leading-tight text-[#2A1F14] sm:text-5xl">
+        <h1 className="mt-2 font-display text-3xl font-bold uppercase leading-tight text-[#2A1F14] break-words sm:text-5xl">
           {category.name}
         </h1>
         {category.description && (

@@ -67,7 +67,7 @@ export default function Header({ categories }: { categories: Category[] }) {
           <div className="flex sm:hidden" style={{ overflow: 'hidden' }}>
             <span
               className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-600"
-              style={{ animation: 'oxfox-marquee 14s linear infinite', display: 'inline-block', paddingLeft: '100%' }}
+              style={{ animation: 'oxfox-ticker 16s linear infinite', display: 'inline-block' }}
             >
               Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
             </span>
