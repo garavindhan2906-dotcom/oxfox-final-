@@ -10,10 +10,10 @@ export default function AboutUsPage() {
       {/* Hero */}
       <div className="flex items-center justify-between bg-white px-5 pb-8 pt-24 sm:px-8 sm:pt-28">
         <div className="max-w-xs">
-          <h1 className="font-display text-4xl font-bold uppercase leading-tight text-[#2A1F14] sm:text-5xl">
+          <h1 className="font-display text-5xl font-bold uppercase leading-tight text-[#2A1F14] sm:text-7xl">
             About OXFOX
           </h1>
-          <p className="mt-2 text-sm font-medium text-neutral-500">Designed for Makers. Crafted with Precision.</p>
+          <p className="mt-3 text-base font-medium text-neutral-500">Designed for Makers. Crafted with Precision.</p>
           <p className="mt-3 text-xs leading-relaxed text-neutral-400">
             Premium food-grade silicone molds designed and made in the Nilgiris for chocolates, candles, resins, jars and décor.
           </p>
