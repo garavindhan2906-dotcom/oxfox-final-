@@ -64,13 +64,13 @@ export default function CustomOrderSteps() {
       </div>
 
       {/* Mold image — bottom right */}
-      <div className="absolute bottom-0 right-0 w-[52%] sm:w-[45%]">
+      <div className="absolute bottom-0 right-0 w-[55%] sm:w-[48%]">
         <Image
           src="/bring.jpeg"
           alt="Custom silicone mold"
-          width={320}
-          height={340}
-          className="h-auto w-full object-cover object-top"
+          width={400}
+          height={460}
+          className="h-auto w-full object-contain object-bottom"
           style={{ display: 'block' }}
         />
       </div>

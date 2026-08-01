@@ -66,8 +66,8 @@ export default function CommunityPage() {
           </ul>
           <div className="pb-64 pt-8 sm:pb-72" />
         </div>
-        <div className="absolute bottom-0 right-0 w-[52%] sm:w-[45%]">
-          <Image src="/bring.jpeg" alt="Custom silicone mold" width={320} height={340} className="h-auto w-full object-cover object-top" style={{ display: 'block' }} />
+        <div className="absolute bottom-0 right-0 w-[55%] sm:w-[48%]">
+          <Image src="/bring.jpeg" alt="Custom silicone mold" width={400} height={460} className="h-auto w-full object-contain object-bottom" style={{ display: 'block' }} />
         </div>
       </div>
 
