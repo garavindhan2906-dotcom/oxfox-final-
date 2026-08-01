@@ -8,8 +8,9 @@ export default function AboutUsPage() {
     <div className="min-h-screen bg-white">
 
       {/* ── HERO ── */}
-      <div className="relative flex min-h-[52vw] items-center overflow-hidden bg-[#2A1F14] px-5 pb-10 pt-24 sm:min-h-[340px] sm:px-10 sm:pt-28">
-        <div className="relative z-10 max-w-xs sm:max-w-sm">
+      <div className="relative flex min-h-[52vw] items-center overflow-hidden px-5 pb-10 pt-24 sm:min-h-[340px] sm:px-10 sm:pt-28" style={{ backgroundImage: 'url(/about.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="pointer-events-none absolute inset-0 bg-[#2A1F14]/60" />
+        <div className="relative z-10 max-w-xs sm:max-w-md">
           <h1 className="font-display text-5xl font-bold uppercase leading-tight text-white sm:text-6xl">
             About OXFOX
           </h1>
