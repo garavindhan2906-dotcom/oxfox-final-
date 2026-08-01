@@ -34,7 +34,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
             </p>
             <Link
               href="/molds"
-              className="mt-8 inline-block bg-[#3B2A1C] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#2A1F14]"
+              className="mt-6 inline-block bg-[#3B2A1C] px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#2A1F14]"
             >
               Shop Collection
             </Link>
