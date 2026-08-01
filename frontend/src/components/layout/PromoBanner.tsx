@@ -27,30 +27,10 @@ export default function PromoBanner() {
 
   return (
     <section className="bg-[#FAF8F5] px-4 py-10 sm:px-6 sm:py-14">
-      <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl bg-[#F0E8DC] px-6 py-10 sm:px-10 sm:py-12">
+      <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl px-6 py-10 sm:px-10 sm:py-12" style={{ backgroundImage: 'url(/join.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
 
-        {/* Botanical decorations */}
-        <svg className="pointer-events-none absolute right-0 top-0 h-44 w-36 opacity-35" viewBox="0 0 140 170" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M140 0 C110 25 75 50 65 95 C58 125 65 150 75 170" stroke="#8B6340" strokeWidth="1.3" />
-          <path d="M115 18 C95 5 68 12 55 30" stroke="#8B6340" strokeWidth="1" />
-          <ellipse cx="53" cy="32" rx="9" ry="16" transform="rotate(-40 53 32)" fill="#8B6340" opacity="0.55" />
-          <path d="M100 45 C80 32 58 40 48 58" stroke="#8B6340" strokeWidth="1" />
-          <ellipse cx="46" cy="60" rx="7" ry="13" transform="rotate(-30 46 60)" fill="#8B6340" opacity="0.45" />
-          <path d="M85 75 C68 65 50 72 43 88" stroke="#8B6340" strokeWidth="1" />
-          <ellipse cx="42" cy="90" rx="6" ry="11" transform="rotate(-20 42 90)" fill="#8B6340" opacity="0.4" />
-          <path d="M120 8 C130 30 138 55 135 80" stroke="#8B6340" strokeWidth="0.8" opacity="0.5" />
-        </svg>
-
-        <svg className="pointer-events-none absolute bottom-0 left-0 h-44 w-36 opacity-35" viewBox="0 0 140 170" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 170 C30 145 65 120 75 75 C82 45 75 20 65 0" stroke="#8B6340" strokeWidth="1.3" />
-          <path d="M25 152 C45 165 72 158 85 140" stroke="#8B6340" strokeWidth="1" />
-          <ellipse cx="87" cy="138" rx="9" ry="16" transform="rotate(40 87 138)" fill="#8B6340" opacity="0.55" />
-          <path d="M40 125 C60 138 82 130 92 112" stroke="#8B6340" strokeWidth="1" />
-          <ellipse cx="94" cy="110" rx="7" ry="13" transform="rotate(30 94 110)" fill="#8B6340" opacity="0.45" />
-          <path d="M55 95 C72 105 90 98 97 82" stroke="#8B6340" strokeWidth="1" />
-          <ellipse cx="98" cy="80" rx="6" ry="11" transform="rotate(20 98 80)" fill="#8B6340" opacity="0.4" />
-          <path d="M20 162 C10 140 2 115 5 90" stroke="#8B6340" strokeWidth="0.8" opacity="0.5" />
-        </svg>
+        {/* Subtle overlay so text stays readable */}
+        <div className="pointer-events-none absolute inset-0 rounded-3xl bg-white/10" />
 
         <div className="relative grid gap-8 sm:grid-cols-2 sm:gap-10">
 
