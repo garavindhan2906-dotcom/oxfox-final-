@@ -28,17 +28,15 @@ export default function ShippingPage() {
       <VisitBeacon pageType="shipping" />
 
       {/* Hero */}
-      <div className="flex items-center justify-between px-5 pb-6 pt-24 sm:px-8 sm:pt-28">
-        <div className="max-w-xs">
-          <h1 className="font-display text-4xl font-bold leading-tight text-[#2A1F14] sm:text-5xl">
+      <div className="relative flex min-h-[44vw] items-center overflow-hidden px-5 pb-8 pt-24 sm:min-h-[280px] sm:px-8 sm:pt-28" style={{ backgroundImage: 'url(/ship.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="pointer-events-none absolute inset-0 bg-[#2A1F14]/55" />
+        <div className="relative z-10 max-w-xs">
+          <h1 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
             Shipping &amp;<br />Delivery
           </h1>
-          <p className="mt-3 text-sm leading-relaxed text-neutral-500">
+          <p className="mt-3 text-sm leading-relaxed text-white/70">
             Carefully packed in the Nilgiris and delivered across India.
           </p>
-        </div>
-        <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-2xl sm:h-40 sm:w-40">
-          <Image src="/shipping.jpeg" alt="Shipping" width={160} height={160} className="h-full w-full object-cover" />
         </div>
       </div>
 
@@ -120,7 +118,7 @@ export default function ShippingPage() {
           <p className="mt-3 text-xs italic text-white/40">Thank you for supporting handmade 🧡</p>
         </div>
         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl">
-          <Image src="/shipping.jpeg" alt="Shipping" width={96} height={96} className="h-full w-full object-cover opacity-80" />
+          <Image src="/ship.jpeg" alt="Shipping" width={96} height={96} className="h-full w-full object-cover opacity-80" />
         </div>
       </div>
     </div>
