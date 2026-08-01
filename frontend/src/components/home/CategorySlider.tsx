@@ -96,7 +96,7 @@ export default function CategorySlider({ categories }: { categories: Category[] 
           >
             <Link
               href={`/molds/${cat.slug}`}
-              className="group relative flex h-44 flex-col overflow-hidden rounded-2xl bg-neutral-900 sm:h-72"
+              className="group relative flex h-64 flex-col overflow-hidden rounded-2xl bg-neutral-900 sm:h-[420px]"
             >
               {/* Image */}
               {cat.banner_image ? (

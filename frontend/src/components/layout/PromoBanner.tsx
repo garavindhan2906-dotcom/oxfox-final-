@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { apiFetch, ApiRequestError } from '@/lib/api';
 
 export default function PromoBanner() {
@@ -27,12 +28,14 @@ export default function PromoBanner() {
 
   return (
     <section className="bg-[#FAF8F5] px-4 py-10 sm:px-6 sm:py-14">
-      <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl px-6 py-10 sm:px-10 sm:py-12" style={{ backgroundImage: 'url(/join.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl px-6 py-10 sm:px-10 sm:py-12">
+        {/* Background image — using <Image> for reliable mobile rendering */}
+        <Image src="/join.jpeg" alt="" fill className="object-cover object-center" sizes="(max-width: 896px) 100vw, 896px" priority />
 
-        {/* Subtle overlay so text stays readable */}
-        <div className="pointer-events-none absolute inset-0 rounded-3xl bg-white/10" />
+        {/* Subtle overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-white/10" />
 
-        <div className="relative grid gap-8 sm:grid-cols-2 sm:gap-10">
+        <div className="relative z-10 grid gap-8 sm:grid-cols-2 sm:gap-10">
 
           {/* ── Left side ── */}
           <div className="flex flex-col items-center text-center">
