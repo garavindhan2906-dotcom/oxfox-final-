@@ -40,7 +40,7 @@ export default function CommunityPage() {
 
       {/* ── Hero ── */}
       <div
-        className="relative flex min-h-screen items-center overflow-hidden px-5 py-16 pt-28 sm:px-8"
+        className="relative flex min-h-screen items-start overflow-hidden px-5 pb-16 pt-28 sm:px-8 sm:pt-32"
         style={{ backgroundImage: 'url(/bring.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <div className="pointer-events-none absolute inset-0 bg-[#1a1008]/70" />

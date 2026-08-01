@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function CustomOrderSteps() {
   return (
     <section
-      className="relative flex min-h-screen items-center overflow-hidden px-5 py-16 sm:px-8"
+      className="relative flex min-h-screen items-start overflow-hidden px-5 pb-16 pt-12 sm:px-8 sm:pt-16"
       style={{ backgroundImage: 'url(/bring.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       {/* Dark overlay */}
