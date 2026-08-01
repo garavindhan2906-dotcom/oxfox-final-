@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Poppins, Playfair_Display, Great_Vibes } from 'next/font/google';
+import IntroSplash from '@/components/layout/IntroSplash';
 import './globals.css';
 
 const poppins = Poppins({
@@ -29,7 +30,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${playfair.variable} ${greatVibes.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <IntroSplash />
+        {children}
+      </body>
     </html>
   );
 }

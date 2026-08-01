@@ -46,7 +46,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
 
   /* ── With images: sliding hero ── */
   return (
-    <section className="relative flex min-h-[75vh] w-full items-center overflow-hidden bg-[#FAF8F5] sm:min-h-screen">
+    <section className="relative flex min-h-[68vh] w-full items-center overflow-hidden bg-[#FAF8F5] sm:min-h-screen">
       {images.map((img, i) => (
         <div
           key={img.id}
@@ -58,10 +58,10 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
         </div>
       ))}
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-10 sm:px-8 sm:py-28">
-        <div className="max-w-sm sm:max-w-md">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-8 sm:px-8 sm:py-28">
+        <div className="max-w-[58%] sm:max-w-md">
           <h1
-            className="font-display text-4xl font-bold uppercase leading-tight tracking-tight text-[#2A1F14] sm:text-6xl"
+            className="font-display text-5xl font-bold uppercase leading-[0.95] tracking-tight text-[#2A1F14] sm:text-6xl"
           >
             Molds That Bring Ideas to Life
           </h1>
@@ -70,7 +70,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
           </p>
           <Link
             href="/molds"
-            className="mt-8 inline-block bg-[#3B2A1C] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#2A1F14]"
+            className="mt-6 inline-block bg-[#3B2A1C] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#2A1F14]"
           >
             Shop Collection
           </Link>
