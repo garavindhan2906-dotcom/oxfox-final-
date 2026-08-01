@@ -1,34 +1,65 @@
 import Link from 'next/link';
-import Reveal from '@/components/motion/Reveal';
-import { CUSTOM_ORDER_STEPS } from '@/lib/constants';
 
 export default function CustomOrderSteps() {
   return (
-    <section className="bg-white py-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand">How It Works</p>
-          <h2 className="mt-3 text-3xl font-bold uppercase tracking-tight text-[#2A1F14] sm:text-4xl">Custom Order Process</h2>
-        </Reveal>
+    <section className="bg-[#2A1F14] px-5 py-12 sm:px-8 sm:py-16">
+      <div className="mx-auto max-w-lg">
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-3">
-          {CUSTOM_ORDER_STEPS.map((step, i) => (
-            <Reveal key={step.title} delay={i * 0.12} className="relative rounded-2xl border border-neutral-200 bg-neutral-50 p-8">
-              <span className="text-5xl font-bold text-[#3B2A1C]/30">{String(i + 1).padStart(2, '0')}</span>
-              <h3 className="mt-4 text-lg font-semibold uppercase tracking-wide text-[#2A1F14]">{step.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-neutral-500">{step.description}</p>
-            </Reveal>
+        {/* Eyebrow */}
+        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">
+          Custom Guild?
+        </p>
+
+        {/* Heading */}
+        <h2 className="font-display mt-3 text-center text-4xl font-bold leading-tight text-white sm:text-5xl">
+          Bring Your<br />
+          Idea to{' '}
+          <span className="font-script font-normal italic text-white/80"> Life</span>
+        </h2>
+
+        {/* Subtitle */}
+        <p className="mt-4 text-center text-sm leading-relaxed text-white/60">
+          We design and craft custom silicone molds just for you.
+        </p>
+
+        {/* Steps */}
+        <ul className="mt-8 space-y-4">
+          {[
+            {
+              icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z" /></>,
+              text: 'Share your design, size & material',
+            },
+            {
+              icon: <><rect x="2" y="3" width="20" height="14" rx="2" strokeLinecap="round" strokeLinejoin="round" /><path strokeLinecap="round" strokeLinejoin="round" d="M8 21h8M12 17v4" /></>,
+              text: 'We create a 3D model & share for approval',
+            },
+            {
+              icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M1 3h13v13H1zM14 8h4l3 3v5h-7V8z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></>,
+              text: 'Handcrafted & delivered across India',
+            },
+          ].map(({ icon, text }) => (
+            <li key={text} className="flex items-center gap-4">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>{icon}</svg>
+              </div>
+              <span className="text-sm text-white/75">{text}</span>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <Reveal delay={0.3} className="mt-14 text-center">
+        {/* CTA */}
+        <div className="mt-10 flex justify-center">
           <Link
             href="/custom-order"
-            className="inline-block rounded-full bg-brand px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:bg-brand-dark"
+            className="flex items-center gap-3 rounded-full bg-[#FAF8F5] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-[#2A1F14] transition-colors hover:bg-white"
           >
             Start Your Custom Order
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </Link>
-        </Reveal>
+        </div>
+
       </div>
     </section>
   );

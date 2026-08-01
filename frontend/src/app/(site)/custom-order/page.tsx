@@ -38,11 +38,40 @@ export default function CommunityPage() {
     <div className="min-h-screen bg-white">
       <VisitBeacon pageType="community" />
 
+      {/* ── Hero ── */}
+      <div className="bg-[#2A1F14] px-5 pb-12 pt-24 sm:px-8 sm:pt-28">
+        <div className="mx-auto max-w-lg">
+          <p className="text-center text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">Custom Guild?</p>
+          <h1 className="font-display mt-3 text-center text-4xl font-bold leading-tight text-white sm:text-5xl">
+            Bring Your<br />
+            Idea to{' '}
+            <span className="font-script font-normal italic text-white/80"> Life</span>
+          </h1>
+          <p className="mt-4 text-center text-sm leading-relaxed text-white/60">
+            We design and craft custom silicone molds just for you.
+          </p>
+          <ul className="mt-8 space-y-4">
+            {[
+              { icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z" /></>, text: 'Share your design, size & material' },
+              { icon: <><rect x="2" y="3" width="20" height="14" rx="2" strokeLinecap="round" strokeLinejoin="round" /><path strokeLinecap="round" strokeLinejoin="round" d="M8 21h8M12 17v4" /></>, text: 'We create a 3D model & share for approval' },
+              { icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M1 3h13v13H1zM14 8h4l3 3v5h-7V8z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></>, text: 'Handcrafted & delivered across India' },
+            ].map(({ icon, text }) => (
+              <li key={text} className="flex items-center gap-4">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>{icon}</svg>
+                </div>
+                <span className="text-sm text-white/75">{text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
       {/* Header */}
-      <div className="px-6 pt-24 pb-8 text-center sm:pt-28">
+      <div className="px-6 pb-8 pt-10 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-400">Made By OXFOX</p>
-        <h1 className="mt-3 text-5xl font-bold uppercase tracking-tight text-[#2A1F14] sm:text-7xl">Custom Order<br />Images</h1>
-        <p className="mx-auto mt-4 max-w-xl text-base text-neutral-500">
+        <h2 className="mt-3 text-4xl font-bold uppercase tracking-tight text-[#2A1F14] sm:text-5xl">Custom Order<br />Gallery</h2>
+        <p className="mx-auto mt-4 max-w-xl text-sm text-neutral-500">
           Real custom silicone molds designed and crafted by OXFOX Studio for creators and brands across India.
         </p>
       </div>
