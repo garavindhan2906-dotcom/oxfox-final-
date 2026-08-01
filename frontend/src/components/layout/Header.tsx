@@ -95,8 +95,10 @@ export default function Header({ categories }: { categories: Category[] }) {
             )}
           </button>
 
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 font-display text-xl font-bold tracking-[0.18em] text-[#2A1F14]" onClick={close}>
-            OXFOX
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2" onClick={close}>
+            <span style={{ display: 'inline-block', backgroundColor: '#EDE8E2', lineHeight: 0 }}>
+              <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply' }} priority />
+            </span>
           </Link>
 
           <div className="flex items-center gap-4">
@@ -119,8 +121,10 @@ export default function Header({ categories }: { categories: Category[] }) {
 
         {/* ── Desktop nav ── */}
         <div className="hidden items-center px-6 py-3.5 md:flex lg:px-8">
-          <Link href="/" className="flex flex-shrink-0 items-center font-display text-xl font-bold tracking-[0.18em] text-[#2A1F14]">
-            OXFOX
+          <Link href="/" className="flex flex-shrink-0 items-center">
+            <span style={{ display: 'inline-block', backgroundColor: '#EDE8E2', lineHeight: 0 }}>
+              <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply' }} priority />
+            </span>
           </Link>
           <div className="flex flex-1 items-center justify-center">
             <NavDropdown categories={categories} light={false} />
