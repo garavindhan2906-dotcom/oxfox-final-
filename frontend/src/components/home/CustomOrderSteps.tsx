@@ -14,7 +14,7 @@ export default function CustomOrderSteps() {
         <div className="mt-14 grid gap-8 sm:grid-cols-3">
           {CUSTOM_ORDER_STEPS.map((step, i) => (
             <Reveal key={step.title} delay={i * 0.12} className="relative rounded-2xl border border-neutral-200 bg-neutral-50 p-8">
-              <span className="text-5xl font-bold text-neutral-200">{String(i + 1).padStart(2, '0')}</span>
+              <span className="text-5xl font-bold text-[#3B2A1C]/30">{String(i + 1).padStart(2, '0')}</span>
               <h3 className="mt-4 text-lg font-semibold uppercase tracking-wide text-[#2A1F14]">{step.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-neutral-500">{step.description}</p>
             </Reveal>
