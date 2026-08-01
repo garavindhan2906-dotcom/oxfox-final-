@@ -59,18 +59,16 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
       ))}
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-8 sm:px-8 sm:py-28">
-        <div className="max-w-[58%] sm:max-w-md">
-          <h1
-            className="font-display text-5xl font-bold uppercase leading-[0.95] tracking-tight text-[#2A1F14] sm:text-6xl"
-          >
+        <div className="max-w-[55%] sm:max-w-md">
+          <h1 className="font-display text-3xl font-bold uppercase leading-tight tracking-tight text-[#2A1F14] sm:text-6xl">
             Molds That Bring Ideas to Life
           </h1>
-          <p className="mt-4 text-sm leading-relaxed text-[#2A1F14]/70 sm:text-base">
+          <p className="mt-3 text-xs leading-relaxed text-[#2A1F14]/70 sm:mt-4 sm:text-base">
             Premium food grade silicone molds for candles, chocolates, jars, décor and more.
           </p>
           <Link
             href="/molds"
-            className="mt-6 inline-block bg-[#3B2A1C] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#2A1F14]"
+            className="mt-4 inline-block whitespace-nowrap bg-[#3B2A1C] px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-[#2A1F14] sm:mt-6 sm:px-8 sm:py-3.5 sm:text-xs"
           >
             Shop Collection
           </Link>

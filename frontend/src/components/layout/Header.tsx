@@ -27,7 +27,7 @@ export default function Header({ categories }: { categories: Category[] }) {
   }, []);
 
   const close = () => { setMobileOpen(false); setMoldsOpen(false); };
-  const bgClass = 'bg-[#EDE8E2]/95 backdrop-blur border-b border-[#E8E2DA]';
+  const bgClass = 'bg-[#EDE8E2] border-b border-[#E8E2DA]';
 
   const navItems = [
     {
@@ -96,7 +96,7 @@ export default function Header({ categories }: { categories: Category[] }) {
           </button>
 
           <Link href="/" className="absolute left-1/2 -translate-x-1/2" onClick={close}>
-            <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply' }} priority />
+            <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply', backgroundColor: '#EDE8E2' }} priority />
           </Link>
 
           <div className="flex items-center gap-4">
@@ -120,7 +120,7 @@ export default function Header({ categories }: { categories: Category[] }) {
         {/* ── Desktop nav ── */}
         <div className="hidden items-center px-6 py-3.5 md:flex lg:px-8">
           <Link href="/" className="flex flex-shrink-0 items-center">
-            <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply' }} priority />
+            <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply', backgroundColor: '#EDE8E2' }} priority />
           </Link>
           <div className="flex flex-1 items-center justify-center">
             <NavDropdown categories={categories} light={false} />
