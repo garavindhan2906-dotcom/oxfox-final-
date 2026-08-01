@@ -23,7 +23,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
   /* ── No images: warm cream hero ── */
   if (images.length === 0) {
     return (
-      <section className="flex min-h-screen w-full items-center bg-[#FAF8F5] pt-20">
+      <section className="flex min-h-screen w-full items-center bg-[#EDE8E2] pt-20">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
           <div className="max-w-sm sm:max-w-md">
             <h1 className="font-display text-5xl font-bold uppercase leading-tight tracking-tight text-[#2A1F14] sm:text-6xl lg:text-7xl">
@@ -46,7 +46,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
 
   /* ── With images: sliding hero ── */
   return (
-    <section className="relative flex min-h-[68vh] w-full items-center overflow-hidden bg-[#FAF8F5] sm:min-h-screen">
+    <section className="relative flex min-h-[68vh] w-full items-center overflow-hidden bg-[#EDE8E2] sm:min-h-screen">
       {images.map((img, i) => (
         <div
           key={img.id}
@@ -54,7 +54,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
           style={{ opacity: i === current ? 1 : 0 }}
         >
           <SmartImage src={img.image_url} alt="" fill fetchPriority={i === 0 ? 'high' : 'auto'} sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5]/80 via-[#FAF8F5]/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#EDE8E2]/80 via-[#EDE8E2]/10 to-transparent" />
         </div>
       ))}
 
