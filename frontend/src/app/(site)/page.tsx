@@ -63,8 +63,8 @@ export default async function HomePage() {
       <CurvedDivider color="white" />
 
       {/* 4-tile feature grid */}
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-2xl grid-cols-2 divide-x divide-y divide-neutral-200">
+      <section className="bg-white px-4 py-4 sm:px-6 sm:py-0">
+        <div className="mx-auto grid max-w-2xl grid-cols-2 divide-x divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200">
           {[
             {
               icon: (

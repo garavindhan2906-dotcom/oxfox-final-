@@ -60,7 +60,7 @@ export default function Header({ categories }: { categories: Category[] }) {
     <>
       <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${bgClass}`}>
         {/* Announcement bar */}
-        <div className="w-full overflow-hidden bg-[#EDE8E2] py-1.5">
+        <div className="w-full overflow-hidden bg-[#F5F0EA] py-1.5">
           <div className="hidden text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-600 sm:block">
             Premium Silicone Molds for Candles, Chocolates, Jars &amp; Décor
           </div>
@@ -96,9 +96,7 @@ export default function Header({ categories }: { categories: Category[] }) {
           </button>
 
           <Link href="/" className="absolute left-1/2 -translate-x-1/2" onClick={close}>
-            <span style={{ display: 'inline-block', backgroundColor: '#EDE8E2', lineHeight: 0 }}>
-              <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply' }} priority />
-            </span>
+            <Image src="/logo_transparent.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" priority />
           </Link>
 
           <div className="flex items-center gap-4">
@@ -122,9 +120,7 @@ export default function Header({ categories }: { categories: Category[] }) {
         {/* ── Desktop nav ── */}
         <div className="hidden items-center px-6 py-3.5 md:flex lg:px-8">
           <Link href="/" className="flex flex-shrink-0 items-center">
-            <span style={{ display: 'inline-block', backgroundColor: '#EDE8E2', lineHeight: 0 }}>
-              <Image src="/image.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" style={{ mixBlendMode: 'multiply' }} priority />
-            </span>
+            <Image src="/logo_transparent.png" alt="OXFOX Studio" width={200} height={170} className="h-7 w-auto" priority />
           </Link>
           <div className="flex flex-1 items-center justify-center">
             <NavDropdown categories={categories} light={false} />

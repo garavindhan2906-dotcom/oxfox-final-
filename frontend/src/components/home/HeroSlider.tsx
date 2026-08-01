@@ -60,7 +60,7 @@ export default function HeroSlider({ images }: { images: HeroImage[] }) {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-8 sm:px-8 sm:py-28">
         <div className="max-w-[55%] sm:max-w-md">
-          <h1 className="font-display text-3xl font-bold uppercase leading-tight tracking-tight text-[#2A1F14] sm:text-6xl">
+          <h1 className="font-display text-4xl font-bold uppercase leading-tight tracking-tight text-[#2A1F14] sm:text-6xl">
             Molds That Bring Ideas to Life
           </h1>
           <p className="mt-3 text-xs leading-relaxed text-[#2A1F14]/70 sm:mt-4 sm:text-base">
