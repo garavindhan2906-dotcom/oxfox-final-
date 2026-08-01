@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function CustomOrderSteps() {
   return (
-    <section className="bg-[#2A1F14] px-5 py-12 sm:px-8 sm:py-16">
+    <section className="overflow-hidden bg-[#2A1F14] px-5 pb-0 pt-12 sm:px-8 sm:pt-16">
       <div className="mx-auto max-w-lg">
 
         {/* Eyebrow */}
@@ -60,6 +61,18 @@ export default function CustomOrderSteps() {
           </Link>
         </div>
 
+      </div>
+
+      {/* Product image */}
+      <div className="mt-10 flex justify-center">
+        <Image
+          src="/bring.jpeg"
+          alt="Custom mold"
+          width={420}
+          height={320}
+          className="w-full max-w-sm rounded-t-2xl object-cover sm:max-w-md"
+          style={{ display: 'block' }}
+        />
       </div>
     </section>
   );

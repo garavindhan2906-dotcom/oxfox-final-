@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import SmartImage from '@/components/SmartImage';
 import VisitBeacon from '@/components/VisitBeacon';
 import CustomOrderInquiryForm from '@/components/forms/CustomOrderInquiryForm';
@@ -39,7 +40,7 @@ export default function CommunityPage() {
       <VisitBeacon pageType="community" />
 
       {/* ── Hero ── */}
-      <div className="bg-[#2A1F14] px-5 pb-12 pt-24 sm:px-8 sm:pt-28">
+      <div className="overflow-hidden bg-[#2A1F14] px-5 pb-0 pt-24 sm:px-8 sm:pt-28">
         <div className="mx-auto max-w-lg">
           <p className="text-center text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">Custom Guild?</p>
           <h1 className="font-display mt-3 text-center text-4xl font-bold leading-tight text-white sm:text-5xl">
@@ -64,6 +65,16 @@ export default function CommunityPage() {
               </li>
             ))}
           </ul>
+          <div className="mt-10 flex justify-center">
+            <Image
+              src="/bring.jpeg"
+              alt="Custom mold"
+              width={420}
+              height={320}
+              className="w-full max-w-sm rounded-t-2xl object-cover sm:max-w-md"
+              style={{ display: 'block' }}
+            />
+          </div>
         </div>
       </div>
 
