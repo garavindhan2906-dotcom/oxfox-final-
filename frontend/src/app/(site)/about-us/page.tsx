@@ -280,7 +280,7 @@ export default async function AboutUsPage() {
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end sm:text-right">
             <p className="font-display text-xl font-bold leading-tight text-[#2A1F14]">Ready to Create<br />Something Beautiful?</p>
-            <Link href="/molds" className="inline-block bg-[#2A1F14] px-8 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white hover:bg-[#3B2A1C]">
+            <Link href="/molds" className="inline-block bg-[#2A1F14] px-5 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#3B2A1C]">
               Shop Our Collection
             </Link>
           </div>
