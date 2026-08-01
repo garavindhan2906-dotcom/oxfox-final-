@@ -1,30 +1,34 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function CustomOrderSteps() {
   return (
-    <section className="overflow-hidden bg-[#2A1F14] px-5 pb-0 pt-12 sm:px-8 sm:pt-16">
-      <div className="mx-auto max-w-lg">
+    <section
+      className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-5 py-16 sm:px-8 sm:py-24"
+      style={{ backgroundImage: 'url(/bring.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+      {/* Dark overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-[#2A1F14]/65" />
+
+      <div className="relative z-10 mx-auto w-full max-w-lg text-center">
 
         {/* Eyebrow */}
-        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">
           Custom Guild?
         </p>
 
         {/* Heading */}
-        <h2 className="font-display mt-3 text-center text-4xl font-bold leading-tight text-white sm:text-5xl">
+        <h2 className="font-display mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl">
           Bring Your<br />
-          Idea to{' '}
-          <span className="font-script font-normal italic text-white/80"> Life</span>
+          Idea to <span className="font-script font-normal italic text-white/80">Life</span>
         </h2>
 
         {/* Subtitle */}
-        <p className="mt-4 text-center text-sm leading-relaxed text-white/60">
+        <p className="mt-4 text-sm leading-relaxed text-white/60">
           We design and craft custom silicone molds just for you.
         </p>
 
         {/* Steps */}
-        <ul className="mt-8 space-y-4">
+        <ul className="mt-8 space-y-4 text-left">
           {[
             {
               icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z" /></>,
@@ -49,10 +53,10 @@ export default function CustomOrderSteps() {
         </ul>
 
         {/* CTA */}
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10">
           <Link
             href="/custom-order"
-            className="flex items-center gap-3 rounded-full bg-[#FAF8F5] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-[#2A1F14] transition-colors hover:bg-white"
+            className="inline-flex items-center gap-3 rounded-full bg-[#FAF8F5] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-[#2A1F14] transition-colors hover:bg-white"
           >
             Start Your Custom Order
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -61,18 +65,6 @@ export default function CustomOrderSteps() {
           </Link>
         </div>
 
-      </div>
-
-      {/* Product image */}
-      <div className="mt-10 flex justify-center">
-        <Image
-          src="/bring.jpeg"
-          alt="Custom mold"
-          width={420}
-          height={320}
-          className="w-full max-w-sm rounded-t-2xl object-cover sm:max-w-md"
-          style={{ display: 'block' }}
-        />
       </div>
     </section>
   );

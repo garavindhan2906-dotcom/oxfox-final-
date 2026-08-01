@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import SmartImage from '@/components/SmartImage';
 import VisitBeacon from '@/components/VisitBeacon';
 import CustomOrderInquiryForm from '@/components/forms/CustomOrderInquiryForm';
@@ -40,18 +39,21 @@ export default function CommunityPage() {
       <VisitBeacon pageType="community" />
 
       {/* ── Hero ── */}
-      <div className="overflow-hidden bg-[#2A1F14] px-5 pb-0 pt-24 sm:px-8 sm:pt-28">
-        <div className="mx-auto max-w-lg">
-          <p className="text-center text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">Custom Guild?</p>
-          <h1 className="font-display mt-3 text-center text-4xl font-bold leading-tight text-white sm:text-5xl">
+      <div
+        className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-5 py-16 sm:px-8 sm:py-24"
+        style={{ backgroundImage: 'url(/bring.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[#2A1F14]/65" />
+        <div className="relative z-10 mx-auto w-full max-w-lg text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/50">Custom Guild?</p>
+          <h1 className="font-display mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl">
             Bring Your<br />
-            Idea to{' '}
-            <span className="font-script font-normal italic text-white/80"> Life</span>
+            Idea to <span className="font-script font-normal italic text-white/80">Life</span>
           </h1>
-          <p className="mt-4 text-center text-sm leading-relaxed text-white/60">
+          <p className="mt-4 text-sm leading-relaxed text-white/60">
             We design and craft custom silicone molds just for you.
           </p>
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-8 space-y-4 text-left">
             {[
               { icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z" /></>, text: 'Share your design, size & material' },
               { icon: <><rect x="2" y="3" width="20" height="14" rx="2" strokeLinecap="round" strokeLinejoin="round" /><path strokeLinecap="round" strokeLinejoin="round" d="M8 21h8M12 17v4" /></>, text: 'We create a 3D model & share for approval' },
@@ -65,16 +67,6 @@ export default function CommunityPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-10 flex justify-center">
-            <Image
-              src="/bring.jpeg"
-              alt="Custom mold"
-              width={420}
-              height={320}
-              className="w-full max-w-sm rounded-t-2xl object-cover sm:max-w-md"
-              style={{ display: 'block' }}
-            />
-          </div>
         </div>
       </div>
 
